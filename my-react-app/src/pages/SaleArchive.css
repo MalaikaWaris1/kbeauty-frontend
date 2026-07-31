@@ -1,0 +1,355 @@
+/* src/pages/SaleArchive.css */
+
+.sale-archive-page-wrapper {
+  width: 100%;
+  background-color: #faf8f5; /* Premium soft luxury porcelain background */
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   👑 HERO COUNTDOWN STRUCTURE WITH CIRCULAR RINGS
+   ========================================================================== */
+.archive-hero-canvas {
+  background-color: #f3dcd3; /* Identical warm blush background tone */
+  width: 100%;
+  padding: 80px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.archive-hero-content {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.archive-mini-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: #555555;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.archive-main-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px;
+  font-weight: 400;
+  color: #111111;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.01em;
+}
+
+.archive-lead-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: #444444;
+  line-height: 1.6;
+  margin: 0 0 45px 0;
+  max-width: 580px;
+}
+
+/* Luxury Circles Layout Grid */
+.luxury-circular-countdown-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.circle-node-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.svg-ring-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-ring-svg {
+  transform: rotate(-90deg); /* Start progress fill directly from top center point */
+}
+
+.ring-track-bg {
+  fill: transparent;
+  stroke: rgba(255, 255, 255, 0.45);
+  stroke-width: 2.5;
+}
+
+.ring-fill-bar {
+  fill: transparent;
+  stroke: #111111; /* Luxury deep contrast marker line color */
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  /* Smooth transitions to handle the initialization fill wave */
+  transition: stroke-dashoffset 1.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.inner-counter-digits {
+  position: absolute;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: #111111;
+}
+
+.circle-node-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #555555;
+  margin-top: 12px;
+}
+
+.archive-hero-action-btn {
+  background-color: #111111;
+  color: #ffffff;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  padding: 16px 40px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.archive-hero-action-btn:hover {
+  background-color: #2c2c2c;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   🛍️ PRODUCTS GRID & CARDS STYLING
+   ========================================================================== */
+.archive-products-display-section {
+  max-width: 1300px;
+  margin: 70px auto;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.products-grid-main-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: #111111;
+  margin-bottom: 40px;
+}
+
+.archive-product-cards-layout-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 Column dynamic layout exact to layout mockups */
+  gap: 30px;
+}
+
+.premium-boutique-product-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.boutique-card-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Fixed box proportions */
+  background-color: #f7f3ee;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.boutique-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.premium-boutique-product-card:hover .boutique-main-img {
+  transform: scale(1.03);
+}
+
+/* Badges Controls Styling */
+.boutique-left-tag-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: #ffffff;
+  color: #111111;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.boutique-right-discount-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #111111;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+/* Premium Floating Wishlist Button */
+.boutique-card-wishlist-action-trigger {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 42px;
+  height: 42px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #444444;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+  z-index: 5;
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.boutique-card-wishlist-action-trigger:hover {
+  transform: scale(1.05);
+  color: #111111;
+}
+
+.boutique-card-wishlist-action-trigger.active-loved {
+  color: #111111;
+}
+
+/* Elegant Quick Add Hover Overlay curtain */
+.boutique-card-quick-add-curtain {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  background: linear-gradient(to top, rgba(0,0,0,0.08), transparent);
+}
+
+.premium-boutique-product-card:hover .boutique-card-quick-add-curtain {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.boutique-curtain-btn {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  color: #111111;
+  border: none;
+  padding: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: background-color 0.2s ease;
+}
+
+.boutique-curtain-btn:hover {
+  background-color: #ffffff;
+}
+
+/* Meta Labels info below images */
+.boutique-card-details-info-box {
+  padding-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.boutique-product-title-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #111111;
+  margin: 0;
+}
+
+.boutique-product-pricing-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.boutique-current-sale-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.boutique-old-original-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  text-decoration: line-through;
+  color: #999999;
+}
+
+/* Fallback screen if sale inactive */
+.sale-ended-fallback {
+  text-align: center;
+  padding: 120px 40px;
+  font-family: 'Cormorant Garamond', serif;
+}
+.sale-ended-fallback h2 { font-size: 32px; color: #111111; }
+.sale-ended-fallback p { font-family: 'Inter', sans-serif; font-size: 14px; color: #666666; margin-top: 10px; }
+
+/* 🟢 Image Link Element Styling to support proper zoom effect */
+.boutique-image-link-overlay {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* Title link decorations remove karne ke liye */
+.boutique-title-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+
+.boutique-title-link:hover .boutique-product-title-text {
+  opacity: 0.8;
+}
+/* Responsive break structures */
+@media(max-width: 768px) {
+  .archive-main-title { font-size: 38px; }
+  .luxury-circular-countdown-grid { gap: 12px; }
+  .svg-ring-container { width: 80px; height: 80px; }
+  .archive-product-cards-layout-grid { grid-template-columns: 1fr; gap: 40px; }
+  .archive-products-display-section { padding: 0 20px; }
+}

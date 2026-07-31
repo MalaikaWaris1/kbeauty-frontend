@@ -1,0 +1,236 @@
+/* src/components/sections/Hero.css */
+
+/* Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap');
+
+.kbeauty-hero {
+  position: relative;
+  width: 100%;
+  height: 85vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background-color: #fdfbf9;
+}
+
+/* 🟢 Absolute Video Background Layer */
+.hero-video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* 🟢 Overlay Mask */
+.hero-overlay-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    rgba(252, 249, 246, 0.88) 0%, 
+    rgba(252, 249, 246, 0.45) 50%, 
+    rgba(252, 249, 246, 0.15) 100%
+  );
+  z-index: 2;
+}
+
+/* 🟢 Content Wrapper */
+.hero-content-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 60px;
+  z-index: 3;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.hero-text-block {
+  max-width: 550px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Subtitle Styling */
+.hero-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: #a88476;
+  text-transform: uppercase;
+}
+
+/* 🟢 Main Title */
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 64px;
+  font-weight: 400;
+  line-height: 1.1;
+  color: #111111;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.hero-title .serif-italic {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: #222222;
+}
+
+/* Description */
+.hero-description {
+  font-family: 'Inter', sans-serif;
+  color: #4a4643;
+  font-size: 15px;
+  line-height: 1.65;
+  max-width: 480px;
+  margin: 5px 0 15px 0;
+}
+
+/* Button Group Wrapper */
+.hero-cta-group {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+/* 🟢 COMMON BUTTON STYLES (Underline & Layout Fixes Applied Here) */
+.btn-solid, .btn-outline {
+  /* 1. Underline Khatam Karne Ke Liye */
+  text-decoration: none !important;
+  
+  /* 2. Link ko proper Button Behavior Dene Ke Liye */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap; /* Text line break nahi hoga */
+  box-sizing: border-box;
+
+  /* Fonts & Spacing */
+  padding: 14px 28px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 0px;
+}
+
+/* Primary Button */
+.btn-solid {
+  background-color: #111111;
+  color: #ffffff;
+  border: 1px solid #111111;
+}
+
+.btn-solid:hover {
+  background-color: #a88476;
+  border-color: #a88476;
+  color: #ffffff;
+}
+
+/* Secondary Button */
+.btn-outline {
+  background-color: transparent;
+  color: #111111;
+  border: 1px solid #111111;
+}
+
+.btn-outline:hover {
+  background-color: rgba(17, 17, 17, 0.05);
+  color: #111111;
+}
+
+/* ========================================================== */
+/* 📱 CLEAN & STABLE RESPONSIVE LAYOUT                        */
+/* ========================================================== */
+
+@media (max-width: 992px) {
+  .hero-title {
+    font-size: 48px;
+  }
+  .hero-content-wrapper {
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .kbeauty-hero {
+    height: 75vh; 
+    min-height: 520px;
+  }
+
+  .hero-overlay-mask {
+    background: linear-gradient(
+      180deg, 
+      rgba(252, 249, 246, 0.92) 0%, 
+      rgba(252, 249, 246, 0.75) 60%, 
+      rgba(252, 249, 246, 0.40) 100%
+    );
+  }
+
+  .hero-content-wrapper {
+    padding: 0 24px;
+    justify-content: flex-start;
+  }
+
+  .hero-text-block {
+    max-width: 100%;
+    gap: 16px;
+  }
+
+  .hero-title {
+    font-size: 38px;
+    line-height: 1.15;
+  }
+
+  .hero-description {
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin: 0 0 5px 0;
+  }
+
+  /* Mobile par buttons ek line mein fit honge without layout break */
+  .hero-cta-group {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .btn-solid, .btn-outline {
+    flex: 1; /* Both buttons get equal width on mobile */
+    padding: 13px 12px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 32px;
+  }
+
+  /* Very small screens (Mobile portrait) par vertical stack */
+  .hero-cta-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-solid, .btn-outline {
+    width: 100%;
+    flex: none;
+  }
+}

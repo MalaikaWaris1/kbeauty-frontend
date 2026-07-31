@@ -1,0 +1,434 @@
+.kbeauty-footer {
+  background-color: #fcf9f6; /* Premium Light Ivory Cream */
+  color: #333333; 
+  padding: 60px 40px 30px 40px;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.05em;
+  border-top: 1px solid #eee5de;
+}
+
+.footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr; /* Desktop 4-column layout */
+  gap: 40px;
+}
+
+/* Vertical Lines System for Desktop */
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  padding-right: 30px;
+}
+
+/* =========================================
+   🎨 FOOTER TEXT LOGO STYLES
+========================================= */
+.footer-text-logo {
+  margin-bottom: 8px;
+}
+
+.custom-text-logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.logo-top-italic {
+  font-family: 'Georgia', 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 28px;
+  color: #a88476;
+  font-weight: 400;
+  margin-left: -2px;
+}
+
+.logo-bottom-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: -3px;
+}
+
+.logo-brand-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #666666;
+}
+
+.logo-pkr-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  background-color: #aa8676;
+  color: #ffffff;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+/* =========================================
+   ✨ THEME-MATCHED CURVED MODAL STYLES
+========================================= */
+
+.dark-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+.dark-modal-box {
+  background-color: #ffffff;
+  width: 95%;
+  max-width: 1050px;
+  height: 80vh; 
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden; 
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+  animation: slideUp 0.4s ease;
+  display: flex;
+}
+
+/* Luxury Beige Curved Background */
+.dark-modal-box::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -20%; 
+  width: 55%;
+  height: 200%;
+  background: linear-gradient(135deg, #fdf8f5 0%, #eaddd3 100%);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.dark-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  background: none;
+  border: none;
+  font-size: 26px;
+  color: #111;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0.5;
+}
+
+.dark-modal-close:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.dark-modal-layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1; 
+}
+
+/* Left Side (Title) */
+.dark-modal-left {
+  flex: 0 0 35%;
+  display: flex;
+  align-items: center;
+  padding: 0 50px;
+}
+
+.dark-modal-left h2 {
+  font-size: 2.8rem;
+  font-weight: 400;
+  color: #111;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* Right Side (Content Area) */
+.dark-modal-right {
+  flex: 1;
+  padding: 60px 50px 60px 30px;
+  overflow-y: auto; 
+}
+
+.dark-modal-right::-webkit-scrollbar {
+  width: 6px;
+}
+.dark-modal-right::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  border-radius: 4px;
+}
+
+/* =========================================
+   ✨ FAQ ACCORDION STYLES
+========================================= */
+.faq-list-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-item-row {
+  border-bottom: 1px solid #eaeaea; 
+}
+
+.faq-item-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 22px 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #222;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-family: inherit;
+}
+
+.faq-item-btn:hover {
+  color: #7d6b5e;
+}
+
+.faq-circle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #222;
+}
+
+.faq-item-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+.faq-item-content.open {
+  max-height: 300px;
+  padding-bottom: 20px;
+}
+
+.faq-item-content p {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Policy Text Styles */
+.policy-text-area h3 {
+  font-size: 1.2rem;
+  margin: 30px 0 15px;
+  color: #111;
+  font-weight: 600;
+}
+
+.policy-text-area p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+/* Vertical lines on desktop */
+@media (min-width: 769px) {
+  .footer-column:not(:last-child) {
+    border-right: 1px solid #f7d0b3; 
+  }
+}
+
+/* Brand info section */
+.brand-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.brand-description {
+  color: #66625f;
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 280px;
+  margin: 0;
+}
+
+/* Headings */
+.footer-heading {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: #a88476;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  text-transform: uppercase;
+}
+
+/* Links */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links li {
+  width: fit-content;
+}
+
+.footer-links a {
+  color: #55524f;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 400;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.25s ease;
+}
+
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: #a88476;
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #000000;
+}
+
+.footer-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Divider Line */
+.footer-divider {
+  border: 0;
+  border-top: 1px solid #eee5de;
+  margin: 40px auto 20px auto;
+  max-width: 1400px;
+}
+
+/* Bottom Copyright Section */
+.footer-bottom {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: #8c8580;
+}
+
+.copyright-text, .cities-text {
+  margin: 0;
+}
+
+/* ========================================================== */
+/* 📱 SMART RESPONSIVE LAYOUT                                 */
+/* ========================================================== */
+
+@media (max-width: 850px) {
+  .dark-modal-box {
+    flex-direction: column;
+    height: 90vh;
+  }
+  
+  .dark-modal-box::before {
+    top: -20%;
+    left: -50%;
+    width: 200%;
+    height: 40%;
+  }
+
+  .dark-modal-layout {
+    flex-direction: column;
+  }
+
+  .dark-modal-left {
+    flex: 0 0 auto;
+    padding: 40px 30px 20px;
+    align-items: flex-start;
+  }
+
+  .dark-modal-left h2 {
+    font-size: 2.2rem;
+  }
+
+  .dark-modal-right {
+    padding: 20px 30px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .kbeauty-footer {
+    padding: 40px 20px 25px 20px;
+  }
+
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 25px 15px;
+  }
+
+  .brand-info {
+    grid-column: span 2;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee5de;
+  }
+
+  .footer-column {
+    padding-right: 0;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .brand-description {
+    max-width: 100%;
+  }
+
+  .footer-heading {
+    margin-bottom: 12px;
+  }
+
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 10px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+}

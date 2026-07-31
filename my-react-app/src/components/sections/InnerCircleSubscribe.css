@@ -1,0 +1,192 @@
+/* src/components/sections/InnerCircleSubscribe.css */
+
+.inner-circle-section {
+  width: 100%;
+  margin-top:10px ;
+  padding: 150px 24px;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Ensures the background zoom doesn't break container layout */
+  border-top: 1px solid #e5dfd8;
+}
+
+/* 🎬 1. PREMIUM GENTLE BREATHE BACKGROUND ANIMATION */
+.inner-circle-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* Aapki soft light image controls */
+  background: linear-gradient(rgba(250, 248, 245, 0.85), rgba(250, 248, 245, 0.85)), 
+              url('https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=1600'); 
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+  
+  /* Slow infinite scale cycle */
+  animation: gentleBreatheBackground 25s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes gentleBreatheBackground {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); } /* Ultra micro-zoom that feels organic */
+}
+
+.inner-circle-container {
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 2; /* Sits cleanly above the moving background layer */
+}
+
+.inner-circle-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 46px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0 0 24px 0;
+  letter-spacing: -0.01em;
+}
+
+.inner-circle-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.75;
+  color: #555555;
+  max-width: 580px;
+  margin: 0 auto 50px auto;
+  letter-spacing: 0.01em;
+}
+
+/* ==========================================================================
+   🔳 INPUT UNDERLINE FIELD SETTINGS
+   ========================================================================== */
+.subscribe-input-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 520px;
+  margin: 0 auto;
+  border-bottom: 1px solid #c5b6ac; /* Balanced soft tone baseline */
+  padding-bottom: 12px;
+  position: relative;
+}
+
+/* Dynamic line underline grow on active focus triggers */
+.subscribe-input-wrapper::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #1a1a1a;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s ease;
+}
+
+.subscribe-input-wrapper:focus-within::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.subscribe-email-field {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  font-style: italic;
+  color: #1a1a1a;
+  padding: 0 10px 0 0;
+}
+
+.subscribe-email-field::placeholder {
+  color: #a0a0a0;
+  font-style: italic;
+}
+
+/* 🎬 2. ELEGANT BUTTON HOVER INTERACTION */
+.subscribe-action-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: #1a1a1a;
+  cursor: pointer;
+  padding: 0 0 0 15px;
+  transition: color 0.3s ease, letter-spacing 0.3s ease; /* Fluid motion properties */
+}
+
+.subscribe-action-btn:hover {
+  color: #9e7a61;
+  letter-spacing: 0.22em; /* Expands dynamically outward */
+}
+
+/* ==========================================================================
+   ✨ SUCCESS TRANSITION STATE VISUALS
+   ========================================================================== */
+.success-luxury-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  line-height: 1.6;
+  color: #1a1a1a;
+  margin-top: 20px;
+}
+
+.success-luxury-text em {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #777777;
+  display: block;
+  margin-top: 10px;
+  letter-spacing: 0.05em;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+/* Entrance Animation Styles */
+.animate-fade-up {
+  animation: fadeUpReveal 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes fadeUpReveal {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-content {
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+  .inner-circle-section { padding: 100px 20px; }
+  .inner-circle-title { font-size: 34px; }
+  .inner-circle-subtitle { font-size: 13px; }
+  .success-luxury-text { font-size: 20px; }
+}

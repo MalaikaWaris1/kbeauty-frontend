@@ -1,0 +1,278 @@
+/* Color Palette Variables for Luxury Vibe */
+:root {
+  --bg-creme: #fbf9f4;
+  --card-creme: #f9f5f0;
+  --text-dark: #111111;
+  --text-muted: #666666;
+  --text-light-grey: #8a8a8a;
+  --border-light: #e5dfd8;
+  --font-serif: 'Playfair Display', 'Didot', 'Garamond', serif;
+  --font-sans: 'Inter', 'Montserrat', sans-serif;
+}
+
+.premium-auth-page {
+  background-color: var(--bg-creme);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+.auth-split-container {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  gap: 80px;
+  align-items: center;
+}
+
+/* Left Panel Content Styling */
+.auth-left-panel {
+  flex: 1;
+  max-width: 450px;
+}
+
+.auth-subtitle {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--text-light-grey);
+  display: block;
+  margin-bottom: 20px;
+}
+
+.auth-main-title {
+  font-family: var(--font-serif);
+  font-size: 48px;
+  font-weight: 400;
+  color: var(--text-dark);
+  margin: 0 0 25px 0;
+  line-height: 1.1;
+}
+
+.auth-description {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* Right Panel / Card Styling */
+.auth-right-panel {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.auth-card {
+  background-color: var(--card-creme);
+  width: 100%;
+  max-width: 500px;
+  padding: 50px;
+  box-sizing: border-box;
+  border-radius: 4px; /* Soft precision corners instead of bulky round borders */
+}
+
+/* Luxury Tabs System */
+.auth-tabs {
+  display: flex;
+  gap: 25px;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 40px;
+  padding-bottom: 2px;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: var(--text-light-grey);
+  padding: 10px 0;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.tab-btn:hover {
+  color: var(--text-dark);
+}
+
+.tab-btn.active {
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+/* Active Indicator Underline Line */
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: var(--text-dark);
+}
+
+/* Premium Underline Input Form Groups */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+}
+
+.input-group input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-light);
+  padding: 8px 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--text-dark);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+  border-bottom-color: var(--text-dark);
+}
+
+/* Dark Rectangle Luxury Button */
+.auth-submit-btn {
+  background-color: var(--text-dark);
+  color: #ffffff;
+  border: none;
+  padding: 18px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.auth-submit-btn:hover {
+  background-color: #222222;
+}
+
+.auth-submit-btn:active {
+  transform: scale(0.99);
+}
+
+/* Footer & Legal Text Links */
+.form-footer-links {
+  text-align: center;
+  margin-top: 5px;
+}
+
+.form-footer-links p {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.premium-link {
+  color: var(--text-dark);
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.auth-card-disclaimer {
+  margin-top: 40px;
+  border-top: 1px solid var(--border-light);
+  padding-top: 25px;
+  text-align: center;
+}
+
+.auth-card-disclaimer p {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  color: var(--text-light-grey);
+}
+
+/* Micro Animation for Tab switching feeling snappy & professional */
+.animate-fade {
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Error & Success Alert Badges */
+.auth-alert {
+  padding: 12px 15px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  margin-bottom: 20px;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.error-alert {
+  background-color: #fce8e6;
+  color: #d93025;
+  border: 1px solid #f5c6cb;
+}
+
+.success-alert {
+  background-color: #e6f4ea;
+  color: #137333;
+  border: 1px solid #c3e6cb;
+}
+
+.auth-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ========================================================
+   📱 RESPONSIVE MEDIA QUERIES FOR SEAMLESS STACKING
+   ======================================================== */
+@media (max-width: 900px) {
+  .auth-split-container {
+    flex-direction: column;
+    gap: 50px;
+    text-align: start;
+  }
+  
+  .auth-left-panel {
+    max-width: 100%;
+  }
+
+  .auth-right-panel {
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .tab-btn {
+    text-align: start;
+  }
+  .auth-card {
+    padding: 35px 25px;
+  }
+  
+  .auth-tabs {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,566 @@
+/* src/components/pages/ContactUs.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap');
+
+.luxury-page-bg {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  box-sizing: border-box;
+  background: linear-gradient(rgba(44, 39, 35, 0.2), rgba(44, 39, 35, 0.2)), 
+              url('https://static.vecteezy.com/system/resources/thumbnails/043/112/670/small/variety-of-skin-care-products-on-table-free-photo.jpeg') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  perspective: 2500px;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   📖 3D BOOK STRUCTURE ARCHITECTURE - UNTOUCHED ROTATION (DESKTOP)
+   ========================================================================== */
+.beauty-book-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  height: 640px;
+  transform-style: preserve-3d;
+  transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1); 
+}
+
+.beauty-book-wrapper.book-is-open {
+  transform: translateX(260px); 
+}
+
+/* ==========================================================================
+   🚪 RIGHT PAGE (Form Page)
+   ========================================================================== */
+.book-page-right {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 0 16px 16px 0;
+  box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.15), inset 15px 0 20px rgba(0, 0, 0, 0.02);
+  padding: 50px 45px;
+  box-sizing: border-box;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.book-is-open .book-page-right {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   📖 3D FLIPPING PAGE
+   ========================================================================== */
+.book-flip-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+  z-index: 2;
+}
+
+.book-is-open .book-flip-page {
+  transform: rotateY(-180deg);
+}
+
+.book-side {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   1. FRONT COVER
+   -------------------------------------------------------------------------- */
+.book-side-front {
+  background: linear-gradient(rgba(244, 238, 232, 0.45), rgba(44, 39, 35, 0.4)), 
+              url('https://static.vecteezy.com/system/resources/thumbnails/043/112/670/small/variety-of-skin-care-products-on-table-free-photo.jpeg') no-repeat center center;
+  background-size: cover;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 40px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.front-cover-logo-header {
+  text-align: center;
+  letter-spacing: 0.2em;
+}
+
+.front-cover-logo-header .brand-initials {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c2723;
+  background: rgba(255, 255, 255, 0.85);
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto 10px auto;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.book-is-open .book-side-front {
+  cursor: default;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   2. BACK OF COVER (Inside Left Page)
+   -------------------------------------------------------------------------- */
+.book-side-back {
+  transform: rotateY(180deg);
+  border-radius: 16px 0 0 16px;
+  background: #fffbf7;
+  box-shadow: inset -15px 0 30px rgba(0, 0, 0, 0.05);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px 45px 40px 45px;
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   ✨ CONTINUOUS BRAND TEXT TICKER
+   -------------------------------------------------------------------------- */
+.brand-ticker-container {
+  width: 100%;
+  max-width: 260px;
+  background: #ffffff;
+  border: 1px solid #eadecc;
+  border-radius: 30px;
+  padding: 8px 0;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.brand-ticker-track {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+  animation: continuousScroll 12s linear infinite;
+  will-change: transform;
+}
+
+.brand-ticker-container:hover .brand-ticker-track {
+  animation-play-state: paused;
+}
+
+.brand-ticker-track span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #2c2723;
+  text-transform: uppercase;
+}
+
+.brand-ticker-track .ticker-dot {
+  font-size: 10px;
+  color: #c4a482;
+}
+
+@keyframes continuousScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.listening-page-wrapper {
+  margin-top: 10px;
+}
+
+.listening-say-hello {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  color: #7a7065;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.listening-main-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 400;
+  color: #1c1a18;
+  margin: 0 0 16px 0;
+  line-height: 1.1;
+}
+
+.listening-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #5a524a;
+  margin: 0 0 30px 0;
+}
+
+.listening-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.info-row-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  color: #2c2723;
+}
+
+.info-row-item .info-icon {
+  font-size: 14px;
+  color: #1c1a18;
+  opacity: 0.7;
+  width: 16px;
+}
+
+.listening-hours-footer {
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: #8c8175;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding-top: 18px;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   🖊️ FORM & BUTTONS TYPOGRAPHY
+   ========================================================================== */
+.cover-center-title { 
+  text-align: center;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(6px);
+  padding: 24px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+.cover-center-title h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 400;
+  color: #2c2723;
+  margin: 0;
+}
+
+.cover-center-title p {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: #554e48;
+  margin: 8px 0 0 0;
+}
+
+.cover-interactive-btn {
+  background: #2c2723;
+  color: #ffffff;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  padding: 14px 28px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(44, 39, 35, 0.3);
+  transition: all 0.3s ease;
+  margin-top: 25px;
+}
+
+.cover-interactive-btn:hover {
+  background: #8c7355;
+  transform: translateY(-2px);
+}
+
+.page-right-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.close-diary-btn {
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: #777777;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.close-diary-btn:hover { background: rgba(0, 0, 0, 0.05); color: #1a1a1a; }
+
+.form-mini-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  color: #2c2723;
+  margin: 0;
+}
+
+.premium-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.input-group-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #dcd6ce;
+  padding-bottom: 6px;
+}
+
+.input-group-row:focus-within { border-color: #8c7355; }
+.input-field-icon { font-size: 13px; margin-right: 12px; opacity: 0.5; }
+
+.premium-contact-form input,
+.premium-contact-form textarea,
+.premium-select-field {
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  color: #1a1a1a;
+}
+
+.text-area-row { align-items: flex-start; }
+.text-area-row textarea { resize: none; margin-top: 4px; }
+.premium-select-field { cursor: pointer; color: #555555; appearance: none; }
+
+.contact-submit-btn {
+  background-color: rgba(44, 39, 35, 0.05);
+  color: #2c2723;
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 12px 32px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 50px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.contact-submit-btn:hover {
+  background-color: #2c2723;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.form-status-msg.success {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: #2e7d32;
+  margin: 4px 0 0 0;
+}
+
+/* ==========================================================================
+   💻 3D BOOK RESPONSIVE FOR MEDIUM SCREENS (715PX TO 990PX)
+   ========================================================================== */
+@media (min-width: 715px) and (max-width: 990px) {
+  .luxury-page-bg {
+    padding: 30px 16px;
+  }
+
+  .beauty-book-wrapper {
+    max-width: 380px; /* Reduced width to fit screen side-by-side */
+    height: 550px;
+  }
+
+  /* Opens 3D book just like desktop but shifted appropriately */
+  .beauty-book-wrapper.book-is-open {
+    transform: translateX(190px);
+  }
+
+  .book-page-right,
+  .book-side-back {
+    padding: 35px 28px;
+  }
+
+  .listening-main-title {
+    font-size: 32px;
+  }
+
+  .cover-center-title h2 {
+    font-size: 32px;
+  }
+
+  .form-mini-title {
+    font-size: 26px;
+  }
+
+  .listening-description {
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+
+  .premium-contact-form {
+    gap: 12px;
+  }
+}
+
+/* ==========================================================================
+   📱 ADAPTIVE MOBILE STACKED LAYOUT (ONLY FOR SCREENS BELOW 715PX)
+   ========================================================================== */
+@media (max-width: 714px) {
+  .luxury-page-bg {
+    padding: 40px 16px;
+    align-items: flex-start;
+  }
+
+  .beauty-book-wrapper {
+    width: 100%;
+    max-width: 440px;
+    height: 500px;
+    margin: 20px auto;
+    transform: none !important;
+    perspective: none;
+  }
+
+  /* Open state: Transforms into dynamic vertical stacked layout */
+  .beauty-book-wrapper.book-is-open {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transform: none !important;
+  }
+
+  .book-side-front {
+    border-radius: 20px;
+  }
+
+  .book-is-open .book-side-front {
+    display: none;
+  }
+
+  /* TOP CARD: Contact Form */
+  .book-is-open .book-page-right {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    opacity: 1;
+    border-radius: 20px;
+    padding: 32px 24px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    animation: mobileSlideDown 0.35s ease forwards;
+  }
+
+  /* BOTTOM CARD CONTAINER */
+  .book-is-open .book-flip-page {
+    position: relative;
+    width: 100%;
+    height: auto;
+    transform: none !important;
+    z-index: 2;
+  }
+
+  /* BOTTOM CARD: Info Page */
+  .book-is-open .book-side-back {
+    position: relative;
+    transform: none !important;
+    border-radius: 20px;
+    width: 100%;
+    height: auto;
+    padding: 32px 24px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    background: #fffbf7;
+    border: 1px solid rgba(234, 222, 204, 0.6);
+    backface-visibility: visible;
+    animation: mobileSlideUp 0.35s ease forwards;
+  }
+
+  .brand-ticker-container {
+    max-width: 220px;
+    margin: 0 0 16px 0;
+  }
+
+  .brand-ticker-track span {
+    font-size: 13.5px;
+  }
+
+  .listening-main-title {
+    font-size: 30px;
+  }
+
+  .form-mini-title {
+    font-size: 26px;
+  }
+}
+
+@keyframes mobileSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobileSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

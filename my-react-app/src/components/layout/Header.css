@@ -1,0 +1,607 @@
+  .kbeauty-header-container {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  background-color: #fdfbf9;
+  border-bottom: 1px solid #f0eae4;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.01);
+}
+
+/* Main Navigation Row */
+.main-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Left Side: Links */
+.nav-links {
+  display: flex;
+  gap: 30px;
+  flex: 1;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #555555;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  position: relative;
+  padding-bottom: 6px;
+  transition: color 0.3s ease;
+}
+
+.nav-item:hover {
+  color: #aa8676;
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1.5px;
+  bottom: 0;
+  left: 0;
+  background-color: #111111;
+  transform-origin: bottom left;
+  transition: transform 0.25s ease-out;
+}
+
+.nav-item:hover::after,
+.nav-item.active::after {
+  transform: scaleX(1);
+}
+
+.nav-item.active {
+  color: #000000;
+  font-weight: 600;
+}
+
+/* ========================================================== */
+/* 🎨 NEW LOGO DESIGN (MATCHING 2ND IMAGE)                   */
+/* ========================================================== */
+.navbar-logo {
+  flex: 1;
+  text-align: center;
+}
+
+.custom-text-logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.logo-top-italic {
+  font-family: 'Georgia', 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 28px;
+  color: #a88476;
+  font-weight: 400;
+  margin-left: -2px;
+}
+
+.logo-bottom-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: -3px;
+}
+
+.logo-brand-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #666666;
+}
+
+.logo-pkr-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  background-color: #aa8676;
+  color: #ffffff;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+/* Right Side: Icons */
+.navbar-icons {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+  flex: 1;
+  align-items: center;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333333;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.icon-btn:hover {
+  color: #a88476;
+  transform: translateY(-1px);
+}
+
+.cart-btn {
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  background-color: #aa8676;
+  color: #ffffff;
+  font-size: 10px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+/* Bottom Announcement Bar */
+.announcement-bar {
+  background-color: #f6e6e0;
+  text-align: center;
+  padding: 8px 20px;
+}
+
+.announcement-bar p {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: #444444;
+  font-weight: 500;
+}
+
+/* Hamburger Hidden on Desktop */
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1002;
+}
+
+.hamburger-bar {
+  width: 70%;
+  height: 2px;
+  background-color: #111111;
+  transition: all 0.3s ease;
+}
+
+.drawer-mobile-utils {
+  display: none;
+}
+
+/* ========================================================== */
+/* 🔍 LIVE SEARCH DROPDOWN STYLES (MATCHING 3RD IMAGE)        */
+/* ========================================================== */
+
+.search-wrapper-relative {
+  position: relative;
+ border: none !important;
+  outline: none !important;
+  background: transparent !important;
+}
+
+.search-floating-dropdown {
+  position: absolute;
+  right: 0;
+  top: 38px;
+  width: 320px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  z-index: 1010;
+}
+
+.search-input-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 6px 10px;
+  background-color: #fafafa;
+}
+
+.search-input-box input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #333;
+}
+
+.search-input-box svg {
+  color: #666;
+  margin-left: 6px;
+}
+
+.search-results-panel {
+  margin-top: 12px;
+}
+
+.search-results-heading {
+  font-size: 13px;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 8px 0;
+  text-align: left;
+}
+
+.search-results-list {
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.search-item-card {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px dashed #e2e8f0;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease;
+}
+
+.search-item-card:hover {
+  background-color: #fcf8f6;
+}
+
+.search-item-card:last-child {
+  border-bottom: none;
+}
+
+.search-item-img {
+  width: 48px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 3px;
+  background-color: #f7f7f7;
+}
+
+.search-item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.search-item-brand {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 0.05em;
+}
+
+.search-item-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-item-prices {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.search-item-prices .old-price {
+  text-decoration: line-through;
+  color: #b98cae;
+  font-size: 11px;
+}
+
+.search-item-prices .new-price {
+  color: #8b3a7a;
+  font-weight: 700;
+}
+
+.search-no-results {
+  font-size: 12px;
+  color: #777;
+  padding: 10px 0;
+  text-align: center;
+}
+
+/* LUXURY CART POP-UP & WISHLIST */
+.cart-icon-wrapper-relative {
+  position: relative;
+  display: inline-block;
+}
+
+.wishlist-btn {
+  position: relative;
+}
+
+.wishlist-count {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background-color: #aa8676;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+  box-sizing: border-box;
+}
+
+.luxury-cart-toast-popup {
+  position: absolute;
+  top: 45px;
+  right: -10px;
+  background-color: #ffffff;
+  border: 1px solid #eae5e0;
+  width: 290px;
+  padding: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  z-index: 999;
+  border-radius: 4px;
+  animation: slideDownFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.toast-arrow-pointer {
+  position: absolute;
+  top: -6px;
+  right: 22px;
+  width: 10px;
+  height: 10px;
+  background-color: #ffffff;
+  transform: rotate(45deg);
+  border-left: 1px solid #eae5e0;
+  border-top: 1px solid #eae5e0;
+}
+
+.toast-content-layout {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  text-align: left;
+}
+
+.toast-prod-thumb {
+  width: 60px;
+  height: 65px;
+  object-fit: cover;
+  background-color: #f2ede8;
+  border-radius: 2px;
+}
+
+.toast-meta-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow: hidden;
+}
+
+.toast-alert-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  color: #a88476;
+  letter-spacing: 0.08em;
+}
+
+.toast-item-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #111;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.toast-item-qty {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: #777;
+}
+
+@keyframes slideDownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================================== */
+/* 📱 RESPONSIVE DESIGN FOR MOBILE & TABLETS                 */
+/* ========================================================== */
+
+/* ========================================================== */
+/* 📱 RESPONSIVE DESIGN FOR MOBILE & TABLETS                 */
+/* ========================================================== */
+
+@media (max-width: 992px) {
+  /* 🔴 Hide Wishlist icon from main top header on mobile */
+  .navbar-icons .wishlist-btn {
+    display: none !important;
+  }
+
+  .main-navbar {
+    padding: 10px 15px;
+    position: relative;
+    min-height: 60px;
+  }
+
+  .hamburger-menu {
+    display: flex;
+    z-index: 1002;
+  }
+
+  .navbar-icons {
+    gap: 12px;
+    z-index: 1002;
+    flex: none;
+  }
+
+  .icon-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .navbar-logo {
+    position: absolute;
+    left: 40%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: auto;
+    margin: 0;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 290px;
+    height: 100vh;
+    background-color: #fdfbf9;
+    flex-direction: column;
+    padding: 140px 35px;
+    gap: 22px;
+    z-index: 1001;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.04);
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .nav-links.mobile-active {
+    transform: translateX(0);
+  }
+
+  .nav-item {
+    font-size: 14px;
+    width: 100%;
+    letter-spacing: 0.12em;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+  }
+
+  .nav-item::after {
+    display: none;
+  }
+
+  .drawer-mobile-utils {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 15px;
+    width: 100%;
+  }
+
+  .drawer-divider {
+    border: none;
+    border-top: 1px solid #f0eae4;
+    margin: 10px 0;
+    width: 100%;
+  }
+
+  .drawer-util-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    color: #555555;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    padding: 6px 0;
+    cursor: pointer;
+    text-align: left;
+    transition: color 0.2s ease;
+  }
+
+  .drawer-util-btn:hover {
+    color: #000000;
+  }
+
+  .drawer-util-btn svg {
+    color: #333333;
+  }
+
+  .hamburger-menu.open .hamburger-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .hamburger-menu.open .hamburger-bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger-menu.open .hamburger-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(2px);
+    z-index: 1000;
+  }
+
+  .search-floating-dropdown {
+    width: 280px;
+    right: -50px;
+  }
+}

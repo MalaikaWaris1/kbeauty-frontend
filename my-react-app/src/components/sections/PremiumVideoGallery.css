@@ -1,0 +1,233 @@
+/* src/components/sections/PremiumVideoGallery.css */
+
+.luxury-video-gallery-section {
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 12px 90px 12px; 
+  box-sizing: border-box;
+  border-top: 1px solid #e2ded8;
+  background-color: #faf8f5; 
+}
+
+.video-gallery-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.gallery-mini-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: #777777;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.gallery-main-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  font-weight: 400;
+  color: #111111;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.premium-phone-mockup-grid {
+  column-count: 3; 
+  column-gap: 25px; 
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.phone-mockup-card {
+  display: inline-block; 
+  width: 100%; 
+  margin-bottom: 30px; 
+  break-inside: avoid; 
+  position: relative;
+  cursor: pointer; /* 🟢 FIXED: Clickable look dene ke liye pointer */
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
+}
+
+/* Heights Pattern */
+.phone-mockup-card.size-variant-0 { height: 490px; }
+.phone-mockup-card.size-variant-1 { height: 560px; }
+.phone-mockup-card.size-variant-2 { height: 420px; }
+
+.phone-mockup-card:hover {
+  transform: translateY(-8px);
+}
+
+.phone-screen-frame {
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  border: 4px solid #ffffff;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
+  background-color: #eaeaea;
+}
+
+/* ==========================================================================
+   📹 PREMIUM MINI VIDEO ICON BADGE (TOP LEFT)
+   ========================================================================== */
+.phone-video-icon-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.phone-video-icon-badge svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Card hover par badge ka subtle interaction effect */
+.phone-mockup-card:hover .phone-video-icon-badge {
+  background: rgba(255, 255, 255, 0.95);
+  color: #111111;
+  transform: scale(1.05);
+}
+
+.mockup-video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Glassmorphic Overlay */
+.phone-ui-glass-overlay {
+  position: absolute;
+  bottom: 25px;
+  left: 16px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 16px;
+  border-radius: 18px;
+  color: #ffffff;
+  box-sizing: border-box;
+}
+
+.phone-video-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.9;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.phone-video-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  font-weight: 400;
+  margin: 0 0 10px 0;
+}
+
+.phone-pulse-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+.pulse-dot {
+  width: 5px;
+  height: 5px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  animation: pulseGlow 1.8s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0.5; }
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .premium-phone-mockup-grid {
+    column-count: 3; 
+    column-gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .luxury-video-gallery-section {
+    padding: 30px 6px 60px 6px; 
+  }
+
+  .premium-phone-mockup-grid {
+    column-count: 2; 
+    column-gap: 12px;
+  }
+
+  .phone-mockup-card {
+    margin-bottom: 16px; 
+  }
+
+  .phone-mockup-card.size-variant-0 { height: 320px; }
+  .phone-mockup-card.size-variant-1 { height: 380px; }
+  .phone-mockup-card.size-variant-2 { height: 280px; }
+
+  .phone-screen-frame {
+    border-radius: 20px;
+    border: 2px solid #ffffff;
+  }
+
+  /* 🟢 MOBILE RESPONSIVENESS FOR BADGE: responsive dimensions */
+  .phone-video-icon-badge {
+    top: 10px;
+    left: 10px;
+    width: 26px;
+    height: 26px;
+  }
+  
+  .phone-video-icon-badge svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .phone-ui-glass-overlay {
+    bottom: 12px;
+    left: 8px;
+    right: 8px;
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  .phone-video-title {
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+}

@@ -1,0 +1,409 @@
+/* src/components/sections/CommunityFavourites.css */
+
+.favourites-section {
+  width: 100%;
+  background-color: #faf8f5; /* Premium soft background matching global theme */
+  padding: 70px 24px;
+  box-sizing: border-box;
+  border-top: 1px solid #e2ded8;
+}
+
+.favourites-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   🔳 EDITORIAL HEADER WITH RIGHT-SIDE TOGGLE BUTTON
+   ========================================================================== */
+.favourites-header {
+  margin-bottom: 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.fav-header-left {
+  text-align: left;
+}
+
+.fav-overline {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: #9e7a61; /* Luxury terracotta accent */
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.fav-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 400;
+  margin: 0;
+  color: #1a1a1a;
+  letter-spacing: -0.01em;
+}
+
+/* 🟢 Professional Hide/Unhide Button Styling */
+.fav-toggle-btn {
+  background: transparent;
+  border: 1px solid #9e7a61;
+  color: #9e7a61;
+  padding: 8px 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 20px;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.fav-toggle-btn:hover {
+  background: #9e7a61;
+  color: #ffffff;
+}
+
+.toggle-icon {
+  width: 13px;
+  height: 13px;
+  transition: transform 0.4s ease;
+}
+
+.toggle-icon.rotated {
+  transform: rotate(180deg);
+}
+
+/* ==========================================================================
+   🖼️ PRODUCT CARD GRID & PEEK STATE
+   ========================================================================== */
+.fav-products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  transition: max-height 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Collapsed Peek Effect */
+.fav-products-grid.is-collapsed {
+  max-height: 250px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Soft gradient fade overlay at bottom when collapsed */
+.fav-products-grid.is-collapsed::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to bottom, rgba(250, 248, 245, 0) 0%, #faf8f5 100%);
+  pointer-events: none;
+  z-index: 15;
+}
+
+/* Expanded State */
+.fav-products-grid.is-expanded {
+  max-height: 3000px;
+  overflow: visible;
+}
+
+.fav-product-card {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  position: relative;
+}
+
+.fav-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1; 
+  overflow: hidden;
+  border-radius: 6px;
+  background-color: #f3efe9;
+}
+
+.fav-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.main-look {
+  z-index: 2;
+  opacity: 1;
+}
+
+.texture-look {
+  z-index: 1;
+  opacity: 0;
+  transform: scale(1.03);
+}
+
+/* Badges Placement Control */
+.fav-badge-row {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.fav-status-badge, .fav-discount-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 5px 10px;
+  text-transform: uppercase;
+}
+
+.fav-status-badge {
+  background-color: #ffffff;
+  color: #1a1a1a;
+}
+
+.fav-discount-badge {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  margin-left: auto;
+}
+
+/* ==========================================================================
+   💬 COMMUNITY REVIEW REVEAL LAYERING
+   ========================================================================== */
+.fav-review-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 16px 16px 16px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.45) 70%, transparent 100%);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.stars-row {
+  display: flex;
+  gap: 3px;
+  color: #f3a847;
+}
+
+.star-icon {
+  width: 13px;
+  height: 13px;
+}
+
+.overlay-quote {
+  font-size: 0.85rem;
+  font-style: italic;
+  line-height: 1.35;
+  color: #f8fafc;
+  margin: 2px 0;
+}
+
+.overlay-author {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #cbd5e1;
+}
+
+/* Hover Interactions State */
+.fav-product-card:hover .main-look {
+  opacity: 0;
+}
+
+.fav-product-card:hover .texture-look {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.fav-product-card:hover .fav-review-overlay {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   🏷️ INFO WRAPPER & QUICK ADD SYSTEM
+   ========================================================================== */
+.fav-info-wrapper {
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* 🟢 Removing underline from Product Title Link */
+.fav-info-wrapper a {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+.fav-product-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0 0 4px 0;
+  text-decoration: none !important; /* Title Underline Removed */
+}
+
+.fav-price-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.current-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.old-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: #999999;
+  text-decoration: line-through;
+}
+
+/* 🟢 QUICK ADD UNDERLINE (Restored original animation) */
+.fav-quick-add-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  text-align: left;
+  padding: 0;
+  width: fit-content;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #9e7a61;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.fav-quick-add-btn::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #9e7a61;
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease;
+}
+
+.fav-quick-add-btn:hover {
+  color: #1a1a1a;
+}
+
+.fav-quick-add-btn:hover::after {
+  transform: scaleX(0);
+  transform-origin: right;
+  background-color: #1a1a1a;
+}
+
+/* ==========================================================================
+   📱 MOBILE & TABLET STYLING OVERRIDES (2 or 3 cards per row)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .fav-products-grid { 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 16px; 
+  }
+  .fav-heading { 
+    font-size: 32px; 
+  }
+}
+
+@media (max-width: 768px) {
+  .favourites-section { 
+    padding: 45px 16px; 
+  }
+  
+  /* 🟢 Responsive: Exactly 2 Compact Cards per row on Mobile/Tablet */
+  .fav-products-grid { 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 14px; 
+  }
+
+  .fav-product-title {
+    font-size: 16px;
+  }
+
+  .current-price {
+    font-size: 12px;
+  }
+
+  .old-price {
+    font-size: 11px;
+  }
+
+  .fav-badge-row {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+  }
+
+  .fav-status-badge, .fav-discount-badge {
+    font-size: 8px;
+    padding: 3px 6px;
+  }
+
+  /* .fav-review-overlay { 
+    display: none; 
+  }  */
+
+  .fav-product-card:hover .main-look { 
+    opacity: 1; 
+  }
+
+  .fav-product-card:hover .texture-look { 
+    opacity: 0; 
+  }
+}
+
+@media (max-width: 480px) {
+  .fav-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .fav-heading {
+    font-size: 26px;
+  }
+
+  .fav-overline {
+    font-size: 10px;
+  }
+}

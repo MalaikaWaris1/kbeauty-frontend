@@ -1,0 +1,217 @@
+.shop-by-ritual-section {
+  background-color: #fcf9f6; /* Premium Light Ivory Cream matching theme */
+  padding: 80px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Header layout (Heading left, View All right) */
+.ritual-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 40px;
+}
+
+.ritual-main-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  font-weight: 400;
+  color: #111111;
+  margin: 0;
+}
+
+.ritual-view-all {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #111111;
+  text-decoration: none;
+  border-bottom: 1px solid #111111;
+  padding-bottom: 2px;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.ritual-view-all:hover {
+  color: #a88476;
+  border-color: #a88476;
+}
+
+/* 🟢 Desktop Layout Grid */
+.rituals-grid-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); 
+  gap: 20px;
+}
+
+/* Individual Card Structure */
+.ritual-card {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 🟢 Absolute Multi-Image Layering Box */
+.ritual-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.2; /* Vertical cosmetic portrait ratio */
+  border-radius: 8px; 
+  overflow: hidden;
+  background-color: #eae5e0;
+}
+
+/* 🟢 AUTOMATIC ZOOM IN/OUT KEYFRAMES */
+@keyframes autoZoomEffect {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08); /* Auto Zoom In */
+  }
+  100% {
+    transform: scale(1); /* Auto Zoom Out */
+  }
+}
+
+/* 🟢 ULTRA SMOOTH CORE TRANSITION FOR IMAGES */
+.ritual-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 1.4s ease-in-out;
+}
+
+/* 🟢 Active State: Perfect visibility + Continuous Automatic Zoom Effect */
+.ritual-img.active {
+  opacity: 1;
+  z-index: 2;
+  /* 5 سیکنڈز کے سائیکل میں خودبخود زوم ان اور آؤٹ ہوگا */
+  animation: autoZoomEffect 5s ease-in-out infinite alternate;
+}
+
+/* 🟢 Hidden State: Softly dissolves */
+.ritual-img.hidden {
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Card Title Typography */
+.ritual-card-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #222222;
+  text-transform: uppercase;
+  margin: 0;
+  transition: color 0.20s ease;
+}
+
+.ritual-card:hover .ritual-card-title {
+  color: #a88476; 
+}
+
+/* Backup Luxury Placeholder */
+.premium-fallback-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #eae5e0 0%, #f4f0ec 100%);
+  color: #a88476;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  font-style: italic;
+}
+
+/* 🟢 Mobile Dots Indicator Styling (Hidden on Desktop/Tablet) */
+.ritual-mobile-dots {
+  display: none;
+}
+
+/* ========================================================== */
+/* 📱 SMART RESPONSIVE DESIGN */
+/* ========================================================== */
+
+/* Tablets Viewports */
+@media (max-width: 1024px) {
+  .rituals-grid-container {
+    grid-template-columns: repeat(6, 1fr); 
+    gap: 15px;
+  }
+  .shop-by-ritual-section {
+    padding: 60px 40px;
+  }
+}
+
+/* Mobile Viewports */
+@media (max-width: 768px)  {
+  .shop-by-ritual-section {
+    padding: 40px 20px;
+  }
+
+  .ritual-main-heading {
+    font-size: 28px;
+  }
+
+  .rituals-grid-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 15px;
+    padding-bottom: 15px; 
+    scrollbar-width: none; 
+    scroll-behavior: smooth;
+  }
+
+  .rituals-grid-container::-webkit-scrollbar {
+    display: none; 
+  }
+
+  .ritual-card {
+    flex: 0 0 160px; 
+    scroll-snap-align: start;
+    text-align: left; 
+  }
+
+  .ritual-image-wrapper {
+    aspect-ratio: 1 / 1.15; 
+  }
+
+  /* 🔴 Responsive Carousel Dots Navigation for Mobile */
+  .ritual-mobile-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+  }
+
+  .ritual-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #d1c8c1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .ritual-dot.active {
+    background-color: #a88476;
+    width: 20px;
+    border-radius: 10px;
+  }
+}

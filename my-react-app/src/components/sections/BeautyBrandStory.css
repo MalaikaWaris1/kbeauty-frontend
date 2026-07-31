@@ -1,0 +1,131 @@
+/* src/components/sections/BeautyBrandStory.css */
+
+.beauty-brand-story-section {
+  width: 100%;
+  /* 🟢 MATCHED BACKGROUND: Video gallery wale pure background color se blend ho jaye ga */
+  background-color: #f4e0c3; 
+  /* Compact left/right padding to maintain uniform alignment */
+  padding: 90px 24px; 
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.brand-story-wrapper {
+  max-width: 950px; /* Restricts width so text reads beautifully like a luxury magazine layout */
+  width: 100%;
+  text-align: center;
+}
+
+/* ==========================================================================
+   ✨ TYPOGRAPHY DESIGN
+   ========================================================================== */
+.brand-story-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em; /* Widely spaced modern tracking */
+  color: #9e7a61; /* Soft warm terracotta color code for beauty aesthetics */
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 24px;
+}
+
+.brand-story-main-statement {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 44px; /* Large, bold statement typography */
+  font-weight: 400;
+  color: #1a1a1a;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  margin: 0 auto 30px auto;
+  max-width: 880px;
+}
+
+/* Image ke design ki tarhan specific word ko unique styling denay k liye */
+.brand-story-main-statement em {
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  color: #1a1a1a;
+}
+
+.brand-story-paragraph {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: #555555; /* Softened contrast color for seamless readability */
+  max-width: 680px;
+  margin: 0 auto 40px auto;
+  letter-spacing: 0.01em;
+}
+
+/* ==========================================================================
+   🔳 LUXURY BUTTON COMPONENT (Exactly as the design)
+   ========================================================================== */
+.brand-story-action-btn {
+  background: #ffffff; /* Clean pure white inside container */
+  color: #111111;
+  border: 1px solid #eaeaea; /* Super thin delicate luxury border */
+  padding: 14px 36px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 0px; /* Sharp editorial structure, no round corners */
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.01);
+  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.story-btn-arrow {
+  font-size: 14px;
+  transition: transform 0.3s ease;
+}
+
+/* Premium Hover Transitions */
+.brand-story-action-btn:hover {
+  background-color: #111111; /* Flipped dark state on active interactions */
+  color: #ffffff;
+  border-color: #111111;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.brand-story-action-btn:hover .story-btn-arrow {
+  transform: translateX(4px); /* Interactive micro-animation on arrow element */
+}
+
+/* ==========================================================================
+   ⚡ RESPONSIVE STYLING (For smaller viewports)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .beauty-brand-story-section {
+    padding: 60px 16px; /* Tight margins for mobile adaptation */
+  }
+
+  .brand-story-main-statement {
+    font-size: 28px; /* Smooth scale down for standard device sizes */
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
+
+  .brand-story-paragraph {
+    font-size: 13px;
+    line-height: 1.65;
+    margin-bottom: 30px;
+    padding: 0 10px;
+  }
+
+  .brand-story-action-btn {
+    padding: 12px 28px;
+    font-size: 10px;
+    width: 100%; /* Mobile viewport expansion compatibility */
+    justify-content: center;
+  }
+}

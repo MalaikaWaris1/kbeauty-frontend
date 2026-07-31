@@ -1,0 +1,547 @@
+src/components/sections/FlashSaleBanner.css
+
+.luxury-flash-sale-section {
+  width: 100%;
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.sale-banner-container {
+  background-color: #f3dcd3; 
+  border-radius: 4px;
+  padding: 50px 40px; /* Padding horizontally thoda kam kiya items adjust karne ke liye */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  box-sizing: border-box;
+}
+
+.sale-banner-left-info {
+  display: flex;
+  flex-direction: column;
+  flex: 2.2; /* Text section handles the core layout width */
+}
+
+.sale-mini-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: #555555;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.sale-main-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  font-weight: 400;
+  color: #111111;
+  margin: 0 0 14px 0;
+  letter-spacing: -0.01em;
+}
+
+.sale-description-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #444444;
+  line-height: 1.5;
+  margin: 0 0 35px 0;
+  max-width: 550px;
+}
+
+/* COUNTDOWN ALIGNMENT LOCK */
+.luxury-countdown-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.countdown-time-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 45px;
+}
+
+.time-digit {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 400;
+  color: #111111;
+  line-height: 28px;
+}
+
+.time-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #666666;
+  margin-top: 6px;
+}
+
+.countdown-colon-divider {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  color: #bfaaa2;
+  font-weight: 300;
+  line-height: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+}
+
+/* ==========================================================================
+   🛍️ MIDDLE COLUMN: Handles 1 or 2 products inside available space
+   ========================================================================== */
+.sale-banner-middle-product {
+  flex: 2; /* Increased flex weight to hold up to 2 items comfortably */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px; /* Gap between the two circles */
+}
+
+.banner-circle-product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  width: 100px; /* Fixed width bound per item */
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.banner-circle-product-card:hover {
+  transform: translateY(-3px);
+}
+
+.circle-image-frame {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #ffffff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+}
+
+.circle-product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.banner-circle-product-card:hover .circle-product-img {
+  transform: scale(1.06);
+}
+
+/* 🟢 FIX: Badge positioned inside safely without overlapping or getting clipped */
+.circle-discount-badge {
+  position: absolute;
+  bottom: 6px; /* 0px se badha kar 6px kiya taake upar shift ho jaye */
+  left: 50%;
+  transform: translateX(-50%); /* 20% vertical translation hatayi */
+  background-color: #111111;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  white-space: nowrap;
+}
+
+.circle-product-details {
+  margin-top: 14px;
+  text-align: center;
+  width: 100%;
+}
+
+.circle-product-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #111111;
+  margin: 0 0 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Badi headings break na hon text scale down ho jaye */
+}
+
+.circle-product-pricing {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle-sale-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.circle-old-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  text-decoration: line-through;
+  color: #999999;
+}
+
+/* RIGHT COLUMN CTA */
+.sale-banner-right-action {
+  flex: 1.2;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sale-primary-cta-btn {
+  display: inline-block;
+  background-color: #111111;
+  color: #ffffff;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  padding: 16px 32px;
+  border-radius: 2px;
+  white-space: nowrap;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sale-primary-cta-btn:hover {
+  background-color: #2a2a2a;
+  transform: translateY(-1px);
+}
+
+/* RESPONSIVE LAYOUT */
+@media (max-width: 1150px) {
+  .sale-banner-middle-product {
+    gap: 15px; /* Screens choti hone par automatic compression spacing */
+  }
+}
+
+@media (max-width: 992px) {
+  .luxury-flash-sale-section {
+    padding: 0 20px;
+  }
+  
+  .sale-banner-container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px 30px;
+    gap: 35px;
+  }
+
+  .sale-banner-middle-product {
+    justify-content: flex-start;
+    width: 100%;
+    padding-left: 5px;
+    gap: 30px;
+  }
+
+  .sale-banner-right-action {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .sale-primary-cta-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* src/components/sections/FlashSaleBanner.css */
+
+.luxury-flash-sale-section {
+  width: 100%;
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.sale-banner-container {
+  /* Dynamic style handle kar raha hai inline background color ko */
+  border-radius: 8px;
+  padding: 50px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  box-sizing: border-box;
+  transition: background 0.3s ease;
+}
+
+.sale-banner-left-info {
+  display: flex;
+  flex-direction: column;
+  flex: 2.2;
+}
+
+.sale-mini-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: #555555;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.sale-main-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  font-weight: 400;
+  color: #111111;
+  margin: 0 0 14px 0;
+  letter-spacing: -0.01em;
+}
+
+.sale-description-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #444444;
+  line-height: 1.5;
+  margin: 0 0 30px 0;
+  max-width: 550px;
+}
+
+/* COUNTDOWN ALIGNMENT */
+.luxury-countdown-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.countdown-time-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 45px;
+}
+
+.time-digit {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 400;
+  color: #111111;
+  line-height: 28px;
+}
+
+.time-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #666666;
+  margin-top: 6px;
+}
+
+.countdown-colon-divider {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  color: #bfaaa2;
+  font-weight: 300;
+  line-height: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+}
+
+/* MIDDLE COLUMN PRODUCTS */
+.sale-banner-middle-product {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.banner-circle-product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  width: 95px;
+}
+
+.circle-image-frame {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #ffffff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+}
+
+.circle-product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.banner-circle-product-card:hover .circle-product-img {
+  transform: scale(1.08);
+}
+
+.circle-discount-badge {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #111111;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  white-space: nowrap;
+}
+
+.circle-product-details {
+  margin-top: 12px;
+  text-align: center;
+  width: 100%;
+}
+
+.circle-product-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #111111;
+  margin: 0 0 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.circle-product-pricing {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle-sale-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.circle-old-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  text-decoration: line-through;
+  color: #999999;
+}
+
+/* RIGHT COLUMN CTA */
+.sale-banner-right-action {
+  flex: 1.2;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sale-primary-cta-btn {
+  display: inline-block;
+  background-color: #111111;
+  color: #ffffff;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  padding: 16px 32px;
+  border-radius: 2px;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+}
+
+.sale-primary-cta-btn:hover {
+  background-color: #2a2a2a;
+}
+
+/* 📱 RESPONSIVE IMPROVEMENTS */
+@media (max-width: 1150px) {
+  .luxury-flash-sale-section {
+    padding: 0 24px;
+  }
+  .sale-banner-container {
+    padding: 40px 30px;
+  }
+  .sale-banner-middle-product {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 992px) {
+  .luxury-flash-sale-section {
+    padding: 0 0px;
+    margin: 24px auto;
+  }
+  
+  .sale-banner-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 35px 20px;
+    gap: 28px;
+  }
+
+  .sale-banner-left-info {
+    align-items: center;
+    width: 100%;
+  }
+
+  .sale-main-heading {
+    font-size: 32px;
+  }
+
+  .sale-description-text {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .luxury-countdown-row {
+    justify-content: center;
+  }
+
+  .sale-banner-middle-product {
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap; 
+    gap: 20px;
+  }
+
+  .sale-banner-right-action {
+    justify-content: center;
+    width: 30%;
+    margin:10px;
+  }
+
+  .sale-primary-cta-btn {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+  }
+}

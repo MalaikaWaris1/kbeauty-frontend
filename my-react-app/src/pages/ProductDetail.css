@@ -1,0 +1,495 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@300;400;500;600&display=swap');
+
+.product-detail-page-wrapper {
+  background-color: #fcf9f6;
+  padding: 40px 4%;
+  max-width: 1440px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.p-detail-breadcrumb {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: #777;
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.p-detail-breadcrumb a {
+  text-decoration: none;
+  color: #888;
+  transition: color 0.2s ease;
+}
+
+.p-detail-breadcrumb a:hover { color: #111; }
+.p-detail-breadcrumb .bc-divider { margin: 0 10px; color: #ccc; }
+.p-detail-breadcrumb .bc-current { color: #111; font-weight: 500; }
+
+.p-detail-main-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.p-detail-img-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.08;
+  background-color: #f2ede8;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.p-detail-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.p-detail-info-block {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.p-info-mini-category {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: #888;
+  margin-bottom: 12px;
+}
+
+.p-info-main-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 400;
+  color: #111;
+  margin: 0 0 8px 0;
+  line-height: 1.15;
+}
+
+.p-info-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: #555;
+  margin: 0 0 20px 0;
+}
+
+.p-info-price-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.p-info-current-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: #111;
+}
+
+.p-info-old-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+.p-info-discount-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  background-color: #f5e6e1;
+  color: #a88476;
+  padding: 4px 8px;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+}
+
+.p-info-description-box p {
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  color: #444;
+  line-height: 1.7;
+  margin: 0 0 30px 0;
+}
+
+.p-info-specs-row {
+  display: flex;
+  border-top: 1px solid #eae5e0;
+  border-bottom: 1px solid #eae5e0;
+  padding: 16px 0;
+  margin-bottom: 30px;
+}
+
+.spec-col { flex: 1; }
+
+.spec-heading-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  color: #999;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.spec-heading-value {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #222;
+  font-weight: 500;
+  margin: 0;
+}
+
+.p-info-action-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.p-quantity-counter {
+  display: flex;
+  align-items: center;
+  border: 1px solid #dcd7d2;
+  height: 50px;
+  padding: 0 5px;
+}
+
+.q-btn {
+  background: transparent;
+  border: none;
+  width: 32px;
+  height: 100%;
+  font-size: 18px;
+  cursor: pointer;
+  color: #555;
+}
+
+.q-display {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  width: 32px;
+  text-align: center;
+  color: #111;
+}
+
+.p-primary-add-bag-btn {
+  flex-grow: 1;
+  background-color: #111111;
+  color: #ffffff;
+  border: none;
+  height: 50px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.p-primary-add-bag-btn:hover { background-color: #2a2a2a; }
+
+.p-minimal-wishlist-btn {
+  background: transparent;
+  border: 1px solid #dcd7d2;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #111;
+}
+
+.p-detail-trust-markers {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.marker-item {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  color: #888;
+  letter-spacing: 0.1em;
+}
+
+.p-tabs-nav {
+  display: flex;
+  gap: 30px;
+  border-bottom: 1px solid #eae5e0;
+}
+
+.p-tab-trigger {
+  background: transparent;
+  border: none;
+  padding: 12px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #999;
+  cursor: pointer;
+  position: relative;
+}
+
+.p-tab-trigger.active { color: #111; }
+.p-tab-trigger.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: #111;
+}
+
+.p-tabs-display-content { padding: 20px 0; min-height: 90px; }
+
+.p-benefits-bullets-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.p-benefits-bullets-list li {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #555;
+}
+
+.bullet-dash { color: #aaa; margin-right: 5px; }
+.p-tab-prose-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.7;
+}
+
+/* ========================================================
+   🔥 3D INFINITE RING CAROUSEL (ZERO SPACE FIX)
+   ======================================================== */
+.p-detail-recommendations-section {
+  margin-top: 70px;
+  border-top: 1px solid #eae5e0;
+  padding-top: 40px;
+  text-align: center;
+}
+
+.p-rec-main-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 34px;
+  font-weight: 400;
+  color: #111;
+  margin-bottom: 30px;
+}
+
+/* Stage - Always centered in viewport */
+.p-3d-stage {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Perfectly Balanced 3D Math per Card */
+.p-3d-card-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 230px;
+  transform: translate(
+    calc(-50% + (var(--offset) * 230px)), 
+    -50%
+  ) scale(calc(1 - (var(--abs-offset) * 0.16)));
+  opacity: calc(1 - (var(--abs-offset) * 0.32));
+  filter: blur(calc(var(--abs-offset) * 1.5px));
+  z-index: calc(10 - var(--abs-offset));
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), 
+              opacity 0.65s ease, 
+              filter 0.65s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Center Active Card Highlight */
+.p-3d-card-wrapper.is-center {
+  transform: translate(-50%, -50%) scale(1.18);
+  opacity: 1;
+  filter: none;
+  z-index: 20;
+}
+
+.p-3d-item-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.p-3d-card-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 15;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #111;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.p-3d-card-wrapper.is-center .p-3d-card-media {
+  box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+}
+
+.p-3d-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 🎥 Continuous Subtle Pulse Zoom Effect for Active Card */
+@keyframes continuousSubtleZoom {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.animated-pulse-zoom {
+  animation: continuousSubtleZoom 5s ease-in-out infinite alternate;
+}
+
+/* Overlay Text Styling */
+.p-3d-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 25px 15px 15px 15px;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+  color: #ffffff;
+  text-align: left;
+}
+
+.p-3d-card-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.p-3d-card-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  color: #e0e0e0;
+  margin: 0;
+  font-weight: 500;
+}
+
+.p-rec-pkr {
+  font-size: 10.5px;
+  color: #ccc;
+  font-weight: 400;
+}
+
+.p-rec-tag-badge, .p-rec-discount-badge {
+  position: absolute;
+  top: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 4px 8px;
+  z-index: 2;
+  border-radius: 4px;
+}
+.p-rec-tag-badge { left: 12px; background-color: #fff; color: #111; }
+.p-rec-discount-badge { right: 12px; background-color: #111; color: #fff; }
+
+/* Navigation Arrows */
+.p-rec-slider-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 15px;
+}
+
+.p-rec-nav-arrow {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #222;
+  cursor: pointer;
+  padding: 5px 15px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.p-rec-nav-arrow:hover {
+  color: #000;
+  transform: scale(1.3);
+}
+
+/* ========================================================
+   📱 TABLET & MOBILE RESPONSIVE (ZERO LEAK / PERFECT BREAKPOINTS)
+   ======================================================== */
+@media (max-width: 1024px) {
+  /* Tablet Optimization */
+  .p-detail-main-layout { gap: 40px; }
+  .p-3d-stage { height: 420px; }
+  .p-3d-card-wrapper {
+    width: 180px;
+    transform: translate(
+      calc(-50% + (var(--offset) * 170px)), 
+      -50%
+    ) scale(calc(1 - (var(--abs-offset) * 0.15)));
+  }
+}
+
+@media (max-width: 768px) {
+  .p-detail-main-layout { grid-template-columns: 1fr; gap: 30px; }
+  .p-3d-stage { height: 370px; }
+  .p-3d-card-wrapper {
+    width: 150px;
+    transform: translate(
+      calc(-50% + (var(--offset) * 140px)), 
+      -50%
+    ) scale(calc(1 - (var(--abs-offset) * 0.15)));
+  }
+}
+
+@media (max-width: 480px) {
+  .product-detail-page-wrapper { padding: 70px 10px; }
+  .p-3d-stage { height: 320px; }
+  .p-3d-card-wrapper {
+    width: 130px;
+    transform: translate(
+      calc(-50% + (var(--offset) * 115px)), 
+      -50%
+    ) scale(calc(1 - (var(--abs-offset) * 0.14)));
+  }
+  .p-3d-card-title { font-size: 11px; }
+  .p-3d-card-price { font-size: 10px; }
+}
