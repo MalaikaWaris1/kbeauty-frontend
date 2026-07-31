@@ -1,4 +1,4 @@
-src/components/sections/FlashSaleBanner.css
+/* src/components/sections/FlashSaleBanner.css */
 
 .luxury-flash-sale-section {
   width: 100%;
@@ -174,7 +174,7 @@ src/components/sections/FlashSaleBanner.css
   margin: 0 0 2px 0;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; /* Badi headings break na hon text scale down ho jaye */
+  text-overflow: ellipsis; 
 }
 
 .circle-product-pricing {
@@ -228,7 +228,7 @@ src/components/sections/FlashSaleBanner.css
 /* RESPONSIVE LAYOUT */
 @media (max-width: 1150px) {
   .sale-banner-middle-product {
-    gap: 15px; /* Screens choti hone par automatic compression spacing */
+    gap: 15px; 
   }
 }
 
@@ -262,7 +262,7 @@ src/components/sections/FlashSaleBanner.css
   }
 }
 
-/* src/components/sections/FlashSaleBanner.css */
+
 
 .luxury-flash-sale-section {
   width: 100%;
