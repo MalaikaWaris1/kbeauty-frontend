@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://kbeauty-backend-r0mz.onrender.com",
+  baseURL: "https://kbeauty-backend-r0mz.onrender.com/api",
   withCredentials: true,
 });
 
