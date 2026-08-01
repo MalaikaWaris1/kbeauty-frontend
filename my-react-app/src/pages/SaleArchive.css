@@ -583,7 +583,7 @@
 
 @media (max-width: 480px) {
   .archive-hero-canvas {
-    padding: 40px 15px;
+    padding: 55px 15px;
   }
 
   .archive-main-title {
@@ -596,7 +596,7 @@
   }
 
   .luxury-circular-countdown-grid {
-    gap: 8px;
+    gap: 23px;
   }
 
   .svg-ring-container {
