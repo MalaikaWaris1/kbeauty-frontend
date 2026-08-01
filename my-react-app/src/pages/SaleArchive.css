@@ -452,8 +452,8 @@
 /* Responsive break structures */
 @media(max-width: 768px) {
   .archive-main-title { font-size: 38px; }
-  .luxury-circular-countdown-grid { gap: 12px; }
-  .svg-ring-container { width: 80px; height: 80px; }
+  .luxury-circular-countdown-grid { gap: 14px; padding:100px; }
+  .svg-ring-container { width: 70px; height: 70px; }
   .archive-product-cards-layout-grid { grid-template-columns: 1fr; gap: 40px; }
   .archive-products-display-section { padding: 0 20px; }
 }
