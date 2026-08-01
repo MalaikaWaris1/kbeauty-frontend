@@ -96,7 +96,7 @@ export const SaleArchive = () => {
     if (Array.isArray(prod?.images) && prod.images.length > 0) return prod.images[0];
     return "https://images.unsplash.com/photo-1608248597481-496100c80836?q=80&w=600&auto=format&fit=crop";
   };
-
+if (!loading && (!saleData || !isActive || archiveProducts.length === 0)) return null;
   return (
     <div className="sale-archive-page-wrapper">
 
