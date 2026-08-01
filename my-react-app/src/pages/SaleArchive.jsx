@@ -97,15 +97,6 @@ export const SaleArchive = () => {
     return "https://images.unsplash.com/photo-1608248597481-496100c80836?q=80&w=600&auto=format&fit=crop";
   };
 
-  if (!loading && saleData && isActive === false) {
-    return (
-      <div className="sale-ended-fallback">
-        <h2>The Exclusive Archive Sale has concluded.</h2>
-        <p>Sign up for our newsletter to receive access tokens for upcoming luxury drops.</p>
-      </div>
-    );
-  }
-
   return (
     <div className="sale-archive-page-wrapper">
 
@@ -212,6 +203,10 @@ export const SaleArchive = () => {
 
         {loading ? (
           <p style={{ textAlign: "center", padding: "40px" }}>Loading Sale Archive...</p>
+        ) : !isActive ? (
+          <p style={{ textAlign: "center", padding: "40px", fontSize: "16px", fontWeight: "500" }}>
+            There are not sale yet
+          </p>
         ) : archiveProducts.length === 0 ? (
           <p style={{ textAlign: "center", padding: "40px" }}>No active sale products available right now.</p>
         ) : (
@@ -225,7 +220,6 @@ export const SaleArchive = () => {
               const price = Number(product.salePrice || product.price || 0);
               const originalPrice = Number(product.originalPrice || product.comparePrice || product.price || 0);
               
-              // 🎯 ORIGINAL DISCOUNT CHECK
               const rawDiscount = product.discountPercentage || product.discount;
               let discountPct = "";
 
