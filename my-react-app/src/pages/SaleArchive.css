@@ -47,6 +47,8 @@
   color: #111111;
   margin: 0 0 16px 0;
   letter-spacing: -0.01em;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .archive-lead-text {
@@ -158,6 +160,8 @@
   font-weight: 400;
   color: #111111;
   margin-bottom: 40px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .archive-product-cards-layout-grid {
@@ -305,12 +309,15 @@
   font-weight: 400;
   color: #111111;
   margin: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .boutique-product-pricing-row {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .boutique-current-sale-price {
@@ -337,6 +344,8 @@
 .sale-ended-fallback h2 {
   font-size: 32px;
   color: #111111;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .sale-ended-fallback p {
@@ -344,6 +353,8 @@
   font-size: 14px;
   color: #666666;
   margin-top: 10px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* 🟢 Image Link Element Styling to support proper zoom effect */
@@ -359,6 +370,7 @@
   text-decoration: none;
   color: inherit;
   display: inline-block;
+  max-width: 100%;
 }
 
 .boutique-title-link:hover .boutique-product-title-text {
@@ -377,6 +389,8 @@
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 /* Modal Box Structure */
@@ -421,6 +435,8 @@
   line-height: 1.2;
   color: #111;
   text-align: left;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* Right Content Section */
@@ -439,12 +455,16 @@
   font-size: 28px;
   margin-bottom: 15px;
   color: #111;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .no-sale-subtext {
   font-size: 15px;
   color: #555;
   margin-bottom: 20px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .no-sale-description {
@@ -452,6 +472,8 @@
   color: #777;
   line-height: 1.6;
   margin-bottom: 30px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* Continue Shopping Button */
@@ -464,55 +486,168 @@
   text-decoration: none;
   font-weight: 600;
   transition: background 0.3s ease;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .no-sale-shopping-btn:hover {
   background: #333333;
 }
 
-/* Responsive break structures */
-@media(max-width: 768px) {
+/* ==========================================================================
+   📱 SMALL SCREENS & MOBILE RESPONSIVE FIXES (Text Wrap & Overflow handling)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .archive-hero-canvas {
+    padding: 50px 20px;
+  }
+
   .archive-main-title {
-    font-size: 38px;
-  }
-
-  .luxury-circular-countdown-grid {
-    gap: 12px;
-    padding: 100px;
-  }
-
-  .svg-ring-container {
-    width: 80px;
-    height: 80px;
-  }
-
-  .archive-product-cards-layout-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .archive-products-display-section {
-    padding: 0 20px;
+    font-size: 34px;
+    line-height: 1.25;
   }
 
   .archive-lead-text {
     font-size: 14px;
-    margin-bottom: 25px;
-    padding: 0 15px;
+    margin-bottom: 30px;
+    padding: 0 10px;
   }
-}
 
-@media(max-width: 400px) {
   .luxury-circular-countdown-grid {
-    gap: 14px;
-    padding: 100px;
+    gap: 12px;
+    padding: 0;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
   }
 
   .svg-ring-container {
-    width: 70px;
-    height: 70px;
+    width: 75px;
+    height: 75px;
+  }
+
+  .inner-counter-digits {
+    font-size: 20px;
+  }
+
+  .circle-node-label {
+    font-size: 9px;
+    margin-top: 8px;
+  }
+
+  .archive-products-display-section {
+    padding: 0 20px;
+    margin: 40px auto;
+  }
+
+  .products-grid-main-heading {
+    font-size: 26px;
+    margin-bottom: 25px;
+  }
+
+  .archive-product-cards-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  /* Modal responsive adjustment for vertical stack */
+  .no-sale-modal {
+    flex-direction: column;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .no-sale-left-panel {
+    width: 100%;
+    padding: 30px 20px;
+    border-radius: 0;
+    text-align: center;
+  }
+
+  .no-sale-left-panel h2 {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .no-sale-right-panel {
+    width: 100%;
+    padding: 30px 20px;
+    box-sizing: border-box;
+  }
+
+  .no-sale-right-panel h3 {
+    font-size: 22px;
   }
 }
 
+@media (max-width: 480px) {
+  .archive-hero-canvas {
+    padding: 40px 15px;
+  }
 
-/* Small Screens / Mobile */
+  .archive-main-title {
+    font-size: 28px;
+  }
+
+  .archive-mini-tagline {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+
+  .luxury-circular-countdown-grid {
+    gap: 8px;
+  }
+
+  .svg-ring-container {
+    width: 65px;
+    height: 65px;
+  }
+
+  .inner-counter-digits {
+    font-size: 18px;
+  }
+
+  .archive-hero-action-btn {
+    width: 100%;
+    padding: 14px 20px;
+    box-sizing: border-box;
+  }
+
+  .boutique-left-tag-badge,
+  .boutique-right-discount-badge {
+    font-size: 9px;
+    padding: 4px 8px;
+    top: 10px;
+  }
+
+  .boutique-left-tag-badge { left: 10px; }
+  .boutique-right-discount-badge { right: 10px; }
+
+  .boutique-card-wishlist-action-trigger {
+    width: 36px;
+    height: 36px;
+    bottom: 12px;
+    right: 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  .svg-ring-container {
+    width: 58px;
+    height: 58px;
+  }
+
+  .inner-counter-digits {
+    font-size: 16px;
+  }
+
+  .circle-node-label {
+    font-size: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .boutique-product-title-text {
+    font-size: 18px;
+  }
+}
