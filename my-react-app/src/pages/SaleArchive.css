@@ -2,7 +2,8 @@
 
 .sale-archive-page-wrapper {
   width: 100%;
-  background-color: #faf8f5; /* Premium soft luxury porcelain background */
+  background-color: #faf8f5;
+  /* Premium soft luxury porcelain background */
   min-height: 100vh;
   box-sizing: border-box;
 }
@@ -11,7 +12,8 @@
    👑 HERO COUNTDOWN STRUCTURE WITH CIRCULAR RINGS
    ========================================================================== */
 .archive-hero-canvas {
-  background-color: #f3dcd3; /* Identical warm blush background tone */
+  background-color: #f3dcd3;
+  /* Identical warm blush background tone */
   width: 100%;
   padding: 80px 40px;
   display: flex;
@@ -54,7 +56,10 @@
   line-height: 1.6;
   margin: 0 0 45px 0;
   max-width: 580px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
+
 
 /* Luxury Circles Layout Grid */
 .luxury-circular-countdown-grid {
@@ -81,7 +86,8 @@
 }
 
 .progress-ring-svg {
-  transform: rotate(-90deg); /* Start progress fill directly from top center point */
+  transform: rotate(-90deg);
+  /* Start progress fill directly from top center point */
 }
 
 .ring-track-bg {
@@ -92,7 +98,8 @@
 
 .ring-fill-bar {
   fill: transparent;
-  stroke: #111111; /* Luxury deep contrast marker line color */
+  stroke: #111111;
+  /* Luxury deep contrast marker line color */
   stroke-width: 2.5;
   stroke-linecap: round;
   /* Smooth transitions to handle the initialization fill wave */
@@ -155,7 +162,8 @@
 
 .archive-product-cards-layout-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 Column dynamic layout exact to layout mockups */
+  grid-template-columns: repeat(2, 1fr);
+  /* 2 Column dynamic layout exact to layout mockups */
   gap: 30px;
 }
 
@@ -168,7 +176,8 @@
 .boutique-card-image-wrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1; /* Fixed box proportions */
+  aspect-ratio: 1 / 1;
+  /* Fixed box proportions */
   background-color: #f7f3ee;
   overflow: hidden;
   border-radius: 2px;
@@ -198,7 +207,7 @@
   letter-spacing: 0.08em;
   padding: 6px 14px;
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .boutique-right-discount-badge {
@@ -255,7 +264,7 @@
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.35s ease, transform 0.35s ease;
-  background: linear-gradient(to top, rgba(0,0,0,0.08), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.08), transparent);
 }
 
 .premium-boutique-product-card:hover .boutique-card-quick-add-curtain {
@@ -274,7 +283,7 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   transition: background-color 0.2s ease;
 }
 
@@ -324,8 +333,18 @@
   padding: 120px 40px;
   font-family: 'Cormorant Garamond', serif;
 }
-.sale-ended-fallback h2 { font-size: 32px; color: #111111; }
-.sale-ended-fallback p { font-family: 'Inter', sans-serif; font-size: 14px; color: #666666; margin-top: 10px; }
+
+.sale-ended-fallback h2 {
+  font-size: 32px;
+  color: #111111;
+}
+
+.sale-ended-fallback p {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #666666;
+  margin-top: 10px;
+}
 
 /* 🟢 Image Link Element Styling to support proper zoom effect */
 .boutique-image-link-overlay {
@@ -345,6 +364,7 @@
 .boutique-title-link:hover .boutique-product-title-text {
   opacity: 0.8;
 }
+
 /* Background Overlay */
 .no-sale-overlay {
   position: fixed;
@@ -449,16 +469,50 @@
 .no-sale-shopping-btn:hover {
   background: #333333;
 }
+
 /* Responsive break structures */
 @media(max-width: 768px) {
-  .archive-main-title { font-size: 38px; }
-  .luxury-circular-countdown-grid { gap: 12px; padding:100px; }
-  .svg-ring-container { width: 80px; height: 80px; }
-  .archive-product-cards-layout-grid { grid-template-columns: 1fr; gap: 40px; }
-  .archive-products-display-section { padding: 0 20px; }
+  .archive-main-title {
+    font-size: 38px;
+  }
+
+  .luxury-circular-countdown-grid {
+    gap: 12px;
+    padding: 100px;
+  }
+
+  .svg-ring-container {
+    width: 80px;
+    height: 80px;
+  }
+
+  .archive-product-cards-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .archive-products-display-section {
+    padding: 0 20px;
+  }
+
+  .archive-lead-text {
+    font-size: 14px;
+    margin-bottom: 25px;
+    padding: 0 15px;
+  }
 }
 
 @media(max-width: 400px) {
- .luxury-circular-countdown-grid { gap: 14px; padding:100px; }
-  .svg-ring-container { width: 70px; height: 70px; }
+  .luxury-circular-countdown-grid {
+    gap: 14px;
+    padding: 100px;
+  }
+
+  .svg-ring-container {
+    width: 70px;
+    height: 70px;
+  }
 }
+
+
+/* Small Screens / Mobile */
