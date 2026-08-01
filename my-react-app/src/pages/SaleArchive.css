@@ -345,6 +345,110 @@
 .boutique-title-link:hover .boutique-product-title-text {
   opacity: 0.8;
 }
+/* Background Overlay */
+.no-sale-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Modal Box Structure */
+.no-sale-modal {
+  position: relative;
+  width: 90%;
+  max-width: 750px;
+  background: #ffffff;
+  border-radius: 12px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Close Button */
+.no-sale-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  color: #666;
+  text-decoration: none;
+  z-index: 10;
+}
+
+/* Left Beige Curve Section */
+.no-sale-left-panel {
+  width: 38%;
+  background: #F3EBE3;
+  padding: 60px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: 40%;
+  border-bottom-right-radius: 40%;
+}
+
+.no-sale-left-panel h2 {
+  font-family: serif;
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #111;
+  text-align: left;
+}
+
+/* Right Content Section */
+.no-sale-right-panel {
+  width: 62%;
+  padding: 50px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.no-sale-right-panel h3 {
+  font-family: serif;
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: #111;
+}
+
+.no-sale-subtext {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.no-sale-description {
+  font-size: 13px;
+  color: #777;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* Continue Shopping Button */
+.no-sale-shopping-btn {
+  background: #111111;
+  color: #ffffff;
+  padding: 14px 28px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.no-sale-shopping-btn:hover {
+  background: #333333;
+}
 /* Responsive break structures */
 @media(max-width: 768px) {
   .archive-main-title { font-size: 38px; }

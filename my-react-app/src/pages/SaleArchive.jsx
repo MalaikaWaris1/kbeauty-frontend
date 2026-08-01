@@ -96,7 +96,35 @@ export const SaleArchive = () => {
     if (Array.isArray(prod?.images) && prod.images.length > 0) return prod.images[0];
     return "https://images.unsplash.com/photo-1608248597481-496100c80836?q=80&w=600&auto=format&fit=crop";
   };
-if (!loading && (!saleData || !isActive || archiveProducts.length === 0)) return null;
+if (!loading && (!saleData || !isActive || archiveProducts.length === 0)) {
+  return (
+    <div className="no-sale-overlay">
+      <div className="no-sale-modal">
+        {/* Close Button */}
+        <Link to="/" className="no-sale-close-btn">&times;</Link>
+        
+        {/* Left Beige Banner */}
+        <div className="no-sale-left-panel">
+          <h2>No Active<br />Sales</h2>
+        </div>
+
+        {/* Right Content Panel */}
+        <div className="no-sale-right-panel">
+          <h3>Stay Tuned!</h3>
+          <p className="no-sale-subtext">
+            There are currently no active flash sales or discounts.
+          </p>
+          <p className="no-sale-description">
+            Our exclusive collections go on sale for very limited times. Please check back later or subscribe to our newsletter to be the first to know when the next sale drops.
+          </p>
+          <Link to="/shop" className="no-sale-shopping-btn">
+            CONTINUE SHOPPING
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
   return (
     <div className="sale-archive-page-wrapper">
 
