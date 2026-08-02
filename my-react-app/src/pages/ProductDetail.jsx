@@ -102,15 +102,10 @@ export const ProductDetail = () => {
     return () => clearInterval(timer);
   }, [recommendedProducts.length, isPaused]);
 
-  const handleNext = () => setActiveIndex((prev) => (prev + 1) % recommendedProducts.length);
-  const handlePrev = () => setActiveIndex((prev) => (prev - 1 + recommendedProducts.length) % recommendedProducts.length);
-
-  // 🟢 👈 UPDATED: Buy Now Logic (Bypasses Cart)
   const processBuyNow = (mode) => {
     localStorage.setItem("checkoutMode", mode);
-    // Product ko local storage mein save karein (bina global cart ke)
     localStorage.setItem("buyNowProduct", JSON.stringify(product));
-    localStorage.setItem("buyNowQuantity", "1"); // Default 1
+    localStorage.setItem("buyNowQuantity", "1");
     setShowPaymentModal(false);
 
     if (mode === "online") {
@@ -124,7 +119,9 @@ export const ProductDetail = () => {
 
   if (loadingProducts) {
     return (
-      <div className="product-detail-page-wrapper" style={{ padding: "100px 20px", textAlign: "center" }}><h2>Loading Product Details...</h2></div>
+      <div className="product-detail-page-wrapper" style={{ padding: "100px 20px", textAlign: "center" }}>
+        <h2>Loading Product Details...</h2>
+      </div>
     );
   }
 
@@ -137,12 +134,14 @@ export const ProductDetail = () => {
       </nav>
 
       <div className="p-detail-main-layout">
+        {/* Left Image Section */}
         <div className="p-detail-image-block">
           <div className="p-detail-img-container">
             <img src={product.image} alt={product.name} className="p-detail-hero-img" style={isOutOfStock ? { opacity: 0.7 } : {}} />
           </div>
         </div>
 
+        {/* Right Info Section */}
         <div className="p-detail-info-block">
           <span className="p-info-mini-category">{product.category.toUpperCase()}</span>
           <h1 className="p-info-main-title">{product.name}</h1>
@@ -168,9 +167,8 @@ export const ProductDetail = () => {
             <div className="spec-col"><span className="spec-heading-label">FOR</span><p className="spec-heading-value">{product.skinType}</p></div>
           </div>
 
+          {/* ACTION BUTTONS */}
           <div className="p-info-action-row" style={{ display: "flex", gap: "12px", alignItems: "center", marginTop: "25px" }}>
-            
-            {/* BUY NOW BUTTON */}
             <button 
               className="p-primary-buy-now-btn" 
               disabled={isOutOfStock}
@@ -182,7 +180,6 @@ export const ProductDetail = () => {
               {isOutOfStock ? "OUT OF STOCK" : "BUY NOW"}
             </button>
 
-            {/* ADD TO BAG BUTTON */}
             <button 
               className="p-secondary-add-bag-btn" 
               disabled={isOutOfStock}
@@ -194,7 +191,6 @@ export const ProductDetail = () => {
               ADD TO BAG
             </button>
 
-            {/* WISHLIST BUTTON */}
             <button 
               className={`p-minimal-wishlist-btn ${isWishlisted ? "wishlisted-active" : ""}`} 
               onClick={() => toggleWishlist(product)}
@@ -206,7 +202,105 @@ export const ProductDetail = () => {
             </button>
           </div>
 
-          {/* ... TABS AND RECOMMENDATIONS (Unchanged for brevity) ... */}
+          {/* 🏷️ BENEFITS / INGREDIENTS / HOW TO USE TABS */}
+          <div className="p-detail-tabs-container" style={{ marginTop: "40px", borderTop: "1px solid #f0f0f0", paddingTop: "20px" }}>
+            {/* Tab Headers */}
+            <div style={{ display: "flex", gap: "32px", borderBottom: "1px solid #eee", paddingBottom: "12px", marginBottom: "24px" }}>
+              <button
+                type="button"
+                onClick={() => setActiveTab("benefits")}
+                style={{
+                  background: "none",
+                  border: "none",
+                  fontSize: "0.85rem",
+                  fontWeight: "600",
+                  letterSpacing: "1.2px",
+                  color: activeTab === "benefits" ? "#111" : "#888",
+                  borderBottom: activeTab === "benefits" ? "2px solid #111" : "2px solid transparent",
+                  paddingBottom: "12px",
+                  marginBottom: "-13px",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease"
+                }}
+              >
+                BENEFITS
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveTab("ingredients")}
+                style={{
+                  background: "none",
+                  border: "none",
+                  fontSize: "0.85rem",
+                  fontWeight: "600",
+                  letterSpacing: "1.2px",
+                  color: activeTab === "ingredients" ? "#111" : "#888",
+                  borderBottom: activeTab === "ingredients" ? "2px solid #111" : "2px solid transparent",
+                  paddingBottom: "12px",
+                  marginBottom: "-13px",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease"
+                }}
+              >
+                INGREDIENTS
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveTab("howToUse")}
+                style={{
+                  background: "none",
+                  border: "none",
+                  fontSize: "0.85rem",
+                  fontWeight: "600",
+                  letterSpacing: "1.2px",
+                  color: activeTab === "howToUse" ? "#111" : "#888",
+                  borderBottom: activeTab === "howToUse" ? "2px solid #111" : "2px solid transparent",
+                  paddingBottom: "12px",
+                  marginBottom: "-13px",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease"
+                }}
+              >
+                HOW TO USE
+              </button>
+            </div>
+
+            {/* Tab Body Contents */}
+            <div className="p-tab-content-body">
+              {activeTab === "benefits" && (
+                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                  {Array.isArray(product.benefits) ? (
+                    product.benefits.map((item, index) => (
+                      <li key={index} style={{ display: "flex", alignItems: "baseline", gap: "12px", color: "#333", fontSize: "0.95rem", marginBottom: "14px", lineHeight: "1.6" }}>
+                        <span style={{ color: "#666", fontWeight: "300" }}>—</span>
+                        <span>{item}</span>
+                      </li>
+                    ))
+                  ) : (
+                    <li style={{ display: "flex", alignItems: "baseline", gap: "12px", color: "#333", fontSize: "0.95rem" }}>
+                      <span style={{ color: "#666" }}>—</span>
+                      <span>{product.benefits}</span>
+                    </li>
+                  )}
+                </ul>
+              )}
+
+              {activeTab === "ingredients" && (
+                <p style={{ color: "#444", fontSize: "0.92rem", lineHeight: "1.7", margin: 0 }}>
+                  {product.ingredients}
+                </p>
+              )}
+
+              {activeTab === "howToUse" && (
+                <p style={{ color: "#444", fontSize: "0.92rem", lineHeight: "1.7", margin: 0 }}>
+                  {product.howToUse}
+                </p>
+              )}
+            </div>
+          </div>
+
         </div>
       </div>
       
