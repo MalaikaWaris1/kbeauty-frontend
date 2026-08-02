@@ -305,7 +305,7 @@ export const Shop = () => {
                         }}
                         style={{
                           position: "absolute",
-                          top: "10px",
+                          top: "130px",
                           right: "10px",
                           zIndex: 10,
                           backgroundColor: "#fff",
