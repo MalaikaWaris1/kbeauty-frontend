@@ -1,4 +1,3 @@
-
 // src/pages/Shop.jsx
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import { useSearchParams, Link } from "react-router-dom";
@@ -33,7 +32,10 @@ const FALLBACK_PRODUCTS = [
 
 export const Shop = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { products: liveProducts, loadingProducts } = useContext(AppContext);
+  
+  // 🟢 FIXED: Extracted wishlist and toggleWishlist from Context
+  const { products: liveProducts, loadingProducts, wishlist, toggleWishlist } = useContext(AppContext);
+  
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("Featured");
@@ -239,11 +241,14 @@ export const Shop = () => {
                 
                 const discountPercent = getDiscountPercentage(product);
 
+                // 🟢 NEW: Check if this specific product is in the wishlist
+                const isWishlisted = wishlist ? wishlist.some((item) => String(item._id || item.id) === String(productId)) : false;
+
                 return (
                   <Link 
                     to={`/product/${productId}`} 
                     key={productId} 
-                    className="shop-product-card"
+                    className="shop-product-card group" 
                   >
                     <div className="product-card-media" style={{ position: "relative" }}>
                       
@@ -290,6 +295,46 @@ export const Shop = () => {
                           </span>
                         )}
                       </div>
+
+                      {/* 💖 WISHLIST BUTTON (Heart Icon) */}
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault(); // Prevents the link from triggering
+                          e.stopPropagation(); // Stops the click from bubbling up
+                          if (toggleWishlist) toggleWishlist(product);
+                        }}
+                        style={{
+                          position: "absolute",
+                          top: "10px",
+                          right: "10px",
+                          zIndex: 10,
+                          backgroundColor: "#fff",
+                          border: "none",
+                          borderRadius: "50%",
+                          width: "36px",
+                          height: "36px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: "pointer",
+                          boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                          transition: "transform 0.2s ease"
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.1)"}
+                        onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
+                        title={isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
+                      >
+                        <svg 
+                          viewBox="0 0 24 24" 
+                          width="18" 
+                          height="18" 
+                          fill={isWishlisted ? "#e53e3e" : "none"} 
+                          stroke={isWishlisted ? "#e53e3e" : "#111"} 
+                          strokeWidth="1.5"
+                        >
+                          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                      </button>
 
                       <img 
                         src={productImage} 
