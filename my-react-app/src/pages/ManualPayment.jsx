@@ -144,21 +144,41 @@ const ManualPayment = () => {
   if (isLoading) return null;
 
   return (
-    <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center", minHeight: "80vh", backgroundColor: "#fafafa", padding: "20px" }}>
+    <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center", minHeight: "80vh", backgroundColor: "#fafafa", padding: "12px", boxSizing: "border-box" }}>
       
+      {/* 📱 MOBILE RESPONSIVE OVERRIDES */}
+      <style>{`
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        @media (max-width: 480px) {
+          .payment-card-box {
+            padding: 20px 14px !important;
+          }
+          .payment-box-row {
+            padding: 12px 12px !important;
+            gap: 8px !important;
+          }
+          .payment-box-title {
+            font-size: 0.95rem !important;
+          }
+          .payment-box-sub {
+            font-size: 0.75rem !important;
+          }
+        }
+      `}</style>
+
       {verificationStatus !== "idle" && (
         <div style={{
           position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
           backgroundColor: "rgba(255, 255, 255, 0.9)", zIndex: 10,
           display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",
-          backdropFilter: "blur(5px)", borderRadius: "16px"
+          backdropFilter: "blur(5px)", borderRadius: "16px", padding: "20px", textAlign: "center"
         }}>
           {verificationStatus === "waiting" && (
             <>
               <div style={{ width: "50px", height: "50px", border: "5px solid #f3f3f3", borderTop: "5px solid #16a34a", borderRadius: "50%", animation: "spin 1s linear infinite" }} />
               <h2 style={{ marginTop: "20px", color: "#111" }}>Verifying Payment...</h2>
               <p style={{ color: "#666", textAlign: "center", maxWidth: "300px" }}>Please wait while our team confirms your transaction. Do not close this page.</p>
-              <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
             </>
           )}
 
@@ -186,25 +206,26 @@ const ManualPayment = () => {
         </div>
       )}
 
-      <div style={{ backgroundColor: "#fff", padding: "40px", borderRadius: "16px", maxWidth: "500px", width: "100%", boxShadow: "0 10px 40px rgba(0,0,0,0.05)", textAlign: "center" }}>
+      {/* MAIN CARD CONTAINER */}
+      <div className="payment-card-box" style={{ backgroundColor: "#fff", padding: "30px 25px", borderRadius: "16px", maxWidth: "480px", width: "100%", boxShadow: "0 10px 40px rgba(0,0,0,0.05)", textAlign: "center", boxSizing: "border-box" }}>
         
-        <h2 style={{ margin: "0 0 10px 0", color: "#111", fontSize: "1.8rem", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }}>
-          <span style={{ fontSize: "2rem" }}>💳</span> Secure Transfer
+        <h2 style={{ margin: "0 0 10px 0", color: "#111", fontSize: "1.5rem", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", flexWrap: "wrap" }}>
+          <span style={{ fontSize: "1.8rem" }}>💳</span> Secure Transfer
         </h2>
         
-        <p style={{ color: "#666", marginBottom: "25px", fontSize: "0.95rem", lineHeight: "1.5" }}>
+        <p style={{ color: "#666", marginBottom: "20px", fontSize: "0.88rem", lineHeight: "1.4" }}>
           Select your country, adjust quantity, and transfer the exact total amount to complete your order.
         </p>
 
         {/* 🌍 COUNTRY SELECTOR */}
         <div style={{ textAlign: "left", marginBottom: "20px" }}>
-          <label style={{ display: "block", marginBottom: "8px", fontWeight: "600", color: "#333", fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+          <label style={{ display: "block", marginBottom: "6px", fontWeight: "600", color: "#333", fontSize: "0.82rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>
             Destination Country *
           </label>
           <select 
             value={country} 
             onChange={(e) => setCountry(e.target.value)}
-            style={{ width: "100%", padding: "12px 15px", borderRadius: "8px", border: "1px solid #ddd", fontSize: "1rem", outline: "none", backgroundColor: "#f9fafb", cursor: "pointer" }}
+            style={{ width: "100%", padding: "10px 12px", borderRadius: "8px", border: "1px solid #ddd", fontSize: "0.95rem", outline: "none", backgroundColor: "#f9fafb", cursor: "pointer", boxSizing: "border-box" }}
           >
             <option value="Pakistan">Pakistan</option>
             <option value="United Arab Emirates">United Arab Emirates</option>
@@ -216,50 +237,73 @@ const ManualPayment = () => {
         </div>
 
         {/* ORDER SUMMARY CART */}
-        <div style={{ backgroundColor: "#f9fafb", padding: "15px", borderRadius: "12px", marginBottom: "25px", textAlign: "left", border: "1px solid #eee" }}>
-          <h4 style={{ margin: "0 0 15px 0", fontSize: "0.95rem", color: "#444", textTransform: "uppercase", letterSpacing: "1px" }}>Order Summary</h4>
+        <div style={{ backgroundColor: "#f9fafb", padding: "12px 14px", borderRadius: "12px", marginBottom: "20px", textAlign: "left", border: "1px solid #eee", width: "100%", boxSizing: "border-box" }}>
+          <h4 style={{ margin: "0 0 12px 0", fontSize: "0.85rem", color: "#444", textTransform: "uppercase", letterSpacing: "1px" }}>Order Summary</h4>
           
           {displayCart.map((item, index) => (
-            <div key={index} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "15px", paddingBottom: "15px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                <img src={item.image || item.images?.[0]} alt={item.name} style={{ width: "50px", height: "50px", borderRadius: "6px", objectFit: "cover" }} />
-                <div>
-                  <p style={{ margin: "0 0 5px 0", fontSize: "0.9rem", fontWeight: "600", color: "#111", maxWidth: "150px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.name}</p>
-                  <p style={{ margin: 0, fontSize: "0.85rem", color: "#16a34a", fontWeight: "600" }}>PKR {(Number(item.price) * exchangeRate).toLocaleString(undefined, {maximumFractionDigits:0})}</p>
+            <div key={index} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "6px", marginBottom: "12px", paddingBottom: "12px", borderBottom: index !== displayCart.length - 1 ? "1px dashed #eee" : "none" }}>
+              
+              {/* LEFT: PRODUCT IMAGE & DETAILS */}
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", flex: "1", minWidth: 0 }}>
+                <img 
+                  src={item.image || item.images?.[0]} 
+                  alt={item.name} 
+                  style={{ width: "40px", height: "40px", borderRadius: "6px", objectFit: "cover", flexShrink: 0 }} 
+                />
+                <div style={{ flex: "1", minWidth: 0 }}>
+                  <p style={{ margin: "0 0 2px 0", fontSize: "0.82rem", fontWeight: "600", color: "#111", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    {item.name}
+                  </p>
+                  <p style={{ margin: 0, fontSize: "0.78rem", color: "#16a34a", fontWeight: "600", whiteSpace: "nowrap" }}>
+                    PKR {(Number(item.price) * exchangeRate).toLocaleString(undefined, {maximumFractionDigits:0})}
+                  </p>
                 </div>
               </div>
 
-              {/* QUANTITY SELECTOR */}
-              <div style={{ display: "flex", alignItems: "center", border: "1px solid #ddd", borderRadius: "6px", backgroundColor: "#fff" }}>
-                <button onClick={() => handleQuantityChange(item, 'dec')} style={{ padding: "6px 12px", border: "none", background: "transparent", cursor: "pointer", fontSize: "1.1rem" }}>-</button>
-                <span style={{ padding: "6px 12px", fontSize: "0.9rem", fontWeight: "600", borderLeft: "1px solid #ddd", borderRight: "1px solid #ddd", minWidth: "35px", textAlign: "center" }}>{item.quantity}</span>
-                <button onClick={() => handleQuantityChange(item, 'inc')} style={{ padding: "6px 12px", border: "none", background: "transparent", cursor: "pointer", fontSize: "1.1rem" }}>+</button>
+              {/* RIGHT: COMPACT QUANTITY SELECTOR (NO OVERFLOW) */}
+              <div style={{ display: "flex", alignItems: "center", border: "1px solid #ddd", borderRadius: "6px", backgroundColor: "#fff", flexShrink: 0 }}>
+                <button 
+                  onClick={() => handleQuantityChange(item, 'dec')} 
+                  style={{ padding: "3px 7px", border: "none", background: "transparent", cursor: "pointer", fontSize: "0.95rem", lineHeight: "1" }}
+                >
+                  -
+                </button>
+                <span style={{ padding: "3px 5px", fontSize: "0.8rem", fontWeight: "600", borderLeft: "1px solid #ddd", borderRight: "1px solid #ddd", minWidth: "20px", textAlign: "center" }}>
+                  {item.quantity}
+                </span>
+                <button 
+                  onClick={() => handleQuantityChange(item, 'inc')} 
+                  style={{ padding: "3px 7px", border: "none", background: "transparent", cursor: "pointer", fontSize: "0.95rem", lineHeight: "1" }}
+                >
+                  +
+                </button>
               </div>
+
             </div>
           ))}
 
           {/* 🚚 DYNAMIC PRICING BREAKDOWN */}
-          <div style={{ borderTop: "1px solid #eaeaea", paddingTop: "15px" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", color: "#444" }}>
+          <div style={{ borderTop: "1px solid #eaeaea", paddingTop: "12px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px", color: "#444", fontSize: "0.85rem" }}>
               <span>Subtotal:</span>
               <span style={{ fontWeight: "600" }}>PKR {currentSubtotalPKR.toLocaleString(undefined, {maximumFractionDigits:0})}</span>
             </div>
             
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "15px", color: "#444" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px", color: "#444", fontSize: "0.85rem" }}>
               <span>Delivery ({country}):</span>
               <span style={{ fontWeight: "600", color: deliveryChargePKR === 0 ? "#16a34a" : "#444" }}>
                 {isInternational ? "Calculated Later" : (deliveryChargePKR === 0 ? "Free Delivery" : `PKR ${deliveryChargePKR}`)}
               </span>
             </div>
             
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px dashed #ccc", paddingTop: "10px" }}>
-              <span style={{ fontWeight: "600", color: "#111", fontSize: "1.1rem" }}>Total to Pay:</span>
-              <span style={{ fontWeight: "bold", color: "#d9534f", fontSize: "1.2rem" }}>PKR {finalTotalPKR.toLocaleString(undefined, {maximumFractionDigits:0})}</span>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px dashed #ccc", paddingTop: "8px" }}>
+              <span style={{ fontWeight: "600", color: "#111", fontSize: "0.95rem" }}>Total to Pay:</span>
+              <span style={{ fontWeight: "bold", color: "#d9534f", fontSize: "1.05rem" }}>PKR {finalTotalPKR.toLocaleString(undefined, {maximumFractionDigits:0})}</span>
             </div>
             
             {isInternational && (
-              <div style={{ textAlign: "right", marginTop: "5px" }}>
-                 <small style={{ color: "#888", fontSize: "0.75rem", fontStyle: "italic" }}>
+              <div style={{ textAlign: "right", marginTop: "4px" }}>
+                 <small style={{ color: "#888", fontSize: "0.72rem", fontStyle: "italic" }}>
                    *Custom shipping will be billed separately.
                  </small>
               </div>
@@ -268,27 +312,27 @@ const ManualPayment = () => {
         </div>
 
         {/* 🟡 JazzCash Box */}
-        <div style={{ border: "2px solid #efefef", borderRadius: "12px", padding: "15px 20px", marginBottom: "15px", textAlign: "left", display: "flex", alignItems: "center", gap: "15px", backgroundColor: "#fff" }}>
-          <div style={{ backgroundColor: "#ed1c24", color: "#fff", padding: "6px 10px", borderRadius: "6px", fontWeight: "bold", fontStyle: "italic", fontSize: "0.9rem", letterSpacing: "0.5px" }}>JazzCash</div>
-          <div style={{ marginLeft: "auto", textAlign: "right" }}>
-            <p style={{ margin: "0", color: "#111", fontSize: "1.1rem", fontWeight: "bold", letterSpacing: "1px" }}>0342 0466996</p>
-            <small style={{ color: "#888", fontWeight: "500" }}>Account Title: Ahmed Waris</small>
+        <div className="payment-box-row" style={{ border: "2px solid #efefef", borderRadius: "12px", padding: "12px 16px", marginBottom: "12px", textAlign: "left", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px", backgroundColor: "#fff", boxSizing: "border-box" }}>
+          <div style={{ backgroundColor: "#ed1c24", color: "#fff", padding: "5px 8px", borderRadius: "6px", fontWeight: "bold", fontStyle: "italic", fontSize: "0.8rem", letterSpacing: "0.5px", flexShrink: 0 }}>JazzCash</div>
+          <div style={{ textAlign: "right", minWidth: 0 }}>
+            <p className="payment-box-title" style={{ margin: "0", color: "#111", fontSize: "1rem", fontWeight: "bold", letterSpacing: "0.5px", whiteSpace: "nowrap" }}>0342 0466996</p>
+            <small className="payment-box-sub" style={{ color: "#888", fontWeight: "500", fontSize: "0.78rem", display: "block", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Account Title: Ahmed Waris</small>
           </div>
         </div>
 
         {/* 🟢 EasyPaisa Box */}
-        <div style={{ border: "2px solid #efefef", borderRadius: "12px", padding: "15px 20px", marginBottom: "30px", textAlign: "left", display: "flex", alignItems: "center", gap: "15px", backgroundColor: "#fff" }}>
-          <div style={{ backgroundColor: "#00a350", color: "#fff", padding: "6px 10px", borderRadius: "6px", fontWeight: "bold", fontSize: "0.9rem", letterSpacing: "0.5px" }}>easypaisa</div>
-          <div style={{ marginLeft: "auto", textAlign: "right" }}>
-            <p style={{ margin: "0", color: "#111", fontSize: "1.1rem", fontWeight: "bold", letterSpacing: "1px" }}>0342 0466996</p>
-            <small style={{ color: "#888", fontWeight: "500" }}>Account Title: Ahmed Waris</small>
+        <div className="payment-box-row" style={{ border: "2px solid #efefef", borderRadius: "12px", padding: "12px 16px", marginBottom: "25px", textAlign: "left", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px", backgroundColor: "#fff", boxSizing: "border-box" }}>
+          <div style={{ backgroundColor: "#00a350", color: "#fff", padding: "5px 8px", borderRadius: "6px", fontWeight: "bold", fontSize: "0.8rem", letterSpacing: "0.5px", flexShrink: 0 }}>easypaisa</div>
+          <div style={{ textAlign: "right", minWidth: 0 }}>
+            <p className="payment-box-title" style={{ margin: "0", color: "#111", fontSize: "1rem", fontWeight: "bold", letterSpacing: "0.5px", whiteSpace: "nowrap" }}>0342 0466996</p>
+            <small className="payment-box-sub" style={{ color: "#888", fontWeight: "500", fontSize: "0.78rem", display: "block", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Account Title: Ahmed Waris</small>
           </div>
         </div>
 
         {/* I HAVE PAID BUTTON */}
         <button 
           onClick={handlePaymentDone}
-          style={{ width: "100%", padding: "18px", backgroundColor: "#16a34a", color: "#fff", border: "none", borderRadius: "8px", fontSize: "1rem", fontWeight: "bold", cursor: "pointer", transition: "0.3s", boxShadow: "0 4px 15px rgba(22, 163, 74, 0.3)" }}
+          style={{ width: "100%", padding: "15px", backgroundColor: "#16a34a", color: "#fff", border: "none", borderRadius: "8px", fontSize: "0.95rem", fontWeight: "bold", cursor: "pointer", transition: "0.3s", boxShadow: "0 4px 15px rgba(22, 163, 74, 0.3)", boxSizing: "border-box" }}
         >
           ☑️ I HAVE DONE PAYMENT
         </button>
@@ -298,7 +342,7 @@ const ManualPayment = () => {
             if(isBuyNowFlow) localStorage.removeItem("buyNowProduct");
             navigate(-1);
           }}
-          style={{ width: "100%", padding: "15px", backgroundColor: "transparent", color: "#888", border: "none", marginTop: "10px", fontSize: "0.9rem", cursor: "pointer", textDecoration: "underline" }}
+          style={{ width: "100%", padding: "12px", backgroundColor: "transparent", color: "#888", border: "none", marginTop: "8px", fontSize: "0.85rem", cursor: "pointer", textDecoration: "underline" }}
         >
           Cancel and modify order
         </button>
