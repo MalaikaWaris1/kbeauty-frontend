@@ -36,8 +36,15 @@ const ManualPayment = () => {
     setIsLoading(false);
   }, [cart, navigate]);
 
+  // 🧮 DYNAMIC TOTAL & DELIVERY CHARGE CALCULATOR
   const currentSubtotalUSD = displayCart.reduce((total, item) => total + (item.price * (item.quantity || 1)), 0);
   const currentSubtotalPKR = currentSubtotalUSD * exchangeRate;
+  
+  // 🚚 Delivery Logic: Free above 6000 PKR, else 290 PKR
+  const deliveryChargePKR = currentSubtotalPKR >= 6000 ? 0 : 290;
+  
+  // 💵 Final Total
+  const finalTotalPKR = currentSubtotalPKR + deliveryChargePKR;
 
   const handleQuantityChange = (itemToUpdate, action) => {
     if (isBuyNowFlow) {
@@ -76,7 +83,7 @@ const ManualPayment = () => {
       const response = await API.post("/orders/notify-admin", {
         message: `Online manual payment initiated via ${isBuyNowFlow ? 'Buy Now' : 'Shopping Cart'} flow.`,
         items: displayCart,
-        totalAmountPKR: currentSubtotalPKR,
+        totalAmountPKR: finalTotalPKR, // 👈 Updated to send Final Total including DC
         status: "Pending"
       });
       
@@ -181,7 +188,7 @@ const ManualPayment = () => {
           <h4 style={{ margin: "0 0 15px 0", fontSize: "0.95rem", color: "#444", textTransform: "uppercase", letterSpacing: "1px" }}>Order Summary</h4>
           
           {displayCart.map((item, index) => (
-            <div key={index} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "15px", borderBottom: "1px solid #eaeaea", paddingBottom: "15px" }}>
+            <div key={index} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "15px", paddingBottom: "15px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                 <img src={item.image || item.images?.[0]} alt={item.name} style={{ width: "50px", height: "50px", borderRadius: "6px", objectFit: "cover" }} />
                 <div>
@@ -199,9 +206,29 @@ const ManualPayment = () => {
             </div>
           ))}
 
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "5px" }}>
-            <span style={{ fontWeight: "600", color: "#111", fontSize: "1.1rem" }}>Total to Pay:</span>
-            <span style={{ fontWeight: "bold", color: "#d9534f", fontSize: "1.2rem" }}>PKR {currentSubtotalPKR.toLocaleString()}</span>
+          {/* 🚚 DYNAMIC PRICING BREAKDOWN */}
+          <div style={{ borderTop: "1px solid #eaeaea", paddingTop: "15px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", color: "#444" }}>
+              <span>Subtotal:</span>
+              <span style={{ fontWeight: "600" }}>PKR {currentSubtotalPKR.toLocaleString()}</span>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "15px", color: "#444" }}>
+              <span>Delivery (Pakistan):</span>
+              <span style={{ fontWeight: "600", color: deliveryChargePKR === 0 ? "#16a34a" : "#444" }}>
+                {deliveryChargePKR === 0 ? "Free Delivery" : `PKR ${deliveryChargePKR}`}
+              </span>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px dashed #ccc", paddingTop: "10px" }}>
+              <span style={{ fontWeight: "600", color: "#111", fontSize: "1.1rem" }}>Total to Pay:</span>
+              <span style={{ fontWeight: "bold", color: "#d9534f", fontSize: "1.2rem" }}>PKR {finalTotalPKR.toLocaleString()}</span>
+            </div>
+            
+            {/* 🌍 International Notice */}
+            <div style={{ textAlign: "right", marginTop: "5px" }}>
+               <small style={{ color: "#888", fontSize: "0.75rem", fontStyle: "italic" }}>
+                 *Foreign countries: No delivery charges added here. Custom shipping will be billed separately.
+               </small>
+            </div>
           </div>
         </div>
 
