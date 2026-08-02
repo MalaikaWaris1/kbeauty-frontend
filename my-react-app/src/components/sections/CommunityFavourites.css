@@ -187,7 +187,7 @@
 }
 
 /* ==========================================================================
-   💬 COMMUNITY REVIEW REVEAL LAYERING
+   💬 COMMUNITY REVIEW REVEAL LAYERING (DESKTOP)
    ========================================================================== */
 .fav-review-overlay {
   position: absolute;
@@ -232,7 +232,7 @@
   color: #cbd5e1;
 }
 
-/* Hover Interactions State */
+/* Hover Interactions State (Desktop Only) */
 .fav-product-card:hover .main-look {
   opacity: 0;
 }
@@ -256,7 +256,6 @@
   position: relative;
 }
 
-/* 🟢 Removing underline from Product Title Link */
 .fav-info-wrapper a {
   text-decoration: none !important;
   color: inherit;
@@ -268,7 +267,7 @@
   font-weight: 400;
   color: #1a1a1a;
   margin: 0 0 4px 0;
-  text-decoration: none !important; /* Title Underline Removed */
+  text-decoration: none !important;
 }
 
 .fav-price-row {
@@ -292,7 +291,6 @@
   text-decoration: line-through;
 }
 
-/* 🟢 QUICK ADD UNDERLINE (Restored original animation) */
 .fav-quick-add-btn {
   background: transparent;
   border: none;
@@ -334,7 +332,7 @@
 }
 
 /* ==========================================================================
-   📱 MOBILE & TABLET STYLING OVERRIDES (2 or 3 cards per row)
+   📱 MOBILE & TABLET STYLING OVERRIDES
    ========================================================================== */
 @media (max-width: 1024px) {
   .fav-products-grid { 
@@ -351,14 +349,13 @@
     padding: 45px 16px; 
   }
   
-  /* 🟢 Responsive: Exactly 2 Compact Cards per row on Mobile/Tablet */
   .fav-products-grid { 
     grid-template-columns: repeat(3, 1fr); 
     gap: 14px; 
   }
 
   .fav-product-title {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .current-price {
@@ -370,19 +367,37 @@
   }
 
   .fav-badge-row {
-    top: 8px;
-    left: 8px;
-    right: 8px;
+    top: 6px;
+    left: 6px;
+    right: 6px;
   }
 
   .fav-status-badge, .fav-discount-badge {
     font-size: 8px;
-    padding: 3px 6px;
+    padding: 2px 5px;
   }
 
-  /* 🟢 Static Overlay on Small Screens (Hover ki zaroorat nahi padegi) */
+  /* 🟢 Compact Overlay for Tablet/Mobile */
   .fav-review-overlay { 
-    opacity: 1; 
+    opacity: 1;
+    padding: 10px 8px 6px 8px; /* Pehle 24px tha, ab kaafi chhota ho gaya hai */
+    gap: 2px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.25) 75%, transparent 100%);
+  }
+
+  .star-icon {
+    width: 10px; /* Stars size 13px se ghata kar 10px */
+    height: 10px;
+  }
+
+  .overlay-quote {
+    font-size: 0.68rem; /* Quote font 0.85rem se ghata kar 0.68rem */
+    line-height: 1.2;
+    margin: 1px 0;
+  }
+
+  .overlay-author {
+    font-size: 0.6rem; /* Author font 0.75rem se ghata kar 0.6rem */
   }
 
   .fav-product-card:hover .main-look { 
@@ -406,5 +421,25 @@
 
   .fav-overline {
     font-size: 10px;
+  }
+
+  /* 🟢 Extra Ultra-Compact Overlay for Small Mobile Screens */
+  .fav-review-overlay {
+    padding: 8px 6px 4px 6px;
+    gap: 1px;
+  }
+
+  .star-icon {
+    width: 9px;
+    height: 9px;
+  }
+
+  .overlay-quote {
+    font-size: 0.62rem;
+    line-height: 1.15;
+  }
+
+  .overlay-author {
+    font-size: 0.55rem;
   }
 }
