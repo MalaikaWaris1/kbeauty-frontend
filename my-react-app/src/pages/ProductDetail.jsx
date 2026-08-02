@@ -94,6 +94,7 @@ export const ProductDetail = () => {
     return [...sameCategory, ...otherProducts].slice(0, 8);
   }, [sourceProducts, product._id, product.category]);
 
+  // ⏱️ Auto Slide every 5s
   useEffect(() => {
     if (recommendedProducts.length <= 1 || isPaused) return;
     const timer = setInterval(() => {
@@ -101,6 +102,15 @@ export const ProductDetail = () => {
     }, 5000);
     return () => clearInterval(timer);
   }, [recommendedProducts.length, isPaused]);
+
+  // 🔄 Carousel Controls
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % recommendedProducts.length);
+  };
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev - 1 + recommendedProducts.length) % recommendedProducts.length);
+  };
 
   const processBuyNow = (mode) => {
     localStorage.setItem("checkoutMode", mode);
@@ -303,10 +313,80 @@ export const ProductDetail = () => {
 
         </div>
       </div>
+
+      {/* 🟢 3D INFINITE CAROUSEL (Zero Space - Perfectly Centered) */}
+      <section className="p-detail-recommendations-section">
+        <h2 className="p-rec-main-heading">You may also love</h2>
+       
+        <div
+          className="p-3d-stage"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {recommendedProducts.map((recProd, index) => {
+            const total = recommendedProducts.length;
+            // 🔄 Infinite Circular Offset Math (Fixes left empty space completely)
+            let offset = (index - activeIndex + total) % total;
+            if (offset > total / 2) {
+              offset -= total;
+            }
+
+            const absOffset = Math.abs(offset);
+            const isCenter = offset === 0;
+
+            const recId = recProd._id || recProd.id;
+            const recName = recProd.name || recProd.title || "Product";
+            const recImage = (Array.isArray(recProd.images) && recProd.images.length > 0 && recProd.images[0]) || recProd.image || "https://via.placeholder.com/500?text=Product";
+            const recPrice = Number(recProd.price) || 0;
+            const tagBadge = recProd.tag || (Array.isArray(recProd.badges) ? recProd.badges[0] : recProd.badges);
+            const discountBadge = recProd.discount ? `-${recProd.discount}%` : recProd.discountLabel;
+            
+            return (
+              <div
+                key={recId}
+                className={`p-3d-card-wrapper ${isCenter ? "is-center" : ""}`}
+                style={{
+                  "--offset": offset,
+                  "--abs-offset": absOffset
+                }}
+                onClick={() => setActiveIndex(index)}
+              >
+                <Link to={`/product/${recId}`} className="p-3d-item-card">
+                  <div className="p-3d-card-media">
+                    {tagBadge && <span className="p-rec-tag-badge">{tagBadge}</span>}
+                    {discountBadge && <span className="p-rec-discount-badge">{discountBadge}</span>}
+                     <img
+                      src={recImage}
+                      alt={recName}
+                      className={`p-3d-img ${isCenter ? "animated-pulse-zoom" : ""}`}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "https://via.placeholder.com/500?text=No+Image";
+                      }}
+                    />
+                    <div className="p-3d-card-overlay">
+                      <h4 className="p-3d-card-title">{recName}</h4>
+                      <p className="p-3d-card-price">
+                        ${recPrice.toFixed(2)} <span className="p-rec-pkr">/ PKR {(recPrice * exchangeRate).toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* ↔️ Arrow Controls */}
+        <div className="p-rec-slider-controls">
+          <button className="p-rec-nav-arrow" onClick={handlePrev}>&#10094;</button>
+          <button className="p-rec-nav-arrow" onClick={handleNext}>&#10095;</button>
+        </div>
+      </section>
       
       {/* 💳 PAYMENT MODAL OVERLAY */}
       {showPaymentModal && (
-        <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", backgroundColor: "rgba(0, 0, 0, 0.6)", zIndex: 9999, display: "flex", justifyContent: "center", alignItems: "center", backdropFilter: "blur(4px)" }}>
+       <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", backgroundColor: "rgba(0, 0, 0, 0.6)", zIndex: 9999, display: "flex", justifyContent: "center", alignItems: "center", backdropFilter: "blur(4px)" }}>
           <div style={{ backgroundColor: "#fff", padding: "40px", borderRadius: "12px", maxWidth: "420px", width: "90%", textAlign: "center", boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)" }}>
             <h3 style={{ margin: "0 0 10px 0", fontSize: "1.5rem", fontWeight: "600", color: "#111" }}>Complete Your Purchase</h3>
             <p style={{ margin: "0 0 30px 0", color: "#666", fontSize: "0.95rem" }}>Please select your preferred payment method for <strong>{product.name}</strong>.</p>
@@ -334,3 +414,5 @@ export const ProductDetail = () => {
     </div>
   );
 };
+
+export default ProductDetail;
