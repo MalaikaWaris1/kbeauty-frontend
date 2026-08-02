@@ -114,7 +114,7 @@ const ManualPayment = () => {
       }
     } catch (error) {
       console.log("Admin notification failed", error);
-      alert("Server error. Please try again or contact support.");
+      alert("Server error. Please login First or contact support.");
       setVerificationStatus("idle");
     }
   };
