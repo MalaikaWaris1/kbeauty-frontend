@@ -18,6 +18,42 @@ const Checkout = () => {
   const checkoutMode = localStorage.getItem("checkoutMode") || "cod";
   const isOnlinePayment = checkoutMode === "online"; 
 
+  // 🛒 SMART CART DETECTION (Buy Now vs Normal Cart)
+  const [displayCart, setDisplayCart] = useState([]);
+  const [calculatedSubtotal, setCalculatedSubtotal] = useState(0);
+  const [calculatedTotal, setCalculatedTotal] = useState(0);
+  const [isBuyNowFlow, setIsBuyNowFlow] = useState(false);
+
+  useEffect(() => {
+    const storedBuyNowProduct = localStorage.getItem("buyNowProduct");
+    const storedBuyNowQuantity = localStorage.getItem("buyNowQuantity");
+
+    if (storedBuyNowProduct) {
+      // 🟢 USER CAME FROM "BUY NOW"
+      setIsBuyNowFlow(true);
+      const product = JSON.parse(storedBuyNowProduct);
+      const qty = Number(storedBuyNowQuantity) || 1;
+      product.quantity = qty;
+      setDisplayCart([product]);
+    } else {
+      // 🟡 USER CAME FROM "ADD TO BAG" (NORMAL CART)
+      setIsBuyNowFlow(false);
+      setDisplayCart(cart);
+    }
+  }, [cart]); // Dependency me cart bhi diya taake cart change hone par update ho
+
+  // 🧮 DYNAMIC TOTALS RE-CALCULATION
+  useEffect(() => {
+    if (isBuyNowFlow) {
+      const sub = displayCart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+      setCalculatedSubtotal(sub);
+      setCalculatedTotal(sub + shippingCost); // Context wala shippingCost use kar liya
+    } else {
+      setCalculatedSubtotal(cartSubtotal);
+      setCalculatedTotal(totalAmount);
+    }
+  }, [displayCart, isBuyNowFlow, cartSubtotal, totalAmount, shippingCost]);
+
   // 🌐 FETCH LIVE USD TO PKR EXCHANGE RATE
   useEffect(() => {
     const fetchExchangeRate = async () => {
@@ -31,11 +67,9 @@ const Checkout = () => {
         console.error("Live PKR Rate Fetch Failed, using fallback rate:", err);
       }
     };
-
     fetchExchangeRate();
   }, []);
 
-  // 💵 HELPER FUNCTION TO FORMAT PKR
   const formatPKR = (usdAmount) => {
     if (usdAmount === undefined || usdAmount === null) return "Rs. 0";
     const pkrAmount = Math.round(usdAmount * exchangeRate);
@@ -46,10 +80,8 @@ const Checkout = () => {
     firstName: "", lastName: "", email: "", phone: "",
     street: "", city: "", postalCode: "", country: "Pakistan", notes: ""
   };
-
   const [formData, setFormData] = useState(initialState);
 
-  // ✈️ DETECT INTERNATIONAL COUNTRY
   const userCountry = formData.country.trim().toLowerCase();
   const isInternational = userCountry !== "" && !["pakistan", "pk", "pak"].includes(userCountry);
 
@@ -57,21 +89,38 @@ const Checkout = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // 🟢 PROFESSIONAL QUANTITY HANDLER (Works only if COD)
+  // 🟢 SMART QUANTITY HANDLER (Works for both Buy Now & Cart, but Locked if Online)
   const handleQuantityChange = (itemToUpdate, action) => {
-    if (isOnlinePayment) return; // Ek additional security check (Lock bypass na ho)
-    
-    if (setCart) {
-      const updatedCart = cart.map(item => {
+    if (isOnlinePayment) return; // Online walon k liye lock
+
+    if (isBuyNowFlow) {
+      // Buy Now Flow me localStorage aur displayCart ko update karein
+      const updatedCart = displayCart.map(item => {
         if ((item._id || item.id) === (itemToUpdate._id || itemToUpdate.id)) {
           let newQty = item.quantity;
           if (action === 'inc') newQty += 1;
           if (action === 'dec' && newQty > 1) newQty -= 1;
+          
+          localStorage.setItem("buyNowQuantity", newQty); // Update Storage
           return { ...item, quantity: newQty };
         }
         return item;
       });
-      setCart(updatedCart);
+      setDisplayCart(updatedCart);
+    } else {
+      // Normal Cart flow me global context ko update karein
+      if (setCart) {
+        const updatedCart = cart.map(item => {
+          if ((item._id || item.id) === (itemToUpdate._id || itemToUpdate.id)) {
+            let newQty = item.quantity;
+            if (action === 'inc') newQty += 1;
+            if (action === 'dec' && newQty > 1) newQty -= 1;
+            return { ...item, quantity: newQty };
+          }
+          return item;
+        });
+        setCart(updatedCart);
+      }
     }
   };
 
@@ -80,8 +129,8 @@ const Checkout = () => {
     e.preventDefault();
     setErrorMessage("");
 
-    if (cart.length === 0) {
-      alert("Your shopping bag is empty.");
+    if (displayCart.length === 0) {
+      alert("Your order summary is empty.");
       return;
     }
 
@@ -101,14 +150,14 @@ const Checkout = () => {
           postalCode: formData.postalCode,
           country: formData.country
         },
-        items: cart.map((item) => ({
+        items: displayCart.map((item) => ({
           product: item._id || item.id,
           name: item.name,
           quantity: item.quantity,
           price: Number(item.price)
         })),
         isInternationalOrder: isInternational,
-        paymentMethod: isOnlinePayment ? "Online (Pre-Paid)" : "Cash on Delivery", // 👈 Backend ko pata chalega
+        paymentMethod: isOnlinePayment ? "Online (Pre-Paid)" : "Cash on Delivery",
         orderNotes: formData.notes
       };
 
@@ -116,9 +165,17 @@ const Checkout = () => {
 
       if (response.status === 201) {
         alert("🎉 Order successfully placed! Thank you for shopping with us.");
-        clearCart();
+        
+        // ✨ CLEANUP STORAGE JAB ORDER HO JAYE
+        if (isBuyNowFlow) {
+          localStorage.removeItem("buyNowProduct");
+          localStorage.removeItem("buyNowQuantity");
+        } else {
+          clearCart();
+        }
+        localStorage.removeItem("checkoutMode"); 
+        
         setFormData(initialState);
-        localStorage.removeItem("checkoutMode"); // Clear mode after successful order
         navigate("/");
       }
     } catch (err) {
@@ -144,7 +201,6 @@ const Checkout = () => {
 
       <h1>Checkout</h1>
 
-      {/* ✈️ STYLISH HIGH-ATTENTION INTERNATIONAL SHIPPING BANNER */}
       {isInternational ? (
         <div className="intl-banner-container">
           <div className="intl-banner-header">
@@ -176,7 +232,6 @@ const Checkout = () => {
 
       <form className="checkout-form-grid" onSubmit={handleSubmit}>
         
-        {/* LEFT PANEL: FORM DETAILS */}
         <div className="checkout-left">
           <h3>Contact Information</h3>
           <div className="form-row">
@@ -202,14 +257,12 @@ const Checkout = () => {
           </button>
         </div>
 
-        {/* RIGHT PANEL: ORDER SUMMARY */}
         <div className="checkout-right">
           <div className="summary-header-row">
             <h3>Order Summary</h3>
             <span className="exchange-badge">(1 USD ≈ {exchangeRate.toFixed(1)} PKR)</span>
           </div>
 
-          {/* 🔒 ONLINE PAYMENT LOCK NOTIFICATION */}
           {isOnlinePayment && (
             <div style={{ backgroundColor: "#eef2ff", border: "1px solid #c7d2fe", padding: "12px", borderRadius: "8px", marginBottom: "20px", display: "flex", alignItems: "flex-start", gap: "10px" }}>
               <span style={{ fontSize: "1.2rem" }}>💳</span>
@@ -223,7 +276,8 @@ const Checkout = () => {
           )}
 
           <div className="summary-item-list">
-            {cart.map((item, index) => (
+            {/* 🟢 AB YAHAN cart KI JAGAH displayCart MAP HOGA */}
+            {displayCart.map((item, index) => (
               <div key={index} className="summary-item" style={{ display: "flex", alignItems: "center", gap: "15px", marginBottom: "20px" }}>
                 <img src={item.images?.[0] || item.image} alt={item.name} style={{ width: "70px", height: "70px", objectFit: "cover", borderRadius: "8px" }} />
                 
@@ -232,7 +286,6 @@ const Checkout = () => {
                   
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     
-                    {/* 🔘 SMART QUANTITY SELECTOR (LOCKED IF ONLINE, ACTIVE IF COD) */}
                     <div style={{ 
                       display: "flex", alignItems: "center", border: "1px solid #ddd", 
                       borderRadius: "6px", overflow: "hidden", 
@@ -265,7 +318,6 @@ const Checkout = () => {
                       </small>
                     </div>
                   </div>
-
                 </div>
               </div>
             ))}
@@ -275,8 +327,8 @@ const Checkout = () => {
             <div className="total-row">
               <span>Subtotal</span>
               <span style={{ textAlign: "right" }}>
-                ${cartSubtotal.toFixed(2)}
-                <small className="pkr-price-text">{formatPKR(cartSubtotal)}</small>
+                ${calculatedSubtotal.toFixed(2)}
+                <small className="pkr-price-text">{formatPKR(calculatedSubtotal)}</small>
               </span>
             </div>
 
@@ -298,9 +350,9 @@ const Checkout = () => {
             <div className="total-row total-bold">
               <span>Total</span>
               <span style={{ textAlign: "right" }}>
-                ${totalAmount.toFixed(2)}
+                ${calculatedTotal.toFixed(2)}
                 <small className="pkr-total-text">
-                  {formatPKR(totalAmount)} {isInternational ? "+ Custom DC" : ""}
+                  {formatPKR(calculatedTotal)} {isInternational ? "+ Custom DC" : ""}
                 </small>
               </span>
             </div>
