@@ -297,16 +297,19 @@ export const Shop = () => {
                       </div>
 
                       {/* 💖 WISHLIST BUTTON (Heart Icon) */}
+                      {/* 💖 WISHLIST BUTTON (Bottom-Right & Show on Hover) */}
                       <button
+                        className="wishlist-hover-btn"
                         onClick={(e) => {
-                          e.preventDefault(); // Prevents the link from triggering
-                          e.stopPropagation(); // Stops the click from bubbling up
+                          e.preventDefault(); 
+                          e.stopPropagation(); 
                           if (toggleWishlist) toggleWishlist(product);
                         }}
                         style={{
                           position: "absolute",
-                          top: "130px",
+                          bottom: "10px", // 👈 Bottom right corner
                           right: "10px",
+                          top: "auto",
                           zIndex: 10,
                           backgroundColor: "#fff",
                           border: "none",
@@ -318,10 +321,12 @@ export const Shop = () => {
                           justifyContent: "center",
                           cursor: "pointer",
                           boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-                          transition: "transform 0.2s ease"
+                          transition: "all 0.25s ease",
+                          // 👇 Agar pehle se wishlisted hai toh show ho, warna hide rahe
+                          opacity: isWishlisted ? 1 : 0,
+                          pointerEvents: isWishlisted ? "auto" : "none",
+                          transform: isWishlisted ? "scale(1)" : "scale(0.8)"
                         }}
-                        onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.1)"}
-                        onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
                         title={isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
                       >
                         <svg 

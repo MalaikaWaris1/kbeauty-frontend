@@ -271,7 +271,17 @@
   padding: 40px 0;
   text-align: center;
 }
+/* Card par hover karne se Wishlist button show ho */
+.shop-product-card:hover .wishlist-hover-btn {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: scale(1) !important;
+}
 
+/* Button ke upar mouse le jane se thora sa zoom ho */
+.wishlist-hover-btn:hover {
+  transform: scale(1.1) !important;
+}
 /* =================================================== */
 /* 📱 RESPONSIVE SUPPORT (2 Columns for Mobile)       */
 /* =================================================== */
