@@ -40,14 +40,14 @@ const Checkout = () => {
       setIsBuyNowFlow(false);
       setDisplayCart(cart);
     }
-  }, [cart]); // Dependency me cart bhi diya taake cart change hone par update ho
+  }, [cart]); 
 
   // 🧮 DYNAMIC TOTALS RE-CALCULATION
   useEffect(() => {
     if (isBuyNowFlow) {
       const sub = displayCart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
       setCalculatedSubtotal(sub);
-      setCalculatedTotal(sub + shippingCost); // Context wala shippingCost use kar liya
+      setCalculatedTotal(sub + shippingCost); 
     } else {
       setCalculatedSubtotal(cartSubtotal);
       setCalculatedTotal(totalAmount);
@@ -76,9 +76,17 @@ const Checkout = () => {
     return `Rs. ${pkrAmount.toLocaleString("en-PK")}`;
   };
 
+  // 🌍 AUTO-FILL COUNTRY FROM LOCAL STORAGE
   const initialState = {
-    firstName: "", lastName: "", email: "", phone: "",
-    street: "", city: "", postalCode: "", country: "Pakistan", notes: ""
+    firstName: "", 
+    lastName: "", 
+    email: "", 
+    phone: "",
+    street: "", 
+    city: "", 
+    postalCode: "", 
+    country: localStorage.getItem("checkoutCountry") || "Pakistan", // 👈 Auto-Fill Logic
+    notes: ""
   };
   const [formData, setFormData] = useState(initialState);
 
@@ -91,24 +99,22 @@ const Checkout = () => {
 
   // 🟢 SMART QUANTITY HANDLER (Works for both Buy Now & Cart, but Locked if Online)
   const handleQuantityChange = (itemToUpdate, action) => {
-    if (isOnlinePayment) return; // Online walon k liye lock
+    if (isOnlinePayment) return; 
 
     if (isBuyNowFlow) {
-      // Buy Now Flow me localStorage aur displayCart ko update karein
       const updatedCart = displayCart.map(item => {
         if ((item._id || item.id) === (itemToUpdate._id || itemToUpdate.id)) {
           let newQty = item.quantity;
           if (action === 'inc') newQty += 1;
           if (action === 'dec' && newQty > 1) newQty -= 1;
           
-          localStorage.setItem("buyNowQuantity", newQty); // Update Storage
+          localStorage.setItem("buyNowQuantity", newQty); 
           return { ...item, quantity: newQty };
         }
         return item;
       });
       setDisplayCart(updatedCart);
     } else {
-      // Normal Cart flow me global context ko update karein
       if (setCart) {
         const updatedCart = cart.map(item => {
           if ((item._id || item.id) === (itemToUpdate._id || itemToUpdate.id)) {
@@ -166,7 +172,6 @@ const Checkout = () => {
       if (response.status === 201) {
         alert("🎉 Order successfully placed! Thank you for shopping with us.");
         
-        // ✨ CLEANUP STORAGE JAB ORDER HO JAYE
         if (isBuyNowFlow) {
           localStorage.removeItem("buyNowProduct");
           localStorage.removeItem("buyNowQuantity");
@@ -174,6 +179,7 @@ const Checkout = () => {
           clearCart();
         }
         localStorage.removeItem("checkoutMode"); 
+        localStorage.removeItem("checkoutCountry"); // Clean country state
         
         setFormData(initialState);
         navigate("/");
@@ -234,23 +240,102 @@ const Checkout = () => {
         
         <div className="checkout-left">
           <h3>Contact Information</h3>
+          {/* 🛡️ FIELD VALIDATION SECURITY ADDED */}
           <div className="form-row">
-            <input name="firstName" placeholder="FIRST NAME *" required value={formData.firstName} onChange={handleInputChange} />
-            <input name="lastName" placeholder="LAST NAME *" required value={formData.lastName} onChange={handleInputChange} />
+            <input 
+              name="firstName" 
+              placeholder="FIRST NAME *" 
+              required 
+              value={formData.firstName} 
+              onChange={handleInputChange} 
+              pattern="^[A-Za-z\s]{2,50}$" 
+              title="Only letters and spaces allowed (2-50 characters)" 
+              maxLength="50" 
+            />
+            <input 
+              name="lastName" 
+              placeholder="LAST NAME *" 
+              required 
+              value={formData.lastName} 
+              onChange={handleInputChange} 
+              pattern="^[A-Za-z\s]{2,50}$" 
+              title="Only letters and spaces allowed (2-50 characters)" 
+              maxLength="50" 
+            />
           </div>
-          <input name="email" type="email" placeholder="EMAIL *" required value={formData.email} onChange={handleInputChange} />
-          <input name="phone" placeholder="PHONE *" required value={formData.phone} onChange={handleInputChange} />
+          <input 
+            name="email" 
+            type="email" 
+            placeholder="EMAIL *" 
+            required 
+            value={formData.email} 
+            onChange={handleInputChange} 
+            maxLength="100" 
+          />
+          <input 
+            name="phone" 
+            type="tel" 
+            placeholder="PHONE *" 
+            required 
+            value={formData.phone} 
+            onChange={handleInputChange} 
+            pattern="^\+?[0-9\s\-]{10,15}$" 
+            title="Enter a valid phone number (10-15 digits)" 
+            maxLength="15" 
+          />
 
           <h3>Shipping Address</h3>
-          <input name="street" placeholder="STREET ADDRESS *" required value={formData.street} onChange={handleInputChange} />
+          <input 
+            name="street" 
+            placeholder="STREET ADDRESS *" 
+            required 
+            value={formData.street} 
+            onChange={handleInputChange} 
+            minLength="5" 
+            maxLength="150" 
+            title="Enter complete street address"
+          />
           <div className="form-row-3">
-            <input name="city" placeholder="CITY *" required value={formData.city} onChange={handleInputChange} />
-            <input name="postalCode" placeholder="POSTAL CODE *" required value={formData.postalCode} onChange={handleInputChange} />
-            <input name="country" placeholder="COUNTRY *" required value={formData.country} onChange={handleInputChange} />
+            <input 
+              name="city" 
+              placeholder="CITY *" 
+              required 
+              value={formData.city} 
+              onChange={handleInputChange} 
+              pattern="^[A-Za-z\s]{2,50}$" 
+              title="Enter a valid city name" 
+              maxLength="50" 
+            />
+            <input 
+              name="postalCode" 
+              placeholder="POSTAL CODE *" 
+              required 
+              value={formData.postalCode} 
+              onChange={handleInputChange} 
+              pattern="^[A-Za-z0-9\s\-]{3,10}$" 
+              title="Enter a valid postal code" 
+              maxLength="10" 
+            />
+            <input 
+              name="country" 
+              placeholder="COUNTRY *" 
+              required 
+              value={formData.country} 
+              onChange={handleInputChange} 
+              pattern="^[A-Za-z\s]{2,50}$" 
+              title="Enter a valid country name" 
+              maxLength="50" 
+            />
           </div>
 
           <h3>Order Notes</h3>
-          <textarea name="notes" placeholder="Any special instructions or delivery requirements..." value={formData.notes} onChange={handleInputChange} />
+          <textarea 
+            name="notes" 
+            placeholder="Any special instructions or delivery requirements..." 
+            value={formData.notes} 
+            onChange={handleInputChange} 
+            maxLength="500" 
+          />
 
           <button type="submit" className="submit-order-btn" disabled={loading}>
             {loading ? "PROCESSING ORDER..." : isInternational ? "SUBMIT INTERNATIONAL ORDER REQUEST →" : "SUBMIT ORDER REQUEST →"}
@@ -276,7 +361,6 @@ const Checkout = () => {
           )}
 
           <div className="summary-item-list">
-            {/* 🟢 AB YAHAN cart KI JAGAH displayCart MAP HOGA */}
             {displayCart.map((item, index) => (
               <div key={index} className="summary-item" style={{ display: "flex", alignItems: "center", gap: "15px", marginBottom: "20px" }}>
                 <img src={item.images?.[0] || item.image} alt={item.name} style={{ width: "70px", height: "70px", objectFit: "cover", borderRadius: "8px" }} />

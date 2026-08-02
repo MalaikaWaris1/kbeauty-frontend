@@ -6,15 +6,31 @@ import API from "../api/axios";
 const ManualPayment = () => {
   const navigate = useNavigate();
   const { cart, setCart } = useContext(AppContext);
-  const exchangeRate = 280; 
+  
+  // 💱 1. LIVE EXCHANGE RATE FETCH STATE
+  const [exchangeRate, setExchangeRate] = useState(280); 
 
   const [displayCart, setDisplayCart] = useState([]);
   const [isBuyNowFlow, setIsBuyNowFlow] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  
+  // 🌍 2. NEW COUNTRY SELECTION STATE
+  const [country, setCountry] = useState("Pakistan");
 
-  // 🟢 NEW STATES FOR REAL-TIME VERIFICATION
-  const [verificationStatus, setVerificationStatus] = useState("idle"); // 'idle' | 'waiting' | 'approved' | 'rejected'
+  const [verificationStatus, setVerificationStatus] = useState("idle"); 
   const [paymentReqId, setPaymentReqId] = useState(null);
+
+  // 🌐 FETCH LIVE RATE
+  useEffect(() => {
+    fetch("https://open.er-api.com/v6/latest/USD")
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.rates && data.rates.PKR) {
+          setExchangeRate(data.rates.PKR);
+        }
+      })
+      .catch(err => console.error("Exchange rate fetch failed:", err));
+  }, []);
 
   useEffect(() => {
     const storedBuyNowProduct = localStorage.getItem("buyNowProduct");
@@ -36,12 +52,14 @@ const ManualPayment = () => {
     setIsLoading(false);
   }, [cart, navigate]);
 
-  // 🧮 DYNAMIC TOTAL & DELIVERY CHARGE CALCULATOR
-  const currentSubtotalUSD = displayCart.reduce((total, item) => total + (item.price * (item.quantity || 1)), 0);
+  // 🧮 DYNAMIC TOTAL & SMART DELIVERY CHARGE CALCULATOR
+  const currentSubtotalUSD = displayCart.reduce((total, item) => total + (Number(item.price) * (item.quantity || 1)), 0);
   const currentSubtotalPKR = currentSubtotalUSD * exchangeRate;
   
-  // 🚚 Delivery Logic: Free above 6000 PKR, else 290 PKR
-  const deliveryChargePKR = currentSubtotalPKR >= 6000 ? 0 : 290;
+  const isInternational = country !== "Pakistan";
+  
+  // 🚚 Delivery Logic: Free above 6000 PKR, else 290 PKR (For Pakistan only)
+  const deliveryChargePKR = isInternational ? 0 : (currentSubtotalPKR >= 6000 ? 0 : 290);
   
   // 💵 Final Total
   const finalTotalPKR = currentSubtotalPKR + deliveryChargePKR;
@@ -75,23 +93,23 @@ const ManualPayment = () => {
     }
   };
 
-  // 🚀 SEND REQUEST TO ADMIN & START WAITING
   const handlePaymentDone = async () => {
     setVerificationStatus("waiting");
+    
+    // Save selected country so Checkout page can prepopulate it
+    localStorage.setItem("checkoutCountry", country);
+
     try {
-      // 1. Send Request to backend (This will send SMS to your phone via backend)
       const response = await API.post("/orders/notify-admin", {
         message: `Online manual payment initiated via ${isBuyNowFlow ? 'Buy Now' : 'Shopping Cart'} flow.`,
         items: displayCart,
-        totalAmountPKR: finalTotalPKR, // 👈 Updated to send Final Total including DC
+        totalAmountPKR: finalTotalPKR, 
         status: "Pending"
       });
       
-      // 2. Save the tracking ID returned from backend
       if (response.data && response.data.paymentId) {
         setPaymentReqId(response.data.paymentId);
       } else {
-        // Fallback for demo purposes if backend isn't returning ID yet
         setPaymentReqId("demo-id-123");
       }
     } catch (error) {
@@ -101,19 +119,16 @@ const ManualPayment = () => {
     }
   };
 
-  // ⏳ POLLING: Check Backend every 3 seconds if Admin verified it
   useEffect(() => {
     let interval;
     if (verificationStatus === "waiting" && paymentReqId) {
       interval = setInterval(async () => {
         try {
-          // Backend API to check status
           const res = await API.get(`/orders/check-payment/${paymentReqId}`);
-          
           if (res.data.status === "Approved") {
             setVerificationStatus("approved");
             clearInterval(interval);
-            setTimeout(() => navigate("/checkout"), 1500); // Send to checkout!
+            setTimeout(() => navigate("/checkout"), 1500); 
           } else if (res.data.status === "Rejected") {
             setVerificationStatus("rejected");
             clearInterval(interval);
@@ -121,7 +136,7 @@ const ManualPayment = () => {
         } catch (error) {
           console.log("Polling error", error);
         }
-      }, 3000); // Check every 3 seconds
+      }, 3000); 
     }
     return () => clearInterval(interval);
   }, [verificationStatus, paymentReqId, navigate]);
@@ -131,7 +146,6 @@ const ManualPayment = () => {
   return (
     <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center", minHeight: "80vh", backgroundColor: "#fafafa", padding: "20px" }}>
       
-      {/* 🟢 BLUR OVERLAY WHEN WAITING FOR ADMIN */}
       {verificationStatus !== "idle" && (
         <div style={{
           position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
@@ -172,7 +186,6 @@ const ManualPayment = () => {
         </div>
       )}
 
-      {/* NORMAL PAGE CONTENT */}
       <div style={{ backgroundColor: "#fff", padding: "40px", borderRadius: "16px", maxWidth: "500px", width: "100%", boxShadow: "0 10px 40px rgba(0,0,0,0.05)", textAlign: "center" }}>
         
         <h2 style={{ margin: "0 0 10px 0", color: "#111", fontSize: "1.8rem", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }}>
@@ -180,11 +193,30 @@ const ManualPayment = () => {
         </h2>
         
         <p style={{ color: "#666", marginBottom: "25px", fontSize: "0.95rem", lineHeight: "1.5" }}>
-          Adjust your quantity below. The final amount will update automatically. Please transfer the total amount to complete your order.
+          Select your country, adjust quantity, and transfer the exact total amount to complete your order.
         </p>
 
+        {/* 🌍 COUNTRY SELECTOR */}
+        <div style={{ textAlign: "left", marginBottom: "20px" }}>
+          <label style={{ display: "block", marginBottom: "8px", fontWeight: "600", color: "#333", fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+            Destination Country *
+          </label>
+          <select 
+            value={country} 
+            onChange={(e) => setCountry(e.target.value)}
+            style={{ width: "100%", padding: "12px 15px", borderRadius: "8px", border: "1px solid #ddd", fontSize: "1rem", outline: "none", backgroundColor: "#f9fafb", cursor: "pointer" }}
+          >
+            <option value="Pakistan">Pakistan</option>
+            <option value="United Arab Emirates">United Arab Emirates</option>
+            <option value="Saudi Arabia">Saudi Arabia</option>
+            <option value="United States">United States</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="Other International">Other (International)</option>
+          </select>
+        </div>
+
         {/* ORDER SUMMARY CART */}
-        <div style={{ backgroundColor: "#f9fafb", padding: "15px", borderRadius: "12px", marginBottom: "25px", textAlign: "left" }}>
+        <div style={{ backgroundColor: "#f9fafb", padding: "15px", borderRadius: "12px", marginBottom: "25px", textAlign: "left", border: "1px solid #eee" }}>
           <h4 style={{ margin: "0 0 15px 0", fontSize: "0.95rem", color: "#444", textTransform: "uppercase", letterSpacing: "1px" }}>Order Summary</h4>
           
           {displayCart.map((item, index) => (
@@ -193,7 +225,7 @@ const ManualPayment = () => {
                 <img src={item.image || item.images?.[0]} alt={item.name} style={{ width: "50px", height: "50px", borderRadius: "6px", objectFit: "cover" }} />
                 <div>
                   <p style={{ margin: "0 0 5px 0", fontSize: "0.9rem", fontWeight: "600", color: "#111", maxWidth: "150px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.name}</p>
-                  <p style={{ margin: 0, fontSize: "0.85rem", color: "#16a34a", fontWeight: "600" }}>PKR {(item.price * exchangeRate).toLocaleString()}</p>
+                  <p style={{ margin: 0, fontSize: "0.85rem", color: "#16a34a", fontWeight: "600" }}>PKR {(Number(item.price) * exchangeRate).toLocaleString(undefined, {maximumFractionDigits:0})}</p>
                 </div>
               </div>
 
@@ -210,25 +242,28 @@ const ManualPayment = () => {
           <div style={{ borderTop: "1px solid #eaeaea", paddingTop: "15px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", color: "#444" }}>
               <span>Subtotal:</span>
-              <span style={{ fontWeight: "600" }}>PKR {currentSubtotalPKR.toLocaleString()}</span>
-            </div>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "15px", color: "#444" }}>
-              <span>Delivery (Pakistan):</span>
-              <span style={{ fontWeight: "600", color: deliveryChargePKR === 0 ? "#16a34a" : "#444" }}>
-                {deliveryChargePKR === 0 ? "Free Delivery" : `PKR ${deliveryChargePKR}`}
-              </span>
-            </div>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px dashed #ccc", paddingTop: "10px" }}>
-              <span style={{ fontWeight: "600", color: "#111", fontSize: "1.1rem" }}>Total to Pay:</span>
-              <span style={{ fontWeight: "bold", color: "#d9534f", fontSize: "1.2rem" }}>PKR {finalTotalPKR.toLocaleString()}</span>
+              <span style={{ fontWeight: "600" }}>PKR {currentSubtotalPKR.toLocaleString(undefined, {maximumFractionDigits:0})}</span>
             </div>
             
-            {/* 🌍 International Notice */}
-            <div style={{ textAlign: "right", marginTop: "5px" }}>
-               <small style={{ color: "#888", fontSize: "0.75rem", fontStyle: "italic" }}>
-                 *Foreign countries: No delivery charges added here. Custom shipping will be billed separately.
-               </small>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "15px", color: "#444" }}>
+              <span>Delivery ({country}):</span>
+              <span style={{ fontWeight: "600", color: deliveryChargePKR === 0 ? "#16a34a" : "#444" }}>
+                {isInternational ? "Calculated Later" : (deliveryChargePKR === 0 ? "Free Delivery" : `PKR ${deliveryChargePKR}`)}
+              </span>
             </div>
+            
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px dashed #ccc", paddingTop: "10px" }}>
+              <span style={{ fontWeight: "600", color: "#111", fontSize: "1.1rem" }}>Total to Pay:</span>
+              <span style={{ fontWeight: "bold", color: "#d9534f", fontSize: "1.2rem" }}>PKR {finalTotalPKR.toLocaleString(undefined, {maximumFractionDigits:0})}</span>
+            </div>
+            
+            {isInternational && (
+              <div style={{ textAlign: "right", marginTop: "5px" }}>
+                 <small style={{ color: "#888", fontSize: "0.75rem", fontStyle: "italic" }}>
+                   *Custom shipping will be billed separately.
+                 </small>
+              </div>
+            )}
           </div>
         </div>
 
