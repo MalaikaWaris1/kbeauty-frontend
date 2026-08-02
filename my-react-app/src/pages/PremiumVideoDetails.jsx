@@ -58,22 +58,13 @@ const PremiumVideoDetails = () => {
         <div className="details-video-container">
           <div className="cinematic-frame">
             <video
-                ref={(el) => (videoRefs.current[index] = el)}
-                className="mockup-video-player"
-                poster={video.thumbnail}
-                loop
-                muted
-                playsInline
-                preload="none"
-                style={{
-                  pointerEvents: "none", /* 🚀 FIX 1: Cursor video ko touch nahi karega, scroll smooth hoga */
-                  transform: "translateZ(0)", /* 🚀 FIX 2: Video ko CPU ki bajaye GPU (Graphics Card) par shift kar dega */
-                  willChange: "transform" /* 🚀 FIX 3: Browser ko pehle se bata dega ke smooth rakhna hai */
-                }}
-              >
-                <source src={video.videoUrl} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+              src={currentVideo.videoUrl}
+              poster={currentVideo.thumbnailUrl || currentVideo.thumbnail} // 📸 Admin Uploaded Thumbnail Image
+              className="details-main-video"
+              controls
+              autoPlay
+              playsInline
+            />
           </div>
         </div>
 
