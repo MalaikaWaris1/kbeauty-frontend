@@ -223,6 +223,10 @@
     font-size: 32px;
   }
 
+  .hero-video-bg {
+  
+  z-index: 2;
+}
   /* Very small screens (Mobile portrait) par vertical stack */
   .hero-cta-group {
     flex-direction: column;
