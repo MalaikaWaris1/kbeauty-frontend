@@ -380,9 +380,10 @@
     padding: 3px 6px;
   }
 
-  /* .fav-review-overlay { 
-    display: none; 
-  }  */
+  /* 🟢 Static Overlay on Small Screens (Hover ki zaroorat nahi padegi) */
+  .fav-review-overlay { 
+    opacity: 1; 
+  }
 
   .fav-product-card:hover .main-look { 
     opacity: 1; 

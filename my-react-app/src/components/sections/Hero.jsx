@@ -90,7 +90,7 @@ export const Hero = () => {
           {/* 🟢 Mobile-Responsive Premium Buttons */}
           <motion.div className="hero-cta-group" variants={itemVariants}>
             <Link to="/shop" className="btn-solid">
-              EXPLORE K-PRODUCTS
+              EXPLORE OUR PRODUCTS
             </Link>
             <Link to="/about" className="btn-outline">
               OUR FORMULATIONS
