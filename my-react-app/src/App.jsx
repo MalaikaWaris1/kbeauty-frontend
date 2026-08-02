@@ -15,7 +15,7 @@ import WishlistPage from "./pages/WishlistPage";
 import Checkout from "./pages/Checkout";
 import PremiumVideoDetails from "./pages/PremiumVideoDetails";
 import PurchaseHistory from "./pages/PurchaseHistory";
-
+import ManualPayment from "./pages/ManualPayment"; // 💳 NAYA IMPORT ADD KIYA HAI
 
 const router = createBrowserRouter([
   {
@@ -29,39 +29,42 @@ const router = createBrowserRouter([
         path: "sale",
         element: <SaleArchive /> 
       },
-       {
+      {
         path: "about",
         element: <AboutStoryPage /> 
       },
-         {
+      {
         path: "contact",
-        element:<ContactUs/> 
+        element: <ContactUs /> 
       },
-       {
+      {
         path: "auth",
-        element:<AuthPage/> 
+        element: <AuthPage /> 
       },
       {
         path: "cart",
-        element:<CartPage/> 
+        element: <CartPage /> 
       },
       {
         path: "wishlist",
         element: <WishlistPage />
       },
-    {
+      {
         path: "checkout",
-        element:  <Checkout/>
+        element: <Checkout />
       },
       {
-        path:"/video/:id",
-        element:<PremiumVideoDetails />
+        path: "payment-instructions", // 🟢 NAYA ROUTE ADD KIYA HAI
+        element: <ManualPayment />
+      },
+      {
+        path: "/video/:id",
+        element: <PremiumVideoDetails />
       },
       {
         path: "purchase-history",
         element: <PurchaseHistory />
       }
-      
     ],
   },
 ]);
