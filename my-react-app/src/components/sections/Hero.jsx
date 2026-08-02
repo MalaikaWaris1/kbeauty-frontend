@@ -73,7 +73,7 @@ export const Hero = () => {
           </motion.div>
 
           <motion.span className="hero-subtitle" variants={itemVariants}>
-            AUTHENTIC K-BEAUTY COLLECTION
+            AUTHENTIC K-PRODUCTS COLLECTION
           </motion.span>
           
           <motion.h1 className="hero-title" variants={itemVariants}>
@@ -90,7 +90,7 @@ export const Hero = () => {
           {/* 🟢 Mobile-Responsive Premium Buttons */}
           <motion.div className="hero-cta-group" variants={itemVariants}>
             <Link to="/shop" className="btn-solid">
-              EXPLORE K-BEAUTY
+              EXPLORE K-PRODUCTS
             </Link>
             <Link to="/about" className="btn-outline">
               OUR FORMULATIONS

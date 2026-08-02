@@ -58,7 +58,7 @@ export const AboutStoryPage = () => {
   // Korean Beauty Authenticity Configuration Data Object
   const pageContent = {
     hero: {
-      overline: "AUTHENTIC K-BEAUTY",
+      overline: "AUTHENTIC K-PROUCTS",
       title: "Unveiling the Secret to Glass Skin",
       subtitle: "100% genuine Korean formulations, ancient botanical wisdom, and transformative daily rituals sourced directly from Korea.",
     },
@@ -96,7 +96,7 @@ export const AboutStoryPage = () => {
     ],
     cta: {
       overline: "Personalized Guidance",
-      title: "Need Help Finding Your K-Beauty Ritual?",
+      title: "Need Help Finding Your K-Products Ritual?",
       subtitle: "Whether you are starting your first 10-step Korean skincare routine or seeking targeted glass-skin solutions, our beauty specialists are here to assist.",
       bgImageUrl: "https://darbeauty.com/cdn/shop/articles/best-korean-skincare-routine-for-oily-skin-2026_276b3d3b-6138-484e-b607-9c15b6d4b920.webp?v=1780719710&width=600"
     }

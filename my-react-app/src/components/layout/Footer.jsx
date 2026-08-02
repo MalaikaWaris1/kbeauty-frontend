@@ -128,7 +128,7 @@ export const Footer = () => {
           <div className="policy-text-area">
             <p>By accessing our website, you agree to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance.</p>
             <h3>1. Use License</h3>
-            <p>Permission is granted to temporarily download one copy of the materials on Beauty By Sony's website for personal, non-commercial transitory viewing only.</p>
+            <p>Permission is granted to temporarily download one copy of the materials on Products By Sony's website for personal, non-commercial transitory viewing only.</p>
             <h3>2. Limitations</h3>
             <p>In no event shall Beauty By Sony or its suppliers be liable for any damages arising out of the use or inability to use the materials on our website.</p>
           </div>
@@ -184,7 +184,7 @@ export const Footer = () => {
             <Link to="/" className="custom-text-logo footer-text-logo">
               <span className="logo-top-italic">korean</span>
               <div className="logo-bottom-row">
-                <span className="logo-brand-sub">BEAUTYBY_SONY</span>
+                <span className="logo-brand-sub">PRODUCTSBY_SONY</span>
                 <span className="logo-pkr-badge">PK</span>
               </div>
             </Link>
@@ -228,7 +228,7 @@ export const Footer = () => {
         <hr className="footer-divider" />
 
         <div className="footer-bottom">
-          <p className="copyright-text">© 2026 Korean_beautyby_sony. PK</p>
+          <p className="copyright-text">© 2026 Korean_productsby_sony. PK</p>
           <p className="cities-text">K-BEAUTY · QUALITY · CARE</p>
         </div>
       </footer>

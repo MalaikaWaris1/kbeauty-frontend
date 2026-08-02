@@ -104,7 +104,7 @@ const AuthPage = () => {
           <span className="auth-subtitle">THE INNER CIRCLE</span>
           <h1 className="auth-main-title">Ritual, remembered.</h1>
           <p className="auth-description">
-            A Lomure account keeps track of your bag, your wishlist, and 
+           This account keeps track of your bag, your wishlist, and 
             your favourite rituals — so returning is easy, wherever you are.
           </p>
         </div>
@@ -220,7 +220,7 @@ const AuthPage = () => {
               </div>
               <div className="dark-modal-right">
                 <div className="policy-text-area">
-            <p>Your privacy is important to us. It is Beauty By Sony's policy to respect your privacy regarding any information we may collect from you across our website.</p>
+            <p>Your privacy is important to us. It is Products By Sony's policy to respect your privacy regarding any information we may collect from you across our website.</p>
             <h3>1. Information we collect</h3>
             <p>We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent.</p>
             <h3>2. How we use your data</h3>

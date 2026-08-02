@@ -148,7 +148,7 @@ export const Header = () => {
           <Link to="/" onClick={closeMenu} className="custom-text-logo">
             <span className="logo-top-italic">korean</span>
             <div className="logo-bottom-row">
-              <span className="logo-brand-sub">BEAUTYBY_SONY</span>
+              <span className="logo-brand-sub">PRODUCTSBY_SONY</span>
               <span className="logo-pkr-badge">PK</span>
             </div>
           </Link>
