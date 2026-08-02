@@ -315,7 +315,7 @@ const ManualPayment = () => {
         <div className="payment-box-row" style={{ border: "2px solid #efefef", borderRadius: "12px", padding: "12px 16px", marginBottom: "12px", textAlign: "left", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px", backgroundColor: "#fff", boxSizing: "border-box" }}>
           <div style={{ backgroundColor: "#ed1c24", color: "#fff", padding: "5px 8px", borderRadius: "6px", fontWeight: "bold", fontStyle: "italic", fontSize: "0.8rem", letterSpacing: "0.5px", flexShrink: 0 }}>JazzCash</div>
           <div style={{ textAlign: "right", minWidth: 0 }}>
-            <p className="payment-box-title" style={{ margin: "0", color: "#111", fontSize: "1rem", fontWeight: "bold", letterSpacing: "0.5px", whiteSpace: "nowrap" }}>0342 0466996</p>
+            <p className="payment-box-title" style={{ margin: "0", color: "#111", fontSize: "1rem", fontWeight: "bold", letterSpacing: "0.5px", whiteSpace: "nowrap" }}>03228314881</p>
             <small className="payment-box-sub" style={{ color: "#888", fontWeight: "500", fontSize: "0.78rem", display: "block", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Account Title: Ahmed Waris</small>
           </div>
         </div>
