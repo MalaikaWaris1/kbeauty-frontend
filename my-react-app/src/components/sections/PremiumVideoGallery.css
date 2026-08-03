@@ -48,7 +48,12 @@
   margin-bottom: 30px; 
   break-inside: avoid; 
   position: relative;
-  cursor: pointer; /* 🟢 FIXED: Clickable look dene ke liye pointer */
+  cursor: pointer; 
+  /* 🚀 GPU ACCELERATION FIXES (Scroll hang rokne ke liye) */
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0); 
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
 }
 
@@ -58,7 +63,7 @@
 .phone-mockup-card.size-variant-2 { height: 420px; }
 
 .phone-mockup-card:hover {
-  transform: translateY(-8px);
+  transform: translate3d(0, -8px, 0); /* 🚀 Hover ko bhi hardware accelerated kar diya */
 }
 
 .phone-screen-frame {
@@ -70,6 +75,10 @@
   border: 4px solid #ffffff;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
   background-color: #eaeaea;
+  
+  /* 🚀 FIX: iOS/Mobile par video ka lag aur border radius leak rokne ke liye */
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  transform: translateZ(0);
 }
 
 /* ==========================================================================
@@ -99,7 +108,6 @@
   height: 16px;
 }
 
-/* Card hover par badge ka subtle interaction effect */
 .phone-mockup-card:hover .phone-video-icon-badge {
   background: rgba(255, 255, 255, 0.95);
   color: #111111;
@@ -205,7 +213,6 @@
     border: 2px solid #ffffff;
   }
 
-  /* 🟢 MOBILE RESPONSIVENESS FOR BADGE: responsive dimensions */
   .phone-video-icon-badge {
     top: 10px;
     left: 10px;

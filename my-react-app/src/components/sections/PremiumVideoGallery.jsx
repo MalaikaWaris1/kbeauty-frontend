@@ -48,19 +48,23 @@ export const PremiumVideoGallery = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          const video = entry.target;
           if (entry.isIntersecting) {
-            // Video screen par aayi toh play karo
-            entry.target.muted = true;
-            entry.target.play().catch((err) => {
-              console.log("Autoplay buffered/restricted by browser:", err);
-            });
+            video.muted = true;
+            // 🚀 Safe Promise Handling: Prevents "play interrupted" errors on fast scroll
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.catch((err) => {
+                console.log("Autoplay buffered/restricted:", err);
+              });
+            }
           } else {
-            // Video screen se bahar gayi toh pause karo (CPU aur RAM bachane ke liye)
-            entry.target.pause();
+            video.pause();
           }
         });
       },
-      { threshold: 0.2 } // Jab video 20% nazar aaye tabhi play ho
+      // 🚀 ROOT MARGIN FIX: Video 200px pehle ready hogi, screen atakne se bachegi
+      { threshold: 0.1, rootMargin: "200px" } 
     );
 
     videoRefs.current.forEach((video) => {
@@ -90,7 +94,7 @@ export const PremiumVideoGallery = () => {
           <div 
             key={`${video.id}-${index}`} 
             className={`phone-mockup-card size-variant-${index % 3}`}
-            onClick={() => navigate(`/video/${video.id}`)} // 🟢 Click navigate bilkul safe hai
+            onClick={() => navigate(`/video/${video.id}`)}
           >
             <div className="phone-screen-frame">
               
@@ -107,11 +111,11 @@ export const PremiumVideoGallery = () => {
                 loop
                 muted
                 playsInline
-                preload="none" /* 🚀 SUPER SPEED FIX */
+                preload="none"
                 style={{
-                  pointerEvents: "none", /* 🚀 SMOOTH SCROLL FIX: Cursor ignore karega, click parent par jayega */
-                  transform: "translateZ(0)", /* 🚀 GPU ACCELERATION */
-                  willChange: "transform" /* 🚀 OPTIMIZATION */
+                  pointerEvents: "none", 
+                  transform: "translateZ(0)",
+                  willChange: "transform" 
                 }}
               >
                 <source src={video.videoUrl} type="video/mp4" />
