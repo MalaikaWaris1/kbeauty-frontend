@@ -17,8 +17,13 @@ const ManualPayment = () => {
   // 🌍 2. NEW COUNTRY SELECTION STATE
   const [country, setCountry] = useState("Pakistan");
 
-  const [verificationStatus, setVerificationStatus] = useState("idle"); 
-  const [paymentReqId, setPaymentReqId] = useState(null);
+  // 🟢 FIX: Read initial state from sessionStorage to survive page refresh
+  const [verificationStatus, setVerificationStatus] = useState(() => {
+    return sessionStorage.getItem("verificationStatus") || "idle";
+  }); 
+  const [paymentReqId, setPaymentReqId] = useState(() => {
+    return sessionStorage.getItem("paymentReqId") || null;
+  });
 
   // 🌐 FETCH LIVE RATE
   useEffect(() => {
@@ -94,7 +99,10 @@ const ManualPayment = () => {
   };
 
   const handlePaymentDone = async () => {
-    setVerificationStatus("waiting");
+    // 🟢 FIX: Update State and Session Storage
+    const newStatus = "waiting";
+    setVerificationStatus(newStatus);
+    sessionStorage.setItem("verificationStatus", newStatus);
     
     // Save selected country so Checkout page can prepopulate it
     localStorage.setItem("checkoutCountry", country);
@@ -107,15 +115,31 @@ const ManualPayment = () => {
         status: "Pending"
       });
       
-      if (response.data && response.data.paymentId) {
-        setPaymentReqId(response.data.paymentId);
-      } else {
-        setPaymentReqId("demo-id-123");
-      }
+      const newPaymentId = (response.data && response.data.paymentId) ? response.data.paymentId : "demo-id-123";
+      
+      // 🟢 FIX: Save paymentId to state and Session Storage
+      setPaymentReqId(newPaymentId);
+      sessionStorage.setItem("paymentReqId", newPaymentId);
+
     } catch (error) {
       console.log("Admin notification failed", error);
       alert("Server error. Please login First or contact support.");
+      
+      // 🟢 FIX: Reset if API fails
       setVerificationStatus("idle");
+      sessionStorage.removeItem("verificationStatus");
+      sessionStorage.removeItem("paymentReqId");
+    }
+  };
+
+  // 🟢 Helper function to handle status resets
+  const resetVerificationState = (status = "idle") => {
+    setVerificationStatus(status);
+    if (status === "idle") {
+      sessionStorage.removeItem("verificationStatus");
+      sessionStorage.removeItem("paymentReqId");
+    } else {
+      sessionStorage.setItem("verificationStatus", status);
     }
   };
 
@@ -126,11 +150,16 @@ const ManualPayment = () => {
         try {
           const res = await API.get(`/orders/check-payment/${paymentReqId}`);
           if (res.data.status === "Approved") {
-            setVerificationStatus("approved");
+            resetVerificationState("approved");
             clearInterval(interval);
-            setTimeout(() => navigate("/checkout"), 1500); 
+            setTimeout(() => {
+              // Clear session storage before leaving the page completely
+              sessionStorage.removeItem("verificationStatus");
+              sessionStorage.removeItem("paymentReqId");
+              navigate("/checkout");
+            }, 1500); 
           } else if (res.data.status === "Rejected") {
-            setVerificationStatus("rejected");
+            resetVerificationState("rejected");
             clearInterval(interval);
           }
         } catch (error) {
@@ -196,7 +225,7 @@ const ManualPayment = () => {
               <h2 style={{ marginTop: "10px", color: "#dc2626" }}>Verification Failed</h2>
               <p style={{ color: "#666", textAlign: "center", maxWidth: "300px", marginBottom: "20px" }}>We could not verify your payment. Please ensure you sent the correct amount.</p>
               <button 
-                onClick={() => setVerificationStatus("idle")}
+                onClick={() => resetVerificationState("idle")} // 🟢 FIX: Reset state on try again
                 style={{ padding: "12px 24px", backgroundColor: "#111", color: "#fff", border: "none", borderRadius: "6px", cursor: "pointer" }}
               >
                 Try Again
@@ -340,6 +369,8 @@ const ManualPayment = () => {
         <button 
           onClick={() => {
             if(isBuyNowFlow) localStorage.removeItem("buyNowProduct");
+            sessionStorage.removeItem("verificationStatus"); // Clear on explicit cancel
+            sessionStorage.removeItem("paymentReqId");
             navigate(-1);
           }}
           style={{ width: "100%", padding: "12px", backgroundColor: "transparent", color: "#888", border: "none", marginTop: "8px", fontSize: "0.85rem", cursor: "pointer", textDecoration: "underline" }}
