@@ -1,4 +1,4 @@
-  .kbeauty-header-container {
+.kbeauty-header-container {
   width: 100%;
   font-family: 'Inter', sans-serif;
   background-color: #fdfbf9;
@@ -179,7 +179,7 @@
 
 /* Hamburger Hidden on Desktop */
 .hamburger-menu {
-  display: none;
+  display: none !important; /* 🟢 FIX: Bari screen par bilkul hide kar dega */
   flex-direction: column;
   justify-content: space-between;
   width: 24px;
@@ -463,10 +463,6 @@
 /* 📱 RESPONSIVE DESIGN FOR MOBILE & TABLETS                 */
 /* ========================================================== */
 
-/* ========================================================== */
-/* 📱 RESPONSIVE DESIGN FOR MOBILE & TABLETS                 */
-/* ========================================================== */
-
 @media (max-width: 992px) {
   /* 🔴 Hide Wishlist icon from main top header on mobile */
   .navbar-icons .wishlist-btn {
@@ -481,7 +477,7 @@
   }
 
   .hamburger-menu {
-    display: flex;
+    display: flex !important; /* 🟢 FIX: Mobile par wapis le aayega */
     z-index: 1002;
   }
 
@@ -538,6 +534,11 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.02);
     
   }
+
+  .nav-links.mobile-active .nav-item {
+  /* Agar pehle se border-bottom likha hai toh usay is line se replace kar dein */
+  border-bottom: 1px solid rgba(74, 59, 50, 0.15) !important; 
+}
   .nav-links.mobile-active .nav-item:hover {
   color: #f95f1edd !important; 
   transform: translateX(5px); /* Hover par thora sa aage move hoga, premium feel ke liye */
@@ -562,10 +563,7 @@
   }
 
   .drawer-divider {
-    border: none;
-    border-top: 1px solid #f0eae4;
-    margin: 10px 0;
-    width: 100%;
+    display: none !important; /* 🟢 FIX: Dusri line permanently hide ho jayegi */
   }
 
   .drawer-util-btn {
