@@ -15,7 +15,7 @@ export const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Consuming context variables (including products for live search)
+  // Consuming context variables
   const { cartCount, wishlistCount, toast, products = [] } = useContext(AppContext);
 
   // 🟢 Fetch User Data on Component Mount
@@ -102,7 +102,7 @@ export const Header = () => {
       {/* Main Navigation Row */}
       <div className="main-navbar">
 
-        {/* 🟢 Premium Animated Mobile Hamburger Button */}
+        {/* Mobile Hamburger Button */}
         <button
           className={`hamburger-menu ${isMenuOpen ? "open" : ""}`}
           onClick={toggleMenu}
@@ -117,63 +117,95 @@ export const Header = () => {
             alignItems: "center",
             width: "44px",
             height: "44px",
-            zIndex: 100, // Keeps it above the dark overlay
+            zIndex: 90,
             padding: "0"
           }}
         >
           <span style={{
-            display: "block",
-            width: "24px",
-            height: "2px",
-            backgroundColor: "#111",
-            borderRadius: "2px",
+            display: "block", width: "24px", height: "2px", backgroundColor: "#111", borderRadius: "2px",
             transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
             transform: isMenuOpen ? "translateY(6px) rotate(45deg)" : "translateY(-5px)"
           }}></span>
           <span style={{
-            display: "block",
-            width: "24px",
-            height: "2px",
-            backgroundColor: "#111",
-            borderRadius: "2px",
-            transition: "all 0.3s ease",
-            opacity: isMenuOpen ? 0 : 1,
+            display: "block", width: "24px", height: "2px", backgroundColor: "#111", borderRadius: "2px",
+            transition: "all 0.3s ease", opacity: isMenuOpen ? 0 : 1,
             transform: isMenuOpen ? "translateX(-10px)" : "translateX(0)"
           }}></span>
           <span style={{
-            display: "block",
-            width: "24px",
-            height: "2px",
-            backgroundColor: "#111",
-            borderRadius: "2px",
+            display: "block", width: "24px", height: "2px", backgroundColor: "#111", borderRadius: "2px",
             transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
             transform: isMenuOpen ? "translateY(-6px) rotate(-45deg)" : "translateY(5px)"
           }}></span>
         </button>
 
-        {/* Left Side Navigation Links */}
-        <nav className={`nav-links ${isMenuOpen ? "mobile-active" : ""}`}>
-          <NavLink to="/" onClick={closeMenu} className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+        {/* 🟢 PREMIUM DARK GLASSMORPHIC DRAWER */}
+        <nav 
+          className={`nav-links ${isMenuOpen ? "mobile-active" : ""}`}
+          style={isMenuOpen ? {
+            background: "rgba(255, 245, 238, 0.75)", // 🟢 Soft Creamy/Peach Tint
+            backdropFilter: "blur(16px)", // Glass Blur Effect
+            WebkitBackdropFilter: "blur(16px)",
+            borderRight: "1px solid rgba(255, 255, 255, 0.5)", // Light edge reflection
+            boxShadow: "4px 0 30px rgba(249, 215, 215, 0.7)", // 🟢 Shadow light kar diya
+            paddingTop: "70px" // Cross icon ke liye space
+          } : {}}
+        >
+          
+          {/* ❌ THE CROSS ICON (Explicitly inside the drawer) */}
+          {isMenuOpen && (
+            <button
+              onClick={closeMenu}
+              style={{
+                position: "absolute",
+                top: "20px",
+                right: "20px",
+                background: "rgba(255, 255, 255, 0.1)", // Light glass button
+                border: "1px solid rgba(255, 255, 255, 0.2)",
+                borderRadius: "50%",
+                color: "#4A3B32",
+                cursor: "pointer",
+                padding: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                transition: "all 0.2s ease"
+              }}
+              aria-label="Close menu"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          )}
+
+          {/* Links with conditional white text for dark glass */}
+          <NavLink to="/" onClick={closeMenu} className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} style={isMenuOpen ? { color: "#4A3B32" } : {}}>
             HOME
           </NavLink>
-          <NavLink to="/shop" onClick={closeMenu} className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+          <NavLink to="/shop" onClick={closeMenu} className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} style={isMenuOpen ? { color: "#4A3B32" } : {}}>
             SHOP
           </NavLink>
-          <NavLink to="/about" onClick={closeMenu} className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+          <NavLink to="/about" onClick={closeMenu} className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} style={isMenuOpen ? { color: "#4A3B32" } : {}}>
             STORY
           </NavLink>
-          <NavLink to="/purchase-history" onClick={closeMenu} className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+          <NavLink to="/purchase-history" onClick={closeMenu} className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} style={isMenuOpen ? { color: "#4A3B32" } : {}}>
             PURCHASES
           </NavLink>
-          <NavLink to="/contact" onClick={closeMenu} className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+          <NavLink to="/contact" onClick={closeMenu} className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} style={isMenuOpen ? { color: "#4A3B32" } : {}}>
             CONTACT
           </NavLink>
 
           {/* Mobile Side Drawer Utilities */}
           <div className="drawer-mobile-utils">
-            <hr className="drawer-divider" />
+            <hr className="drawer-divider" style={isMenuOpen ? { borderColor: "rgba(255, 255, 255, 0.15)" } : {}} />
 
-            <button className="drawer-util-btn wishlist-btn" aria-label="Wishlist" onClick={() => { closeMenu(); navigate('/wishlist'); }}>
+            <button 
+              className="drawer-util-btn wishlist-btn" 
+              aria-label="Wishlist" 
+              onClick={() => { closeMenu(); navigate('/wishlist'); }}
+              style={isMenuOpen ? { color: "#4A3B32" } : {}}
+            >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
               <span>WISHLIST</span>
               {wishlistCount > 0 && <span className="wishlist-count">{wishlistCount}</span>}
@@ -181,7 +213,7 @@ export const Header = () => {
           </div>
         </nav>
 
-        {/* Center: Logo (Design from 2nd Image) */}
+        {/* Center: Logo */}
         <div className="navbar-logo">
           <Link to="/" onClick={closeMenu} className="custom-text-logo">
             <span className="logo-top-italic">korean</span>
@@ -200,7 +232,8 @@ export const Header = () => {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
               <span></span>
             </button>
-            {/* 🔍 LIVE SEARCH DROPDOWN POPUP (Matching 3rd Image) */}
+            
+            {/* 🔍 LIVE SEARCH DROPDOWN POPUP */}
             {isSearchOpen && (
               <div className="search-floating-dropdown">
                 <div className="search-input-box">
@@ -211,7 +244,6 @@ export const Header = () => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     autoFocus
                   />
-                  
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </div>
                    
@@ -242,7 +274,6 @@ export const Header = () => {
                               </div>
                             </div>
                           </div>
-                          
                         ))}
                       </div>
                     ) : (
@@ -254,25 +285,16 @@ export const Header = () => {
             )}
           </div>
 
-          {/* DYNAMIC ACCOUNT ICON / LOGGED IN INITIALS BADGE */}
+          {/* DYNAMIC ACCOUNT ICON */}
           {userData ? (
             <div className="user-profile-menu-container" style={{ position: "relative" }}>
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 style={{
-                  width: "32px",
-                  height: "32px",
-                  borderRadius: "50%",
-                  backgroundColor: "#aa8676",
-                  color: "#ffffff",
-                  fontWeight: "bold",
-                  fontSize: "12px",
-                  border: "none",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  letterSpacing: "0.5px",
+                  width: "32px", height: "32px", borderRadius: "50%",
+                  backgroundColor: "#aa8676", color: "#ffffff", fontWeight: "bold",
+                  fontSize: "12px", border: "none", cursor: "pointer", display: "flex",
+                  alignItems: "center", justifyContent: "center", letterSpacing: "0.5px",
                   boxShadow: "0 2px 5px rgba(0,0,0,0.15)"
                 }}
                 title={userData.name || userData.email}
@@ -284,17 +306,9 @@ export const Header = () => {
               {isDropdownOpen && (
                 <div
                   style={{
-                    position: "absolute",
-                    right: "0",
-                    top: "42px",
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #e2e8f0",
-                    borderRadius: "8px",
-                    boxShadow: "0 10px 20px rgba(0,0,0,0.12)",
-                    padding: "12px 16px",
-                    width: "190px",
-                    zIndex: 100,
-                    textAlign: "left"
+                    position: "absolute", right: "0", top: "42px", backgroundColor: "#ffffff",
+                    border: "1px solid #e2e8f0", borderRadius: "8px", boxShadow: "0 10px 20px rgba(0,0,0,0.12)",
+                    padding: "12px 16px", width: "190px", zIndex: 100, textAlign: "left"
                   }}
                 >
                   <p style={{ fontSize: "10px", color: "#a0aec0", textTransform: "uppercase", margin: "0 0 2px 0", fontWeight: "600" }}>
@@ -307,17 +321,9 @@ export const Header = () => {
                   <button
                     onClick={handleLogout}
                     style={{
-                      width: "100%",
-                      padding: "6px 0",
-                      backgroundColor: "transparent",
-                      color: "#e53e3e",
-                      border: "none",
-                      fontWeight: "600",
-                      fontSize: "12px",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "6px"
+                      width: "100%", padding: "6px 0", backgroundColor: "transparent", color: "#e53e3e",
+                      border: "none", fontWeight: "600", fontSize: "12px", cursor: "pointer", display: "flex",
+                      alignItems: "center", gap: "6px"
                     }}
                   >
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -366,7 +372,7 @@ export const Header = () => {
       </div>
 
       {/* Mobile Dark Backdrop Overlay */}
-      {isMenuOpen && <div className="nav-overlay" onClick={closeMenu}></div>}
+      {isMenuOpen && <div className="nav-overlay" style={{ backgroundColor: "rgba(0,0,0,0.6)" }} onClick={closeMenu}></div>}
     </header>
   );
 };

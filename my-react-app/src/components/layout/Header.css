@@ -473,6 +473,7 @@
     display: none !important;
   }
 
+  
   .main-navbar {
     padding: 10px 15px;
     position: relative;
@@ -520,7 +521,11 @@
     transform: translateX(-100%);
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   }
-
+/* Cross (X) Icon Hover */
+.nav-links.mobile-active button[aria-label="Close menu"]:hover {
+  background: rgba(233, 174, 137, 0.15) !important;
+  transform: scale(1.1); /* Hover par button thora sa bara hoga */
+}
   .nav-links.mobile-active {
     transform: translateX(0);
   }
@@ -532,7 +537,16 @@
     padding-bottom: 8px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.02);
   }
+  .nav-links.mobile-active .nav-item:hover {
+  color: #f95f1edd !important; 
+  transform: translateX(5px); /* Hover par thora sa aage move hoga, premium feel ke liye */
+  transition: all 0.3s ease;
+}
 
+.drawer-mobile-utils .wishlist-btn:hover {
+  color: #f95f1edd !important;
+  transition: all 0.3s ease;
+}
   .nav-item::after {
     display: none;
   }
