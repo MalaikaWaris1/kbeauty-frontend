@@ -102,15 +102,53 @@ export const Header = () => {
       {/* Main Navigation Row */}
       <div className="main-navbar">
 
-        {/* Mobile Hamburger Button */}
+        {/* 🟢 Premium Animated Mobile Hamburger Button */}
         <button
           className={`hamburger-menu ${isMenuOpen ? "open" : ""}`}
           onClick={toggleMenu}
           aria-label="Toggle menu"
+          style={{
+            background: "transparent",
+            border: "none",
+            cursor: "pointer",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "44px",
+            height: "44px",
+            zIndex: 100, // Keeps it above the dark overlay
+            padding: "0"
+          }}
         >
-          <span className="hamburger-bar"></span>
-          <span className="hamburger-bar"></span>
-          <span className="hamburger-bar"></span>
+          <span style={{
+            display: "block",
+            width: "24px",
+            height: "2px",
+            backgroundColor: "#111",
+            borderRadius: "2px",
+            transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+            transform: isMenuOpen ? "translateY(6px) rotate(45deg)" : "translateY(-5px)"
+          }}></span>
+          <span style={{
+            display: "block",
+            width: "24px",
+            height: "2px",
+            backgroundColor: "#111",
+            borderRadius: "2px",
+            transition: "all 0.3s ease",
+            opacity: isMenuOpen ? 0 : 1,
+            transform: isMenuOpen ? "translateX(-10px)" : "translateX(0)"
+          }}></span>
+          <span style={{
+            display: "block",
+            width: "24px",
+            height: "2px",
+            backgroundColor: "#111",
+            borderRadius: "2px",
+            transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+            transform: isMenuOpen ? "translateY(-6px) rotate(-45deg)" : "translateY(5px)"
+          }}></span>
         </button>
 
         {/* Left Side Navigation Links */}
