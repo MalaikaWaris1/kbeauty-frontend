@@ -536,11 +536,13 @@
     letter-spacing: 0.12em;
     padding-bottom: 8px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+    
   }
   .nav-links.mobile-active .nav-item:hover {
   color: #f95f1edd !important; 
   transform: translateX(5px); /* Hover par thora sa aage move hoga, premium feel ke liye */
   transition: all 0.3s ease;
+  
 }
 
 .drawer-mobile-utils .wishlist-btn:hover {

@@ -147,7 +147,7 @@ export const Header = () => {
             WebkitBackdropFilter: "blur(16px)",
             borderRight: "1px solid rgba(255, 255, 255, 0.5)", // Light edge reflection
             boxShadow: "4px 0 30px rgba(249, 215, 215, 0.7)", // 🟢 Shadow light kar diya
-            paddingTop: "70px" // Cross icon ke liye space
+            paddingTop: "95px"// Cross icon ke liye space
           } : {}}
         >
           
