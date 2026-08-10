@@ -3,6 +3,35 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import API from "../api/axios"; 
 
+// 🌍 MUKAMMAL COUNTRIES KI LIST (Pakistan sab se oopar)
+const COUNTRIES_LIST = [
+  "Pakistan", "United Arab Emirates", "Saudi Arabia", "United States", "United Kingdom",
+  "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", 
+  "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", 
+  "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", 
+  "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", 
+  "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", 
+  "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czechia", "Denmark", "Djibouti", "Dominica", 
+  "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", 
+  "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", 
+  "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", 
+  "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", 
+  "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", 
+  "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", 
+  "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", 
+  "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", 
+  "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", 
+  "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Palau", 
+  "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", 
+  "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", 
+  "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Senegal", 
+  "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", 
+  "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", 
+  "Sweden", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", 
+  "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", 
+  "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
+];
+
 const ManualPayment = () => {
   const navigate = useNavigate();
   const { cart, setCart } = useContext(AppContext);
@@ -63,8 +92,8 @@ const ManualPayment = () => {
   
   const isInternational = country !== "Pakistan";
   
-  // 🚚 Delivery Logic: Free above 6000 PKR, else 290 PKR (For Pakistan only)
-  const deliveryChargePKR = isInternational ? 0 : (currentSubtotalPKR >= 6000 ? 0 : 290);
+  // 🚚 Delivery Logic: Online Payment (Advance) pe delivery free ki hai jesa aapne kaha
+  const deliveryChargePKR = 0; 
   
   // 💵 Final Total
   const finalTotalPKR = currentSubtotalPKR + deliveryChargePKR;
@@ -246,7 +275,7 @@ const ManualPayment = () => {
           Select your country, adjust quantity, and transfer the exact total amount to complete your order.
         </p>
 
-        {/* 🌍 COUNTRY SELECTOR */}
+        {/* 🌍 ALL COUNTRIES SELECTOR */}
         <div style={{ textAlign: "left", marginBottom: "20px" }}>
           <label style={{ display: "block", marginBottom: "6px", fontWeight: "600", color: "#333", fontSize: "0.82rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>
             Destination Country *
@@ -256,12 +285,9 @@ const ManualPayment = () => {
             onChange={(e) => setCountry(e.target.value)}
             style={{ width: "100%", padding: "10px 12px", borderRadius: "8px", border: "1px solid #ddd", fontSize: "0.95rem", outline: "none", backgroundColor: "#f9fafb", cursor: "pointer", boxSizing: "border-box" }}
           >
-            <option value="Pakistan">Pakistan</option>
-            <option value="United Arab Emirates">United Arab Emirates</option>
-            <option value="Saudi Arabia">Saudi Arabia</option>
-            <option value="United States">United States</option>
-            <option value="United Kingdom">United Kingdom</option>
-            <option value="Other International">Other (International)</option>
+            {COUNTRIES_LIST.map((c, index) => (
+              <option key={index} value={c}>{c}</option>
+            ))}
           </select>
         </div>
 
@@ -289,7 +315,7 @@ const ManualPayment = () => {
                 </div>
               </div>
 
-              {/* RIGHT: COMPACT QUANTITY SELECTOR (NO OVERFLOW) */}
+              {/* RIGHT: COMPACT QUANTITY SELECTOR */}
               <div style={{ display: "flex", alignItems: "center", border: "1px solid #ddd", borderRadius: "6px", backgroundColor: "#fff", flexShrink: 0 }}>
                 <button 
                   onClick={() => handleQuantityChange(item, 'dec')} 
@@ -311,7 +337,7 @@ const ManualPayment = () => {
             </div>
           ))}
 
-          {/* 🚚 DYNAMIC PRICING BREAKDOWN */}
+          {/* 🚚 DYNAMIC PRICING BREAKDOWN (Updated logic for Free Online Delivery) */}
           <div style={{ borderTop: "1px solid #eaeaea", paddingTop: "12px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px", color: "#444", fontSize: "0.85rem" }}>
               <span>Subtotal:</span>
@@ -321,7 +347,7 @@ const ManualPayment = () => {
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px", color: "#444", fontSize: "0.85rem" }}>
               <span>Delivery ({country}):</span>
               <span style={{ fontWeight: "600", color: deliveryChargePKR === 0 ? "#16a34a" : "#444" }}>
-                {isInternational ? "Calculated Later" : (deliveryChargePKR === 0 ? "Free Delivery" : `PKR ${deliveryChargePKR}`)}
+                {isInternational ? "Calculated Later" : "Free (Online Payment)"}
               </span>
             </div>
             
