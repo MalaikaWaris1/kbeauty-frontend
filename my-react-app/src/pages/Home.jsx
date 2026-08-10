@@ -40,6 +40,7 @@ import { AppContext } from "../context/AppContext";
 // 🚀 LCP (Largest Contentful Paint) ke liye inko normal import rakha hai taake foran load hon
 import { Hero } from "../components/sections/Hero";
 import { FlashSaleBanner } from "../components/sections/FlashSaleBanner";
+import WhyChooseUs from "../components/sections/WhyChooseUs";
 
 // 🚀 SPEED FIX: Neechay wale tamaam sections ko Lazy Load kar diya gaya hai
 // (Kyunke yeh Named Exports hain, isliye .then() laga kar default banaya gaya hai)
@@ -68,6 +69,7 @@ const Home = () => {
         <PremiumVideoGallery />
         <BeautyBrandStory />
         <InstagramGallery />
+        <WhyChooseUs/>
         <InnerCircleSubscribe />
       </Suspense>
     </div>

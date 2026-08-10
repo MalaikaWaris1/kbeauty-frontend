@@ -1,0 +1,144 @@
+/* Peach Creamy Theme Styles */
+.why-choose-us-section {
+  background-color: #FCF8F5; /* Soft creamy peach background */
+  padding: 60px 20px;
+  font-family: 'Playfair Display', serif, sans-serif;
+}
+
+.why-choose-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.section-title {
+  font-size: 38px;
+  font-weight: 700;
+  color: #2C221E;
+  margin-bottom: 10px;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  color: #7A6B63;
+  font-weight: 400;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 cards in one row */
+  gap: 16px; /* Gap kam kar diya taake width adjust rahay */
+}
+
+/* Card Styling & Compact Size Setup */
+.feature-card {
+  background-color: #FFFFFF;
+  border: 1px solid #F2E8E1;
+  border-top: 3px solid transparent;
+  border-radius: 12px;
+  padding: 25px 15px; /* Height aur width dono ko chota/compact karne ke liye padding kam ki */
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  z-index: 1;
+}
+
+/* Content wrapper */
+.feature-content-wrapper {
+  position: relative;
+  z-index: 2; 
+}
+
+.card-hover-line {
+  display: none;
+}
+
+/* Card Hover State - Top Border Fill Effect */
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(160, 120, 100, 0.1);
+  border-top-color: #D4A373;
+  border-color: #F2E8E1;
+  border-top-color: #D4A373;
+}
+
+/* --- ICON & TEXT STYLING (Compact) --- */
+.feature-icon-wrapper {
+  color: #2C221E;
+  margin-bottom: 15px;
+  display: inline-flex;
+  transition: color 0.3s ease;
+}
+
+.feature-card:hover .feature-icon-wrapper {
+  color: #D4A373;
+}
+
+.feature-title {
+  font-size: 16px; /* Font size thora chota kiya */
+  font-weight: 600;
+  color: #2C221E;
+  margin-bottom: 8px;
+}
+
+.feature-desc {
+  font-size: 13px; /* Description ka size bhi chota kiya taake fit rahay */
+  color: #6B5B52;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* --- MEDIA QUERIES --- */
+@media screen and (max-width: 1024px) {
+  .features-grid { 
+    grid-template-columns: repeat(4, 1fr); /* Tablet/Laptop par bhi 4 items aik row mein */
+    gap: 12px; 
+  }
+  .feature-card {
+    padding: 20px 10px; /* Aur zyada compact size */
+  }
+  .feature-title { font-size: 14px; }
+  .feature-desc { font-size: 12px; }
+  .section-title { font-size: 30px; }
+}
+
+@media screen and (max-width: 600px) {
+  .features-grid { 
+    grid-template-columns: repeat(2, 1fr); /* Mobile screen par 2 items aik row mein */
+    gap: 12px; 
+  }
+  
+  .feature-card {
+    padding: 20px 12px; 
+  }
+
+  .feature-icon-wrapper {
+    margin-bottom: 12px; 
+  }
+  
+  .feature-title {
+    font-size: 15px; 
+    margin-bottom: 8px;
+  }
+
+  .feature-desc {
+    font-size: 12px; 
+  }
+
+  .why-choose-us-section { 
+    padding: 50px 15px; 
+  }
+  
+  .section-title { 
+    font-size: 26px; 
+  }
+
+  .section-subtitle {
+    font-size: 14px;
+  }
+}
