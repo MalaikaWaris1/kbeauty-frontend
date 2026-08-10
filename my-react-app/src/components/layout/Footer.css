@@ -364,7 +364,7 @@
 
 .pay-icon {
   height: 80px;
-  width: 40%;
+  width: 30%;
   object-fit: contain;
   /* IMPORTANT: Ye mix-blend-mode image ke white background ko hide kar dega, 
      aur footer ka cream/peach color peeche se dikhai dega! */
