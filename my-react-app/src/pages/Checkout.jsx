@@ -131,74 +131,6 @@ const Checkout = () => {
   };
 
   // 🚀 BACKEND SUBMIT HANDLER
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setErrorMessage("");
-
-  //   if (displayCart.length === 0) {
-  //     alert("Your order summary is empty.");
-  //     return;
-  //   }
-
-  //   try {
-  //     setLoading(true);
-
-  //     const orderPayload = {
-  //       customerInfo: {
-  //         firstName: formData.firstName,
-  //         lastName: formData.lastName,
-  //         email: formData.email,
-  //         phone: formData.phone
-  //       },
-  //       shippingAddress: {
-  //         street: formData.street,
-  //         city: formData.city,
-  //         postalCode: formData.postalCode,
-  //         country: formData.country
-  //       },
-  //       items: displayCart.map((item) => ({
-  //         product: item._id || item.id,
-  //         name: item.name,
-  //         quantity: item.quantity,
-  //         price: Number(item.price)
-  //       })),
-  //       isInternationalOrder: isInternational,
-  //       paymentMethod: isOnlinePayment ? "Online (Pre-Paid)" : "Cash on Delivery",
-  //       orderNotes: formData.notes
-  //     };
-
-  //     const response = await API.post("/orders", orderPayload);
-
-  //     if (response.status === 201) {
-  //       alert("🎉 Order successfully placed! Thank you for shopping with us.");
-        
-  //       if (isBuyNowFlow) {
-  //         localStorage.removeItem("buyNowProduct");
-  //         localStorage.removeItem("buyNowQuantity");
-  //       } else {
-  //         clearCart();
-  //       }
-  //       localStorage.removeItem("checkoutMode"); 
-  //       localStorage.removeItem("checkoutCountry"); 
-        
-  //       setFormData(initialState);
-  //       navigate("/");
-  //     }
-  //   } catch (err) {
-  //     console.error("Order submit failed:", err);
-  //     const msg = err.response?.data?.message || "Failed to submit order. Please check your network or credentials.";
-  //     setErrorMessage(msg);
-
-  //     if (err.response?.status === 401) {
-  //       if (window.confirm("You must be logged in to submit an order. Go to Login page?")) {
-  //         navigate("/auth");
-  //       }
-  //     }
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-// 🚀 BACKEND SUBMIT HANDLER WITH WHATSAPP REDIRECT
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
@@ -238,31 +170,7 @@ const Checkout = () => {
       const response = await API.post("/orders", orderPayload);
 
       if (response.status === 201) {
-        // ✨ WhatsApp Message Builder (Admin Number: 923420466996)
-        const adminWhatsAppNumber = "03191452881"; // Aapka WhatsApp number
-        
-        let itemsText = displayCart.map((item, idx) => 
-          `  ${idx + 1}. ${item.name} (Qty: ${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}`
-        ).join("\n");
-
-        const whatsappMessage = 
-          `🚨 *NEW ORDER RECEIVED!* 🚨\n\n` +
-          `👤 *Customer:* ${formData.firstName} ${formData.lastName}\n` +
-          `📞 *Phone:* ${formData.phone}\n` +
-          `✉️ *Email:* ${formData.email}\n\n` +
-          `📍 *Shipping Address:*\n` +
-          `  ${formData.street}, ${formData.city}, ${formData.postalCode}, ${formData.country}\n\n` +
-          `🛍️ *Items Ordered:*\n${itemsText}\n\n` +
-          `💳 *Payment Method:* ${isOnlinePayment ? "Online (Pre-Paid)" : "Cash on Delivery"}\n` +
-          `💰 *Total Amount:* $${calculatedTotal.toFixed(2)} (${formatPKR(calculatedTotal)})\n` +
-          `📝 *Notes:* ${formData.notes || "None"}\n\n` +
-          `_Please verify and process this order._`;
-
-        // WhatsApp URL Open Karein
-        const whatsappUrl = `https://wa.me/${adminWhatsAppNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-        window.open(whatsappUrl, "_blank");
-
-        alert("🎉 Order successfully placed! Redirecting to WhatsApp & Home.");
+        alert("🎉 Order successfully placed! Thank you for shopping with us.");
         
         if (isBuyNowFlow) {
           localStorage.removeItem("buyNowProduct");
@@ -290,7 +198,9 @@ const Checkout = () => {
       setLoading(false);
     }
   };
-  
+// 🚀 BACKEND SUBMIT HANDLER WITH WHATSAPP REDIRECT
+ 
+
   return (
     <div className="checkout-page-container">
       <div className="checkout-breadcrumb">
