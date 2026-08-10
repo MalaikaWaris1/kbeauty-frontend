@@ -1,3 +1,5 @@
+
+
 // // src/context/AppContext.jsx
 // import React, { createContext, useState, useEffect } from "react";
 // import API from "../api/axios";
@@ -50,8 +52,9 @@
 
 //   const [exchangeRate, setExchangeRate] = useState(278); 
 
+//   // 🎯 FIX 1: Default isActive ko false kar diya taake jab tak sale active na ho tab tak hidden rahe
 //   const [saleData, setSaleData] = useState({
-//     isActive: true,
+//     isActive: false, 
 //     subtitle: "LIMITED OCCURRENCE",
 //     title: "The Solstice Flash Sale",
 //     description: "Up to 30% off the archival edit. 48 hours only, while stocks last.",
@@ -75,7 +78,7 @@
 //       .catch(err => console.error("Exchange rate fetch failed, using fallback:", err));
 //   }, []);
 
-//   // 🟢 Optimized Data Fetching (isInitial True sirf pehli baar loading dikhayega)
+//   // 🟢 Optimized Data Fetching
 //   const fetchProducts = async (isInitial = false) => {
 //     try {
 //       if (isInitial) setLoadingProducts(true);
@@ -123,7 +126,8 @@
 //         const activeProducts = data.featuredProducts || data.latestProducts || data.products || [];
 
 //         setSaleData({
-//           isActive: data.isActive ?? true,
+//           // 🎯 FIX 2: Default true ke bajaye actual value ya false use karein
+//           isActive: Boolean(data.isActive),
 //           subtitle: data.miniTitle || data.subtitle || "LIMITED OCCURRENCE",
 //           title: data.mainTitle || data.title || "The Solstice Flash Sale",
 //           description: data.description || "Up to 30% off the archival edit.",
@@ -138,11 +142,12 @@
 //       }
 //     } catch (error) {
 //       console.warn("Using default static sale data:", error.message);
+//       // Aggar API fail hoti hai toh sale active nahi hogi
+//       setSaleData(prev => ({ ...prev, isActive: false }));
 //     }
 //   };
 
 //   useEffect(() => {
-//     // ⚡ First load with loading indicators
 //     const syncAllDataInitial = () => {
 //       fetchProducts(true);
 //       fetchStories(true);
@@ -150,7 +155,6 @@
 //       fetchActiveSale();
 //     };
 
-//     // 🤫 Background Sync without triggering loading state (prevents repeated loading screens)
 //     const syncAllDataSilent = () => {
 //       fetchProducts(false);
 //       fetchStories(false);
@@ -324,7 +328,6 @@ export const AppProvider = ({ children }) => {
     localStorage.removeItem("userAccessToken");
     localStorage.removeItem("userRefreshToken");
     localStorage.removeItem("userData");
-    // Purani backup keys ki safai
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("user");
@@ -357,7 +360,6 @@ export const AppProvider = ({ children }) => {
 
   const [exchangeRate, setExchangeRate] = useState(278); 
 
-  // 🎯 FIX 1: Default isActive ko false kar diya taake jab tak sale active na ho tab tak hidden rahe
   const [saleData, setSaleData] = useState({
     isActive: false, 
     subtitle: "LIMITED OCCURRENCE",
@@ -383,10 +385,10 @@ export const AppProvider = ({ children }) => {
       .catch(err => console.error("Exchange rate fetch failed, using fallback:", err));
   }, []);
 
-  // 🟢 Optimized Data Fetching
+  // 🟢 Optimized & Smart Data Fetching (Prevents unnecessary flickering if data exists)
   const fetchProducts = async (isInitial = false) => {
     try {
-      if (isInitial) setLoadingProducts(true);
+      if (isInitial && products.length === 0) setLoadingProducts(true);
       const response = await API.get("/products");
       const data = response.data.products || response.data;
       setProducts(Array.isArray(data) ? data : []);
@@ -399,7 +401,7 @@ export const AppProvider = ({ children }) => {
 
   const fetchStories = async (isInitial = false) => {
     try {
-      if (isInitial) setLoadingStories(true);
+      if (isInitial && videoGalleryData.length === 0) setLoadingStories(true);
       const response = await API.get("/stories");
       const data = Array.isArray(response.data) ? response.data : response.data.stories || [];
       setVideoGalleryData(data);
@@ -412,7 +414,7 @@ export const AppProvider = ({ children }) => {
 
   const fetchInstagramPosts = async (isInitial = false) => {
     try {
-      if (isInitial) setLoadingInstagramPosts(true);
+      if (isInitial && instagramPosts.length === 0) setLoadingInstagramPosts(true);
       const response = await API.get("/instagram"); 
       const data = Array.isArray(response.data) ? response.data : response.data.posts || [];
       setInstagramPosts(data);
@@ -431,7 +433,6 @@ export const AppProvider = ({ children }) => {
         const activeProducts = data.featuredProducts || data.latestProducts || data.products || [];
 
         setSaleData({
-          // 🎯 FIX 2: Default true ke bajaye actual value ya false use karein
           isActive: Boolean(data.isActive),
           subtitle: data.miniTitle || data.subtitle || "LIMITED OCCURRENCE",
           title: data.mainTitle || data.title || "The Solstice Flash Sale",
@@ -447,7 +448,6 @@ export const AppProvider = ({ children }) => {
       }
     } catch (error) {
       console.warn("Using default static sale data:", error.message);
-      // Aggar API fail hoti hai toh sale active nahi hogi
       setSaleData(prev => ({ ...prev, isActive: false }));
     }
   };
@@ -469,6 +469,7 @@ export const AppProvider = ({ children }) => {
 
     syncAllDataInitial();
 
+    // Window focus par bar bar loading roknay ke liye sirf silent sync chalega
     const handleFocus = () => syncAllDataSilent();
     window.addEventListener("focus", handleFocus);
 
