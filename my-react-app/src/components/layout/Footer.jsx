@@ -180,7 +180,7 @@ export const Footer = () => {
         <div className="footer-container">
           
           <div className="footer-column brand-info">
-            {/* 🎨 NEW LOGO ADDED (MATCHING HEADER STYLING) */}
+            {/* 🎨 LOGO */}
             <Link to="/" className="custom-text-logo footer-text-logo">
               <span className="logo-top-italic">korean</span>
               <div className="logo-bottom-row">
@@ -192,6 +192,20 @@ export const Footer = () => {
             <p className="brand-description">
               A quiet ritual for the modern face. Small-batch Korean beauty, formulated in Korea.
             </p>
+
+            {/* 💳 FIRST COLUMN MEIN MOVED PAYMENT PICS */}
+            <div className="payment-icons">
+              <img 
+                src="https://images.seeklogo.com/logo-png/51/1/easypaisa-logo-png_seeklogo-512220.png" 
+                alt="Easypaisa" 
+                className="pay-icon" 
+              />
+              <img 
+                src="https://images.seeklogo.com/logo-png/34/1/jazz-cash-logo-png_seeklogo-343031.png" 
+                alt="JazzCash" 
+                className="pay-icon" 
+              />
+            </div>
           </div>
 
           <div className="footer-column">
@@ -221,21 +235,6 @@ export const Footer = () => {
               <li><a href="/" onClick={(e) => openModal('privacy', e)}>Privacy Policy</a></li>
               <li><a href="/" onClick={(e) => openModal('terms', e)}>Terms & Conditions</a></li>
             </ul>
-
-            {/* 💳 YAHAN ADD HUI HAIN PAYMENT PICS */}
-            <div className="payment-icons">
-              <img 
-                src="https://images.seeklogo.com/logo-png/51/1/easypaisa-logo-png_seeklogo-512220.png" 
-                alt="Easypaisa" 
-                className="pay-icon" 
-              />
-              <img 
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3J8QqDVVCooGtYHZZT2DP3QysxJkKLUON7rAl8mp3Hg&s" 
-                alt="JazzCash" 
-                className="pay-icon" 
-              />
-            </div>
-            
           </div>
 
         </div>
@@ -243,7 +242,7 @@ export const Footer = () => {
         <hr className="footer-divider" />
 
         <div className="footer-bottom">
-          <p className="copyright-text">© 2026 Korean_productsby_sunny. PK</p>
+          <p className="copyright-text">© 2026 Korean_productsby_sony. PK</p>
           <p className="cities-text">K-BEAUTY · QUALITY · CARE</p>
         </div>
       </footer>
