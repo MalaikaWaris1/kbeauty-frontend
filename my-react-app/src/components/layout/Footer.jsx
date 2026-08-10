@@ -242,7 +242,7 @@ export const Footer = () => {
         <hr className="footer-divider" />
 
         <div className="footer-bottom">
-          <p className="copyright-text">© 2026 Korean_productsby_sony. PK</p>
+          <p className="copyright-text">© 2026 Korean_productsby_sunny. PK</p>
           <p className="cities-text">K-BEAUTY · QUALITY · CARE</p>
         </div>
       </footer>
