@@ -127,6 +127,7 @@ const ManualPayment = () => {
     }
   };
 
+  
   // const handlePaymentDone = async () => {
   //   // 🟢 FIX: Update State and Session Storage
   //   const newStatus = "waiting";
@@ -150,6 +151,26 @@ const ManualPayment = () => {
   //     setPaymentReqId(newPaymentId);
   //     sessionStorage.setItem("paymentReqId", newPaymentId);
 
+  //     // ✨ WHATSAPP NOTIFICATION FOR ADMIN ON MANUAL PAYMENT
+  //     const adminWhatsAppNumber = "03191452881"; // Aapka WhatsApp number
+      
+  //     let itemsListText = displayCart.map((item, idx) => 
+  //       `  ${idx + 1}. ${item.name} (Qty: ${item.quantity}) - PKR ${(Number(item.price) * exchangeRate * item.quantity).toLocaleString(undefined, {maximumFractionDigits:0})}`
+  //     ).join("\n");
+
+  //     const whatsappMessage = 
+  //       `🔔 *NEW ONLINE PAYMENT VERIFICATION REQUIRED!* 🔔\n\n` +
+  //       `🆔 *Payment Request ID:* #${newPaymentId}\n` +
+  //       `🌐 *Country:* ${country}\n` +
+  //       `💰 *Claimed Amount:* PKR ${finalTotalPKR.toLocaleString(undefined, {maximumFractionDigits:0})}\n\n` +
+  //       `🛍️ *Items Claimed:*\n${itemsListText}\n\n` +
+  //       `⏳ *Status:* Pending Admin Approval\n\n` +
+  //       `_Please check your Admin Panel to verify and click YES or NO._`;
+
+  //     // WhatsApp URL Open Karein
+  //     const whatsappUrl = `https://wa.me/${adminWhatsAppNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+  //     window.open(whatsappUrl, "_blank");
+
   //   } catch (error) {
   //     console.log("Admin notification failed", error);
   //     alert("Server error. Please login First or contact support.");
@@ -160,8 +181,6 @@ const ManualPayment = () => {
   //     sessionStorage.removeItem("paymentReqId");
   //   }
   // };
-
-  // 🟢 Helper function to handle status resets
   
   const handlePaymentDone = async () => {
     // 🟢 FIX: Update State and Session Storage
@@ -187,7 +206,7 @@ const ManualPayment = () => {
       sessionStorage.setItem("paymentReqId", newPaymentId);
 
       // ✨ WHATSAPP NOTIFICATION FOR ADMIN ON MANUAL PAYMENT
-      const adminWhatsAppNumber = "03191452881"; // Aapka WhatsApp number
+      const adminWhatsAppNumber = "923191452881"; // 👈 FIX: '0' hata kar '92' laga diya hai
       
       let itemsListText = displayCart.map((item, idx) => 
         `  ${idx + 1}. ${item.name} (Qty: ${item.quantity}) - PKR ${(Number(item.price) * exchangeRate * item.quantity).toLocaleString(undefined, {maximumFractionDigits:0})}`
@@ -202,7 +221,7 @@ const ManualPayment = () => {
         `⏳ *Status:* Pending Admin Approval\n\n` +
         `_Please check your Admin Panel to verify and click YES or NO._`;
 
-      // WhatsApp URL Open Karein
+      // WhatsApp URL Open Karein (Mobile par direct app khulegi)
       const whatsappUrl = `https://wa.me/${adminWhatsAppNumber}?text=${encodeURIComponent(whatsappMessage)}`;
       window.open(whatsappUrl, "_blank");
 
