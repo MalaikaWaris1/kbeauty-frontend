@@ -127,6 +127,42 @@ const ManualPayment = () => {
     }
   };
 
+  // const handlePaymentDone = async () => {
+  //   // 🟢 FIX: Update State and Session Storage
+  //   const newStatus = "waiting";
+  //   setVerificationStatus(newStatus);
+  //   sessionStorage.setItem("verificationStatus", newStatus);
+    
+  //   // Save selected country so Checkout page can prepopulate it
+  //   localStorage.setItem("checkoutCountry", country);
+
+  //   try {
+  //     const response = await API.post("/orders/notify-admin", {
+  //       message: `Online manual payment initiated via ${isBuyNowFlow ? 'Buy Now' : 'Shopping Cart'} flow.`,
+  //       items: displayCart,
+  //       totalAmountPKR: finalTotalPKR, 
+  //       status: "Pending"
+  //     });
+      
+  //     const newPaymentId = (response.data && response.data.paymentId) ? response.data.paymentId : "demo-id-123";
+      
+  //     // 🟢 FIX: Save paymentId to state and Session Storage
+  //     setPaymentReqId(newPaymentId);
+  //     sessionStorage.setItem("paymentReqId", newPaymentId);
+
+  //   } catch (error) {
+  //     console.log("Admin notification failed", error);
+  //     alert("Server error. Please login First or contact support.");
+      
+  //     // 🟢 FIX: Reset if API fails
+  //     setVerificationStatus("idle");
+  //     sessionStorage.removeItem("verificationStatus");
+  //     sessionStorage.removeItem("paymentReqId");
+  //   }
+  // };
+
+  // 🟢 Helper function to handle status resets
+  
   const handlePaymentDone = async () => {
     // 🟢 FIX: Update State and Session Storage
     const newStatus = "waiting";
@@ -150,6 +186,26 @@ const ManualPayment = () => {
       setPaymentReqId(newPaymentId);
       sessionStorage.setItem("paymentReqId", newPaymentId);
 
+      // ✨ WHATSAPP NOTIFICATION FOR ADMIN ON MANUAL PAYMENT
+      const adminWhatsAppNumber = "03191452881"; // Aapka WhatsApp number
+      
+      let itemsListText = displayCart.map((item, idx) => 
+        `  ${idx + 1}. ${item.name} (Qty: ${item.quantity}) - PKR ${(Number(item.price) * exchangeRate * item.quantity).toLocaleString(undefined, {maximumFractionDigits:0})}`
+      ).join("\n");
+
+      const whatsappMessage = 
+        `🔔 *NEW ONLINE PAYMENT VERIFICATION REQUIRED!* 🔔\n\n` +
+        `🆔 *Payment Request ID:* #${newPaymentId}\n` +
+        `🌐 *Country:* ${country}\n` +
+        `💰 *Claimed Amount:* PKR ${finalTotalPKR.toLocaleString(undefined, {maximumFractionDigits:0})}\n\n` +
+        `🛍️ *Items Claimed:*\n${itemsListText}\n\n` +
+        `⏳ *Status:* Pending Admin Approval\n\n` +
+        `_Please check your Admin Panel to verify and click YES or NO._`;
+
+      // WhatsApp URL Open Karein
+      const whatsappUrl = `https://wa.me/${adminWhatsAppNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+      window.open(whatsappUrl, "_blank");
+
     } catch (error) {
       console.log("Admin notification failed", error);
       alert("Server error. Please login First or contact support.");
@@ -160,8 +216,6 @@ const ManualPayment = () => {
       sessionStorage.removeItem("paymentReqId");
     }
   };
-
-  // 🟢 Helper function to handle status resets
   const resetVerificationState = (status = "idle") => {
     setVerificationStatus(status);
     if (status === "idle") {
