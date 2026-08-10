@@ -46,7 +46,7 @@ const WhyChooseUs = () => {
         </svg>
       ),
       title: "Korean Beauty", // Updated text
-      description: "Authentic Korean products by Sony.", // Updated text
+      description: "Authentic Korean products by Sunny.", // Updated text
     },
   ];
 

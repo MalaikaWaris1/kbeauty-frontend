@@ -137,13 +137,13 @@ export const ContactUs = () => {
             {/* 🟢 Continuous Brand Text Marquee (Replaced Image Logo) */}
             <div className="brand-ticker-container">
               <div className="brand-ticker-track">
-                <span>KProducts_BySony</span>
+                <span>KProducts_BySunny</span>
                 <span className="ticker-dot">•</span>
-                <span>KProducts_BySony</span>
+                <span>KProducts_BySunny</span>
                 <span className="ticker-dot">•</span>
-                <span>KProducts_BySony</span>
+                <span>KProducts_BySunny</span>
                 <span className="ticker-dot">•</span>
-                <span>KProducts_BySony</span>
+                <span>KProducts_BySunny</span>
                 <span className="ticker-dot">•</span>
               </div>
             </div>

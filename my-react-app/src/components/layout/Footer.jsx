@@ -113,7 +113,7 @@ export const Footer = () => {
         title = <>Privacy<br/>Policy</>;
         content = (
           <div className="policy-text-area">
-            <p>Your privacy is important to us. It is Beauty By Sony's policy to respect your privacy regarding any information we may collect from you across our website.</p>
+            <p>Your privacy is important to us. It is Beauty By Sunny's policy to respect your privacy regarding any information we may collect from you across our website.</p>
             <h3>1. Information we collect</h3>
             <p>We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent.</p>
             <h3>2. How we use your data</h3>
@@ -128,9 +128,9 @@ export const Footer = () => {
           <div className="policy-text-area">
             <p>By accessing our website, you agree to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance.</p>
             <h3>1. Use License</h3>
-            <p>Permission is granted to temporarily download one copy of the materials on Products By Sony's website for personal, non-commercial transitory viewing only.</p>
+            <p>Permission is granted to temporarily download one copy of the materials on Products By Sunny's website for personal, non-commercial transitory viewing only.</p>
             <h3>2. Limitations</h3>
-            <p>In no event shall Beauty By Sony or its suppliers be liable for any damages arising out of the use or inability to use the materials on our website.</p>
+            <p>In no event shall Beauty By Sunny or its suppliers be liable for any damages arising out of the use or inability to use the materials on our website.</p>
           </div>
         );
         break;
@@ -184,7 +184,7 @@ export const Footer = () => {
             <Link to="/" className="custom-text-logo footer-text-logo">
               <span className="logo-top-italic">korean</span>
               <div className="logo-bottom-row">
-                <span className="logo-brand-sub">PRODUCTSBY_SONY</span>
+                <span className="logo-brand-sub">PRODUCTSBY_SUNNY</span>
                 <span className="logo-pkr-badge">PK</span>
               </div>
             </Link>
@@ -221,6 +221,21 @@ export const Footer = () => {
               <li><a href="/" onClick={(e) => openModal('privacy', e)}>Privacy Policy</a></li>
               <li><a href="/" onClick={(e) => openModal('terms', e)}>Terms & Conditions</a></li>
             </ul>
+
+            {/* 💳 YAHAN ADD HUI HAIN PAYMENT PICS */}
+            <div className="payment-icons">
+              <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/EasyPaisa_Logo.svg/512px-EasyPaisa_Logo.svg.png" 
+                alt="Easypaisa" 
+                className="pay-icon" 
+              />
+              <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/JazzCash_logo.svg/512px-JazzCash_logo.svg.png" 
+                alt="JazzCash" 
+                className="pay-icon" 
+              />
+            </div>
+            
           </div>
 
         </div>
@@ -228,7 +243,7 @@ export const Footer = () => {
         <hr className="footer-divider" />
 
         <div className="footer-bottom">
-          <p className="copyright-text">© 2026 Korean_productsby_sony. PK</p>
+          <p className="copyright-text">© 2026 Korean_productsby_sunny. PK</p>
           <p className="cities-text">K-BEAUTY · QUALITY · CARE</p>
         </div>
       </footer>
