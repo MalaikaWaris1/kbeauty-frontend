@@ -225,12 +225,12 @@ export const Footer = () => {
             {/* 💳 YAHAN ADD HUI HAIN PAYMENT PICS */}
             <div className="payment-icons">
               <img 
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/EasyPaisa_Logo.svg/512px-EasyPaisa_Logo.svg.png" 
+                src="https://images.seeklogo.com/logo-png/51/1/easypaisa-logo-png_seeklogo-512220.png" 
                 alt="Easypaisa" 
                 className="pay-icon" 
               />
               <img 
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/JazzCash_logo.svg/512px-JazzCash_logo.svg.png" 
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3J8QqDVVCooGtYHZZT2DP3QysxJkKLUON7rAl8mp3Hg&s" 
                 alt="JazzCash" 
                 className="pay-icon" 
               />
