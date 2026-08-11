@@ -1,7 +1,12 @@
 import axios from "axios";
 
+// const API = axios.create({
+//   baseURL: "https://kbeauty-backend-r0mz.onrender.com/api",
+//   withCredentials: true,
+// });
+
 const API = axios.create({
-  baseURL: "https://kbeauty-backend-r0mz.onrender.com/api",
+  baseURL: import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : "https://api.koreanproducts.org/api",
   withCredentials: true,
 });
 
