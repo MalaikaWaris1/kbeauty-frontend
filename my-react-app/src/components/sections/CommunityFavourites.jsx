@@ -207,7 +207,8 @@ export const CommunityFavourites = () => {
                   </Link>
                   
                   {/* ✨ FIX: Render Dynamic USD and Fixed PKR cleanly */}
-                  <div className="fav-price-row" style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                 {/* ✨ FIX: Render Dynamic USD and Fixed PKR cleanly aligned to LEFT */}
+                  <div className="fav-price-row" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", textAlign: "left", gap: "2px" }}>
                     <div style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
                       <span className="current-price">${dynamicUSD.toFixed(2)}</span>
                       {dynamicOldUSD && (
@@ -220,7 +221,6 @@ export const CommunityFavourites = () => {
                       PKR {fixedPKR.toLocaleString(undefined, { maximumFractionDigits: 0 })}
                     </span>
                   </div>
-                  
                   <motion.button 
                     onClick={() => handleQuickAdd(product)} 
                     className="fav-quick-add-btn"
