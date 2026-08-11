@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /cart
+Disallow: /checkout
+Disallow: /auth
+Disallow: /wishlist
+Disallow: /purchase-history
+
+Sitemap: https://www.koreanproducts.org/sitemap.xml
