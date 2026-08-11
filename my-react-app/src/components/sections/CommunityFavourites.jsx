@@ -1,5 +1,5 @@
 // src/components/sections/CommunityFavourites.jsx
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AppContext } from "../../context/AppContext";
@@ -40,6 +40,21 @@ export const CommunityFavourites = () => {
   
   // 🟢 Hide / Unhide State
   const [isCollapsed, setIsCollapsed] = useState(true);
+  
+  // 🟢 Exchange Rate State
+  const [exchangeRate, setExchangeRate] = useState(278);
+
+  // Fetch Exchange Rate on Mount
+  useEffect(() => {
+    fetch("https://open.er-api.com/v6/latest/USD")
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.rates && data.rates.PKR) {
+          setExchangeRate(data.rates.PKR);
+        }
+      })
+      .catch(err => console.error("Exchange rate fetch failed, using fallback:", err));
+  }, []);
 
   // Filter: Best Seller or Featured Products
   const bestSellers = products?.filter(
@@ -139,6 +154,13 @@ export const CommunityFavourites = () => {
 
             const ratingStars = Number(product.rating) || 5;
 
+            // ✨ FIX: Base price PKR, Dynamic USD
+            const fixedPKR = product.pricePKR ? Number(product.pricePKR) : (Number(product.price) || 0) * 278;
+            const fixedOldPKR = product.originalPricePKR ? Number(product.originalPricePKR) : (product.originalPrice ? Number(product.originalPrice) * 278 : null);
+            
+            const dynamicUSD = exchangeRate > 0 ? (fixedPKR / exchangeRate) : (Number(product.price) || 0);
+            const dynamicOldUSD = fixedOldPKR && exchangeRate > 0 ? (fixedOldPKR / exchangeRate) : (product.originalPrice ? Number(product.originalPrice) : null);
+
             return (
               <motion.div 
                 key={productId} 
@@ -184,11 +206,19 @@ export const CommunityFavourites = () => {
                     <h3 className="fav-product-title">{product.name}</h3>
                   </Link>
                   
-                  <div className="fav-price-row">
-                    <span className="current-price">${product.price}</span>
-                    {product.originalPrice && (
-                      <span className="old-price">${product.originalPrice}</span>
-                    )}
+                  {/* ✨ FIX: Render Dynamic USD and Fixed PKR cleanly */}
+                  <div className="fav-price-row" style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                    <div style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
+                      <span className="current-price">${dynamicUSD.toFixed(2)}</span>
+                      {dynamicOldUSD && (
+                        <span className="old-price" style={{ textDecoration: "line-through", color: "#999", fontSize: "0.85em" }}>
+                          ${dynamicOldUSD.toFixed(2)}
+                        </span>
+                      )}
+                    </div>
+                    <span style={{ fontSize: "0.8em", color: "#777" }}>
+                      PKR {fixedPKR.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                    </span>
                   </div>
                   
                   <motion.button 
