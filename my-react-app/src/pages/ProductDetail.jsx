@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom"; 
 import { AppContext } from "../context/AppContext"; 
+import { Helmet } from "react-helmet-async"; // 🟢 SEO HELMET IMPORT KIYA
 import "./ProductDetail.css";
 
 const FALLBACK_PRODUCTS = [
@@ -137,6 +138,17 @@ export const ProductDetail = () => {
 
   return (
     <div className="product-detail-page-wrapper">
+      
+      {/* 🟢 DYNAMIC SEO TAGS (Google ab har product ko pehchanega) */}
+      <Helmet>
+        <title>{product.name} - Buy Original in Pakistan</title>
+        <meta name="description" content={product.tagline || product.description.substring(0, 150)} />
+        <meta property="og:title" content={`${product.name} - Buy Original in Pakistan`} />
+        <meta property="og:description" content={product.tagline || product.description.substring(0, 150)} />
+        <meta property="og:image" content={product.image} />
+      </Helmet>
+      {/* 🟢 END OF SEO TAGS */}
+
       <nav className="p-detail-breadcrumb">
         <Link to="/">HOME</Link> <span className="bc-divider">/</span> 
         <Link to="/shop">SHOP</Link> <span className="bc-divider">/</span> 
@@ -317,7 +329,7 @@ export const ProductDetail = () => {
       {/* 🟢 3D INFINITE CAROUSEL (Zero Space - Perfectly Centered) */}
       <section className="p-detail-recommendations-section">
         <h2 className="p-rec-main-heading">You may also love</h2>
-       
+        
         <div
           className="p-3d-stage"
           onMouseEnter={() => setIsPaused(true)}
