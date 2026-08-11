@@ -26,6 +26,9 @@ const Home = () => {
         />
         <meta property="og:title" content="Korean Beauty Products - Shop Top Brands in Pakistan | KoreanProductsby_sunny" />
         <meta property="og:description" content="Get original Korean skincare and beauty products in Pakistan. Shop top brands like COSRX, Innisfree, and more with fast delivery." />
+        
+        {/* 🟢 CANONICAL TAG YAHAN ADD KIYA HAI */}
+        <link rel="canonical" href="https://www.koreanproducts.org/" />
       </Helmet>
 
       <Hero />

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import "./ContactUs.css";
 import API from "../api/axios";
+import { Helmet } from "react-helmet-async"; // 🟢 1. HELMET IMPORT KIYA
 
 export const ContactUs = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,6 +64,15 @@ export const ContactUs = () => {
 
   return (
     <div className="luxury-page-bg">
+      
+      {/* 🟢 2. SEO & CANONICAL TAG YAHAN ADD KIYA HAI */}
+      <Helmet>
+        <title>Contact Us | KoreanProductsby_sunny</title>
+        <meta name="description" content="Get in touch with KoreanProductsby_sunny. Contact our customer care team for product questions, order tracking, or wholesale inquiries." />
+        <link rel="canonical" href="https://www.koreanproducts.org/contact" />
+      </Helmet>
+      {/* 🟢 BAKI KUCH NAHI CHERA */}
+
       <div className={`beauty-book-wrapper ${isOpen ? "book-is-open" : ""}`}>
         
         {/* RIGHT PAGE (Form) */}

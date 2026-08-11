@@ -1,6 +1,7 @@
 // src/pages/AboutStoryPage.jsx
 import React from "react";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async"; // 🟢 1. HELMET IMPORT KIYA
 import "./AboutStoryPage.css";
 
 // 🎥 Asset Video Import
@@ -105,6 +106,14 @@ export const AboutStoryPage = () => {
   return (
     <div className="about-story-page-wrapper">
       
+      {/* 🟢 2. SEO & CANONICAL TAG YAHAN ADD KIYA HAI */}
+      <Helmet>
+        <title>Our Story - Authentic Korean Skincare | KoreanProductsby_sunny</title>
+        <meta name="description" content="Discover the philosophy behind KoreanProductsby_sunny. We bring 100% authentic, skin-barrier-first Korean skincare and beauty rituals directly to Pakistan." />
+        <link rel="canonical" href="https://www.koreanproducts.org/about" />
+      </Helmet>
+      {/* 🟢 BAKI KUCH NAHI CHERA */}
+
       {/* 🎬 SECTION 1: HERO CONTAINER WITH BACKGROUND VIDEO */}
       <section className="story-hero-section">
         <div className="video-background-container">

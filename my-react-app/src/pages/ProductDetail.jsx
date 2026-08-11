@@ -146,6 +146,9 @@ export const ProductDetail = () => {
         <meta property="og:title" content={`${product.name} - Buy Original in Pakistan`} />
         <meta property="og:description" content={product.tagline || product.description.substring(0, 150)} />
         <meta property="og:image" content={product.image} />
+        
+        {/* 🟢 DYNAMIC CANONICAL TAG YAHAN ADD KIYA HAI */}
+        <link rel="canonical" href={`https://www.koreanproducts.org/product/${product._id}`} />
       </Helmet>
       {/* 🟢 END OF SEO TAGS */}
 
