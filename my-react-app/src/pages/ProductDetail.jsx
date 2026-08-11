@@ -12,6 +12,7 @@ const FALLBACK_PRODUCTS = [
     category: "MOISTURIZERS",
     tagline: "Overnight barrier repair",
     price: 48.00,
+    pricePKR: 13344,
     oldPrice: null,
     discountLabel: null,
     volume: "50ml",
@@ -51,6 +52,13 @@ export const ProductDetail = () => {
 
   const sourceProducts = liveProducts && liveProducts.length > 0 ? liveProducts : FALLBACK_PRODUCTS;
   const rawProduct = sourceProducts.find((p) => String(p._id || p.id) === String(id)) || sourceProducts[0];
+
+  // ✨ FIX: MAIN PRODUCT PRICING LOGIC (PKR Base, USD Dynamic)
+  const fixedPKR = rawProduct.pricePKR ? Number(rawProduct.pricePKR) : (Number(rawProduct.price) || 0) * 278;
+  const fixedOldPKR = rawProduct.originalPricePKR ? Number(rawProduct.originalPricePKR) : (rawProduct.originalPrice || rawProduct.oldPrice ? Number(rawProduct.originalPrice || rawProduct.oldPrice) * 278 : null);
+  
+  const dynamicUSD = exchangeRate > 0 ? (fixedPKR / exchangeRate) : (Number(rawProduct.price) || 0);
+  const dynamicOldUSD = fixedOldPKR && exchangeRate > 0 ? (fixedOldPKR / exchangeRate) : (rawProduct.originalPrice || rawProduct.oldPrice ? Number(rawProduct.originalPrice || rawProduct.oldPrice) : null);
 
   const product = {
     _id: rawProduct._id || rawProduct.id,
@@ -174,11 +182,12 @@ export const ProductDetail = () => {
           
           <div className="p-info-price-wrapper">
             <span className="p-info-current-price">
-              ${product.price.toFixed(2)} <span style={{fontSize: "0.75em", color: "#666", fontWeight: "normal"}}>(PKR {(product.price * exchangeRate).toLocaleString(undefined, {maximumFractionDigits: 0})})</span>
+              {/* ✨ FIX: Render Dynamic USD and Fixed PKR */}
+              ${dynamicUSD.toFixed(2)} <span style={{fontSize: "0.75em", color: "#666", fontWeight: "normal"}}>(PKR {fixedPKR.toLocaleString(undefined, {maximumFractionDigits: 0})})</span>
             </span>
-            {product.oldPrice && (
+            {dynamicOldUSD && (
               <>
-                <span className="p-info-old-price">${product.oldPrice.toFixed(2)}</span>
+                <span className="p-info-old-price">${dynamicOldUSD.toFixed(2)}</span>
                 {product.discountLabel && <span className="p-info-discount-badge">{product.discountLabel}</span>}
               </>
             )}
@@ -352,7 +361,11 @@ export const ProductDetail = () => {
             const recId = recProd._id || recProd.id;
             const recName = recProd.name || recProd.title || "Product";
             const recImage = (Array.isArray(recProd.images) && recProd.images.length > 0 && recProd.images[0]) || recProd.image || "https://via.placeholder.com/500?text=Product";
-            const recPrice = Number(recProd.price) || 0;
+            
+            // ✨ FIX: RECOMMENDED CAROUSEL PRICING LOGIC
+            const fixedRecPKR = recProd.pricePKR ? Number(recProd.pricePKR) : (Number(recProd.price) || 0) * 278;
+            const dynamicRecUSD = exchangeRate > 0 ? (fixedRecPKR / exchangeRate) : (Number(recProd.price) || 0);
+
             const tagBadge = recProd.tag || (Array.isArray(recProd.badges) ? recProd.badges[0] : recProd.badges);
             const discountBadge = recProd.discount ? `-${recProd.discount}%` : recProd.discountLabel;
             
@@ -382,7 +395,8 @@ export const ProductDetail = () => {
                     <div className="p-3d-card-overlay">
                       <h4 className="p-3d-card-title">{recName}</h4>
                       <p className="p-3d-card-price">
-                        ${recPrice.toFixed(2)} <span className="p-rec-pkr">/ PKR {(recPrice * exchangeRate).toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
+                        {/* ✨ FIX: Render Dynamic USD and Fixed PKR for Carousel */}
+                        ${dynamicRecUSD.toFixed(2)} <span className="p-rec-pkr">/ PKR {fixedRecPKR.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
                       </p>
                     </div>
                   </div>
