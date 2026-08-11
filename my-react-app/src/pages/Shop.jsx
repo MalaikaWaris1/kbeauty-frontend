@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
-import { Helmet } from "react-helmet-async"; // 🟢 1. HELMET IMPORT KIYA
+import { Helmet } from "react-helmet-async"; 
 import "./Shop.css";
 
 const FALLBACK_PRODUCTS = [
@@ -11,6 +11,7 @@ const FALLBACK_PRODUCTS = [
     name: "Moonlit Recovery Balm",
     category: "Moisturizers",
     price: 48.00,
+    pricePKR: 13344,
     description: "Overnight barrier repair",
     image: "https://images.unsplash.com/photo-1601049676099-e7ed07d825b0?q=80&w=500&auto=format&fit=crop",
     tag: "NEW",
@@ -22,7 +23,9 @@ const FALLBACK_PRODUCTS = [
     name: "Glow Infusion Essence",
     category: "Essence",
     price: 36.00,
+    pricePKR: 10008,
     oldPrice: 42.00,
+    originalPricePKR: 11676,
     description: "Fermented botanical complex",
     image: "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?q=80&w=500&auto=format&fit=crop",
     tag: "BEST SELLER",
@@ -56,8 +59,11 @@ export const Shop = () => {
       .catch(err => console.error("Exchange rate fetch failed:", err));
   }, []);
 
- // ✨ UPDATE: Discount calculate karne ka logic PKR ke hisaab se update karein
+  // ✨ UPDATE: Discount calculate karne ka logic PKR ke hisaab se update kiya
   const getDiscountPercentage = (product) => {
+    if (product.discountPercent !== undefined && product.discountPercent !== null && product.discountPercent > 0) {
+       return Math.round(product.discountPercent);
+    }
     if (product.discount !== undefined && product.discount !== null) {
       const parsed = parseFloat(String(product.discount).replace(/[^0-9.]/g, ""));
       if (!isNaN(parsed) && parsed > 0) return Math.round(parsed);
@@ -102,7 +108,6 @@ export const Shop = () => {
     sourceProducts.forEach((product) => {
       if (product.category && typeof product.category === "string" && product.category.trim() !== "") {
         const originalCat = product.category.trim();
-        // '/' se pehle wala hissa alag karna (jaise "Skincare / Anti-Acne" -> "Skincare")
         const cleanCat = originalCat.split('/')[0].trim();
         const lowerCat = cleanCat.toLowerCase();
         if (!uniqueMap.has(lowerCat)) {
@@ -170,13 +175,12 @@ export const Shop = () => {
   return (
     <div className="shop-page-container">
       
-      {/* 🟢 2. SEO & CANONICAL TAG YAHAN ADD KIYA HAI */}
+      {/* 🟢 SEO & CANONICAL TAG */}
       <Helmet>
         <title>Shop Authentic Korean Skincare | KoreanProductsby_sunny</title>
         <meta name="description" content="Browse our complete collection of authentic Korean beauty and skincare products. Fast delivery in Pakistan." />
         <link rel="canonical" href="https://www.koreanproducts.org/shop" />
       </Helmet>
-      {/* 🟢 BAKI KUCH NAHI CHERA */}
 
       <div className="shop-header-intro">
         <span className="shop-subtitle-tag">THE COLLECTION</span>
@@ -242,57 +246,155 @@ export const Shop = () => {
 
           {!loadingProducts && (
             <div className="shop-products-grid">
-              // ⬇️ MAIN FIX: Jaha map chala rahe hain (Render Products) waha ye update karein ⬇️
-  {filteredProducts.map((product) => {
-    const productId = product._id || product.id;
-    const productName = product.name || product.title || "Product";
-    const productImage = (product.images && product.images.length > 0 && product.images[0]) || product.image || "https://via.placeholder.com/500";
-    
-    // ✨ FIX: Base price ab PKR hai (Admin wali value hilegi nahi)
-    const fixedPKR = product.pricePKR ? Number(product.pricePKR) : (Number(product.price) || 0) * 278;
-    const fixedOldPKR = product.originalPricePKR ? Number(product.originalPricePKR) : (product.originalPrice || product.oldPrice ? Number(product.originalPrice || product.oldPrice) * 278 : null);
-    
-    // ✨ FIX: USD dynamically generate hoga taa-ke exchange rate se sirf USD change ho
-    const dynamicUSD = exchangeRate > 0 ? (fixedPKR / exchangeRate) : (Number(product.price) || 0);
-    const dynamicOldUSD = fixedOldPKR && exchangeRate > 0 ? (fixedOldPKR / exchangeRate) : (product.originalPrice ? Number(product.originalPrice) : null);
+              {/* ⬇️ MAIN FIX: Updated map logic */}
+              {filteredProducts.map((product) => {
+                const productId = product._id || product.id;
+                const productName = product.name || product.title || "Product";
+                const productImage = (product.images && product.images.length > 0 && product.images[0]) || product.image || "https://via.placeholder.com/500";
+                
+                // ✨ FIX: Base price ab PKR hai (Admin wali value hilegi nahi)
+                const fixedPKR = product.pricePKR ? Number(product.pricePKR) : (Number(product.price) || 0) * 278;
+                const fixedOldPKR = product.originalPricePKR ? Number(product.originalPricePKR) : (product.originalPrice || product.oldPrice ? Number(product.originalPrice || product.oldPrice) * 278 : null);
+                
+                // ✨ FIX: USD dynamically generate hoga taa-ke exchange rate se sirf USD change ho
+                const dynamicUSD = exchangeRate > 0 ? (fixedPKR / exchangeRate) : (Number(product.price) || 0);
+                const dynamicOldUSD = fixedOldPKR && exchangeRate > 0 ? (fixedOldPKR / exchangeRate) : (product.originalPrice ? Number(product.originalPrice) : null);
 
-    const productBadges = getProductBadges(product);
-    const isOutOfStock = product.stock !== undefined && Number(product.stock) <= 0;
-    
-    const discountPercent = getDiscountPercentage(product);
-    const isWishlisted = wishlist ? wishlist.some((item) => String(item._id || item.id) === String(productId)) : false;
+                const productBadges = getProductBadges(product);
+                const isOutOfStock = product.stock !== undefined && Number(product.stock) <= 0;
+                
+                const discountPercent = getDiscountPercentage(product);
+                const isWishlisted = wishlist ? wishlist.some((item) => String(item._id || item.id) === String(productId)) : false;
 
-    return (
-      <Link 
-        to={`/product/${productId}`} 
-        key={productId} 
-        className="shop-product-card group" 
-      >
-        {/* ... (Image aur Badges wala code bilkul same rahega) ... */}
+                return (
+                  <Link 
+                    to={`/product/${productId}`} 
+                    key={productId} 
+                    className="shop-product-card group" 
+                  >
+                    <div className="product-card-media" style={{ position: "relative" }}>
+                      
+                      <div 
+                        className="badges-wrapper"
+                        style={{
+                          position: "absolute",
+                          top: "10px",
+                          left: "10px",
+                          display: "flex",
+                          flexDirection: "row",
+                          flexWrap: "wrap",
+                          gap: "6px",
+                          zIndex: 5
+                        }}
+                      >
+                        {productBadges.map((badge, index) => (
+                          <span 
+                            key={index} 
+                            className="badge-text tag-badge"
+                            style={{
+                              position: "static",
+                              backgroundColor: badge === "OUT OF STOCK" ? "#d9534f" : undefined,
+                              color: badge === "OUT OF STOCK" ? "#ffffff" : undefined,
+                              display: "inline-block"
+                            }}
+                          >
+                            {badge}
+                          </span>
+                        ))}
 
-        <div className="product-card-details">
-          <div className="prod-title-row">
-            <h3 className="prod-title-name">{productName}</h3>
-            
-            {/* ✨ FIX: Rendering values */}
-            <div className="prod-price-box">
-              {dynamicOldUSD && <span className="old-price">${dynamicOldUSD.toFixed(2)}</span>}
-              <span className="current-price" style={{display: "flex", flexDirection: "column", alignItems: "flex-end"}}>
-                {/* Dynamically calculated USD */}
-                <span>${dynamicUSD.toFixed(2)}</span> 
-                {/* Fixed PKR from Admin */}
-                <span style={{fontSize: "0.75em", color: "#888"}}>
-                  PKR {fixedPKR.toLocaleString(undefined, {maximumFractionDigits: 0})}
-                </span>
-              </span>
-            </div>
-            
-          </div>
-          <p className="prod-short-desc">{product.description}</p>
-        </div>
-      </Link>
-    );
-  })}
+                        {discountPercent > 0 && (
+                          <span 
+                            className="badge-text discount-badge"
+                            style={{
+                              position: "static",
+                              backgroundColor: "#e53e3e",
+                              color: "#ffffff",
+                              fontWeight: "bold",
+                              display: "inline-block"
+                            }}
+                          >
+                            -{discountPercent}% off
+                          </span>
+                        )}
+                      </div>
+
+                      <button
+                        className="wishlist-hover-btn"
+                        onClick={(e) => {
+                          e.preventDefault(); 
+                          e.stopPropagation(); 
+                          if (toggleWishlist) toggleWishlist(product);
+                        }}
+                        style={{
+                          position: "absolute",
+                          bottom: "10px",
+                          right: "10px",
+                          top: "auto",
+                          zIndex: 10,
+                          backgroundColor: "#fff",
+                          border: "none",
+                          borderRadius: "50%",
+                          width: "36px",
+                          height: "36px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: "pointer",
+                          boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                          transition: "all 0.25s ease",
+                          opacity: isWishlisted ? 1 : 0,
+                          pointerEvents: isWishlisted ? "auto" : "none",
+                          transform: isWishlisted ? "scale(1)" : "scale(0.8)"
+                        }}
+                        title={isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
+                      >
+                        <svg 
+                          viewBox="0 0 24 24" 
+                          width="18" 
+                          height="18" 
+                          fill={isWishlisted ? "#e53e3e" : "none"} 
+                          stroke={isWishlisted ? "#e53e3e" : "#111"} 
+                          strokeWidth="1.5"
+                        >
+                          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                      </button>
+
+                      <img 
+                        src={productImage} 
+                        alt={productName} 
+                        className="shop-prod-img"
+                        style={isOutOfStock ? { opacity: 0.65 } : {}}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = "https://via.placeholder.com/500?text=No+Image";
+                        }} 
+                      />
+                    </div>
+
+                    <div className="product-card-details">
+                      <div className="prod-title-row">
+                        <h3 className="prod-title-name">{productName}</h3>
+                        
+                        {/* ✨ FIX: Rendering values */}
+                        <div className="prod-price-box">
+                          {dynamicOldUSD && <span className="old-price">${dynamicOldUSD.toFixed(2)}</span>}
+                          <span className="current-price" style={{display: "flex", flexDirection: "column", alignItems: "flex-end"}}>
+                            {/* Dynamically calculated USD */}
+                            <span>${dynamicUSD.toFixed(2)}</span> 
+                            {/* Fixed PKR from Admin */}
+                            <span style={{fontSize: "0.75em", color: "#888"}}>
+                              PKR {fixedPKR.toLocaleString(undefined, {maximumFractionDigits: 0})}
+                            </span>
+                          </span>
+                        </div>
+                        
+                      </div>
+                      <p className="prod-short-desc">{product.description}</p>
+                    </div>
+                  </Link>
+                );
+              })}
               
               {filteredProducts.length === 0 && (
                 <p className="no-products-msg">No products found matching the criteria.</p>
@@ -304,5 +406,3 @@ export const Shop = () => {
     </div>
   );
 };
-
-
