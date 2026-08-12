@@ -1,3 +1,246 @@
+/* src/components/sections/PremiumVideoDetails.css */
+
+.luxury-video-details-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #faf8f5; /* Warm luxury studio backdrop */
+  padding: 40px 6% 80px 6%;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+.details-nav-header {
+  max-width: 1300px;
+  margin: 0 auto 30px auto;
+}
+
+.back-gallery-btn {
+  background: none;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: #777777;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.3s ease;
+}
+
+.back-gallery-btn:hover {
+  color: #111111;
+}
+
+/* ==========================================================================
+   🎬 ELEGANT DUAL-COLUMN LAYOUT (AUTO ADJUSTING FOR VIDEO SIZE)
+   ========================================================================== */
+.details-split-layout {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr; /* Video gets exact width needed, content fills remaining */
+  gap: 50px;
+  align-items: start;
+}
+
+/* Dynamic Video Container */
+.details-video-container {
+  position: sticky;
+  top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ✨ UPDATED: Tight wrapper according to video size (No side gaps) */
+.cinematic-frame {
+  width: fit-content;
+  max-width: 420px; /* Optimal max-width for portrait videos */
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #e2ded8;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+  background-color: #000000; /* Subtle backdrop for video borders */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 🟢 Video displays in exact natural aspect ratio without cropping */
+.details-main-video {
+  width: 100%;
+  max-height: 620px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* Right Side Content Styling */
+.details-content-panel {
+  padding-top: 5px;
+  min-width: 0; /* Prevents overflow */
+}
+
+.details-mini-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: #a3907c;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.details-main-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 400;
+  color: #111111;
+  margin: 0 0 18px 0;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.details-intro-text {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: #444444;
+  margin-bottom: 35px;
+}
+
+/* ==========================================================================
+   ✨ MINIMALIST HIGH-END TAB DESIGN
+   ========================================================================== */
+.details-tab-switcher {
+  display: flex;
+  gap: 30px;
+  border-bottom: 1px solid #e2ded8;
+  margin-bottom: 25px;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: #888888;
+  padding-bottom: 12px;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.tab-btn:hover {
+  color: #111111;
+}
+
+.tab-btn.active {
+  color: #111111;
+  font-weight: 600;
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #111111;
+}
+
+.tab-content-display {
+  min-height: 160px;
+}
+
+.block-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  margin: 0 0 10px 0;
+  color: #111111;
+}
+
+.tab-content-display p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #555555;
+  margin: 0;
+}
+
+.benefits-luxury-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.benefits-luxury-list li {
+  display: flex;
+  gap: 12px;
+  align-items: start;
+  margin-bottom: 12px;
+}
+
+.benefits-luxury-list li p {
+  font-size: 14px;
+  color: #444444;
+  line-height: 1.5;
+}
+
+.list-marker {
+  color: #a3907c;
+  font-weight: bold;
+}
+
+.ingredients-paragraph {
+  letter-spacing: 0.02em;
+  line-height: 1.75 !important;
+}
+
+.formula-disclaimer {
+  display: block;
+  margin-top: 18px;
+  font-size: 11px;
+  font-style: italic;
+  color: #999999;
+}
+
+.details-action-footer {
+  margin-top: 40px;
+  border-top: 1px solid #e2ded8;
+  padding-top: 30px;
+}
+
+.discover-products-cta {
+  display: inline-block;
+  background-color: #111111;
+  color: #ffffff;
+  padding: 15px 32px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.discover-products-cta:hover {
+  background-color: #2a2a2a;
+}
+
+.animate-fade {
+  animation: detailsFadeIn 0.4s ease forwards;
+}
+
+@keyframes detailsFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   📱 RESPONSIVE MEDIA BREAKPOINTS
+   ========================================================================== */
 /* ==========================================================================
    📱 RESPONSIVE MEDIA BREAKPOINTS
    ========================================================================== */
