@@ -3,7 +3,6 @@
 .sale-archive-page-wrapper {
   width: 100%;
   background-color: #faf8f5;
-  /* Premium soft luxury porcelain background */
   min-height: 100vh;
   box-sizing: border-box;
 }
@@ -13,7 +12,6 @@
     ========================================================================== */
 .archive-hero-canvas {
   background-color: #f3dcd3;
-  /* Identical warm blush background tone */
   width: 100%;
   padding: 80px 40px;
   display: flex;
@@ -62,7 +60,6 @@
   word-break: break-word;
 }
 
-
 /* Luxury Circles Layout Grid */
 .luxury-circular-countdown-grid {
   display: flex;
@@ -89,7 +86,6 @@
 
 .progress-ring-svg {
   transform: rotate(-90deg);
-  /* Start progress fill directly from top center point */
 }
 
 .ring-track-bg {
@@ -101,10 +97,8 @@
 .ring-fill-bar {
   fill: transparent;
   stroke: #111111;
-  /* Luxury deep contrast marker line color */
   stroke-width: 2.5;
   stroke-linecap: round;
-  /* Smooth transitions to handle the initialization fill wave */
   transition: stroke-dashoffset 1.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
@@ -166,7 +160,7 @@
 
 .archive-product-cards-layout-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Large/Desktop screen: 4 columns */
+  grid-template-columns: repeat(4, 1fr);
   gap: 30px;
 }
 
@@ -180,7 +174,6 @@
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  /* Fixed box proportions */
   background-color: #f7f3ee;
   overflow: hidden;
   border-radius: 2px;
@@ -197,7 +190,6 @@
   transform: scale(1.03);
 }
 
-/* Badges Controls Styling */
 .boutique-left-tag-badge {
   position: absolute;
   top: 15px;
@@ -227,7 +219,6 @@
   border-radius: 3px;
 }
 
-/* Premium Floating Wishlist Button */
 .boutique-card-wishlist-action-trigger {
   position: absolute;
   bottom: 20px;
@@ -256,7 +247,6 @@
   color: #111111;
 }
 
-/* Elegant Quick Add Hover Overlay curtain */
 .boutique-card-quick-add-curtain {
   position: absolute;
   bottom: 0;
@@ -294,7 +284,6 @@
   background-color: #ffffff;
 }
 
-/* Meta Labels info below images */
 .boutique-card-details-info-box {
   padding-top: 18px;
   display: flex;
@@ -333,30 +322,6 @@
   color: #999999;
 }
 
-/* Fallback screen if sale inactive */
-.sale-ended-fallback {
-  text-align: center;
-  padding: 120px 40px;
-  font-family: 'Cormorant Garamond', serif;
-}
-
-.sale-ended-fallback h2 {
-  font-size: 32px;
-  color: #111111;
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
-.sale-ended-fallback p {
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  color: #666666;
-  margin-top: 10px;
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
-/* 🟢 Image Link Element Styling to support proper zoom effect */
 .boutique-image-link-overlay {
   display: block;
   width: 100%;
@@ -364,7 +329,6 @@
   cursor: pointer;
 }
 
-/* Title link decorations remove karne ke liye */
 .boutique-title-link {
   text-decoration: none;
   color: inherit;
@@ -392,7 +356,6 @@
   box-sizing: border-box;
 }
 
-/* Modal Box Structure */
 .no-sale-modal {
   position: relative;
   width: 90%;
@@ -404,7 +367,6 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
-/* Close Button */
 .no-sale-close-btn {
   position: absolute;
   top: 15px;
@@ -415,7 +377,6 @@
   z-index: 10;
 }
 
-/* Left Beige Curve Section */
 .no-sale-left-panel {
   width: 38%;
   background: #F3EBE3;
@@ -434,11 +395,8 @@
   line-height: 1.2;
   color: #111;
   text-align: left;
-  overflow-wrap: break-word;
-  word-break: break-word;
 }
 
-/* Right Content Section */
 .no-sale-right-panel {
   width: 62%;
   padding: 50px 40px;
@@ -454,16 +412,12 @@
   font-size: 28px;
   margin-bottom: 15px;
   color: #111;
-  overflow-wrap: break-word;
-  word-break: break-word;
 }
 
 .no-sale-subtext {
   font-size: 15px;
   color: #555;
   margin-bottom: 20px;
-  overflow-wrap: break-word;
-  word-break: break-word;
 }
 
 .no-sale-description {
@@ -471,11 +425,8 @@
   color: #777;
   line-height: 1.6;
   margin-bottom: 30px;
-  overflow-wrap: break-word;
-  word-break: break-word;
 }
 
-/* Continue Shopping Button */
 .no-sale-shopping-btn {
   background: #111111;
   color: #ffffff;
@@ -485,8 +436,6 @@
   text-decoration: none;
   font-weight: 600;
   transition: background 0.3s ease;
-  max-width: 100%;
-  box-sizing: border-box;
   text-align: center;
 }
 
@@ -498,7 +447,6 @@
     📱 SCREEN BREAKPOINTS & RESPONSIVE CONFIGURATIONS
     ========================================================================== */
 
-/* Medium / Tablet screens: 3 products per row */
 @media (max-width: 1024px) {
   .archive-product-cards-layout-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -528,6 +476,7 @@
     flex-wrap: wrap;
   }
 
+  /* 💡 FIX: Width aur height dono barabar rakhi hain taake circle upar se cut na ho */
   .svg-ring-container {
     width: 75px;
     height: 75px;
@@ -552,13 +501,11 @@
     margin-bottom: 25px;
   }
 
-  /* Small / Mobile screen: 2 products per row */
   .archive-product-cards-layout-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
 
-  /* Modal responsive adjustment for vertical stack */
   .no-sale-modal {
     flex-direction: column;
     max-height: 90vh;
@@ -580,7 +527,6 @@
   .no-sale-right-panel {
     width: 100%;
     padding: 30px 20px;
-    box-sizing: border-box;
   }
 
   .no-sale-right-panel h3 {
@@ -603,7 +549,7 @@
   }
 
   .luxury-circular-countdown-grid {
-    gap: 23px;
+    gap: 15px;
   }
 
   .svg-ring-container {
@@ -640,7 +586,6 @@
 }
 
 @media (max-width: 360px) {
-  /* Fixed the ring height/width bug so rings stay fully visible and proportionate */
   .svg-ring-container {
     width: 58px;
     height: 58px;
