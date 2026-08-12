@@ -4,13 +4,13 @@
   width: 100%;
   min-height: 100vh;
   background-color: #faf8f5; /* Warm luxury studio backdrop */
-  padding: 40px 40px 100px 40px;
+  padding: 40px 6% 80px 6%;
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
 }
 
 .details-nav-header {
-  max-width: 1440px;
+  max-width: 1300px;
   margin: 0 auto 30px auto;
 }
 
@@ -32,56 +32,59 @@
 }
 
 /* ==========================================================================
-   🎬 ELEGANT DUAL-COLUMN LAYOUT
+   🎬 ELEGANT DUAL-COLUMN LAYOUT (AUTO ADJUSTING FOR VIDEO SIZE)
    ========================================================================== */
 .details-split-layout {
-  max-width: 1440px;
+  max-width: 1300px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 60px;
+  grid-template-columns: auto 1fr; /* Video gets exact width needed, content fills remaining */
+  gap: 50px;
   align-items: start;
 }
 
-/* Cinematic Player Window */
+/* Dynamic Video Container */
 .details-video-container {
-  width: 100%;
   position: sticky;
   top: 40px;
+  display: flex;
+  justify-content: center;
 }
 
-/* ✨ UPDATED: Theme match background with clean aesthetic */
+/* ✨ UPDATED: Tight wrapper according to video size (No side gaps) */
 .cinematic-frame {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background-color: #faf8f5; 
-  border-radius: 24px;
+  width: fit-content;
+  max-width: 420px; /* Optimal max-width for portrait videos */
+  border-radius: 20px;
   overflow: hidden;
   border: 1px solid #e2ded8;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+  background-color: #000000; /* Subtle backdrop for video borders */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* 🟢 UPDATED: 'contain' use kiya gaya hai taake video ka koi hissa (face waghera) cut na ho */
+/* 🟢 Video displays in exact natural aspect ratio without cropping */
 .details-main-video {
   width: 100%;
-  height: 100%;
-  object-fit: contain; 
-  background-color: #faf8f5;
+  max-height: 620px;
+  height: auto;
+  display: block;
+  object-fit: contain;
 }
 
 /* Right Side Content Styling */
 .details-content-panel {
-  padding-top: 10px;
+  padding-top: 5px;
+  min-width: 0; /* Prevents overflow */
 }
 
 .details-mini-tag {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.16em;
-  color: #a3907c; /* Editorial bronze tint */
+  color: #a3907c;
   text-transform: uppercase;
   display: block;
   margin-bottom: 12px;
@@ -89,18 +92,19 @@
 
 .details-main-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 46px;
+  font-size: 42px;
   font-weight: 400;
   color: #111111;
-  margin: 0 0 20px 0;
+  margin: 0 0 18px 0;
   letter-spacing: -0.01em;
+  line-height: 1.15;
 }
 
 .details-intro-text {
-  font-size: 15px;
+  font-size: 14.5px;
   line-height: 1.7;
   color: #444444;
-  margin-bottom: 40px;
+  margin-bottom: 35px;
 }
 
 /* ==========================================================================
@@ -108,9 +112,9 @@
    ========================================================================== */
 .details-tab-switcher {
   display: flex;
-  gap: 35px;
+  gap: 30px;
   border-bottom: 1px solid #e2ded8;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .tab-btn {
@@ -121,7 +125,7 @@
   font-weight: 500;
   letter-spacing: 0.05em;
   color: #888888;
-  padding-bottom: 14px;
+  padding-bottom: 12px;
   cursor: pointer;
   position: relative;
   transition: color 0.3s ease;
@@ -136,7 +140,6 @@
   font-weight: 600;
 }
 
-/* Luxury active tab accent underline */
 .tab-btn.active::after {
   content: '';
   position: absolute;
@@ -147,16 +150,15 @@
   background-color: #111111;
 }
 
-/* Tab Display Areas */
 .tab-content-display {
-  min-height: 180px;
+  min-height: 160px;
 }
 
 .block-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: 22px;
   font-weight: 400;
-  margin: 0 0 12px 0;
+  margin: 0 0 10px 0;
   color: #111111;
 }
 
@@ -167,7 +169,6 @@
   margin: 0;
 }
 
-/* Benefits Structured List */
 .benefits-luxury-list {
   list-style: none;
   padding: 0;
@@ -178,7 +179,7 @@
   display: flex;
   gap: 12px;
   align-items: start;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .benefits-luxury-list li p {
@@ -192,32 +193,30 @@
   font-weight: bold;
 }
 
-/* Ingredients Section */
 .ingredients-paragraph {
   letter-spacing: 0.02em;
-  line-height: 1.8 !important;
+  line-height: 1.75 !important;
 }
 
 .formula-disclaimer {
   display: block;
-  margin-top: 20px;
+  margin-top: 18px;
   font-size: 11px;
   font-style: italic;
   color: #999999;
 }
 
-/* CTA Footer Link Button */
 .details-action-footer {
-  margin-top: 50px;
+  margin-top: 40px;
   border-top: 1px solid #e2ded8;
-  padding-top: 35px;
+  padding-top: 30px;
 }
 
 .discover-products-cta {
   display: inline-block;
   background-color: #111111;
   color: #ffffff;
-  padding: 16px 36px;
+  padding: 15px 32px;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.14em;
@@ -230,7 +229,6 @@
   background-color: #2a2a2a;
 }
 
-/* Micro animations for switching tabs sleekly */
 .animate-fade {
   animation: detailsFadeIn 0.4s ease forwards;
 }
@@ -240,23 +238,30 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-
 /* ==========================================================================
    📱 RESPONSIVE MEDIA BREAKPOINTS
    ========================================================================== */
-@media (max-width: 1024px) {
+@media (max-width: 900px) {
   .details-split-layout {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 35px;
   }
+  
   .details-video-container {
     position: relative;
     top: 0;
+    width: 100%;
   }
+
+  .cinematic-frame {
+    max-width: 100%;
+  }
+
   .luxury-video-details-page {
-    padding: 50px 20px 60px 20px;
+    padding: 30px 20px 50px 20px;
   }
+
   .details-main-title {
-    font-size: 36px;
+    font-size: 32px;
   }
 }
