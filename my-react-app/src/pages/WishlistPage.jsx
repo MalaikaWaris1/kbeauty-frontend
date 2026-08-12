@@ -24,7 +24,15 @@ const WishlistPage = () => {
       {!wishlist || wishlist.length === 0 ? (
         <div className="empty-state">
           <p>Your wishlist is currently empty.</p>
-          <Link to="/shop" className="wishlist-shop-now-btn" style={{ marginTop: "15px", display: "inline-block", textDecoration: "underline" }}>
+          <Link
+            to="/shop"
+            className="wishlist-shop-now-btn"
+            style={{
+              marginTop: "15px",
+              display: "inline-block",
+              textDecoration: "underline",
+            }}
+          >
             Explore Collection
           </Link>
         </div>
@@ -32,49 +40,84 @@ const WishlistPage = () => {
         <div className="wishlist-grid-layout">
           {wishlist.map((item, index) => {
             const isObject = item && typeof item === "object";
-            
+
             // 🟢 MongoDB & Local ID Normalization
-            const targetId = isObject ? (item._id || item.id) : item;
-            const name = isObject ? (item.name || item.title || "Luxury Product") : "Product Layout";
-            const image = isObject ? (item.image || (item.images && item.images[0])) : "";
-            const description = isObject ? (item.description || item.tagline || "Barrier-first luxury care") : "Premium luxury care";
-            const price = isObject ? (item.price || 0) : 0;
+            const targetId = isObject ? item._id || item.id : item;
+            const name = isObject
+              ? item.name || item.title || "Luxury Product"
+              : "Product Layout";
+            const image = isObject
+              ? item.image || (item.images && item.images[0])
+              : "";
+            const description = isObject
+              ? item.description || item.tagline || "Barrier-first luxury care"
+              : "Premium luxury care";
+            const price = isObject ? item.price || 0 : 0;
 
             return (
-              <div key={`${targetId || 'item'}-${index}`} className="wishlist-card">
+              <div
+                key={`${targetId || "item"}-${index}`}
+                className="wishlist-card"
+              >
                 {/* Remove Cross Button */}
-                <button 
-                  className="wishlist-remove-cross" 
+                <button
+                  className="wishlist-remove-cross"
                   onClick={() => removeFromWishlist(targetId, name)}
                   aria-label="Remove item"
                 >
                   ×
                 </button>
-                
+
                 <div className="wishlist-card-content">
                   {/* Product Image Link */}
-                  <Link to={`/product/${targetId}`} className="wishlist-img-wrapper">
+                  <Link
+                    to={`/product/${targetId}`}
+                    className="wishlist-img-wrapper"
+                  >
                     {image ? (
-                      <img src={image} alt={name} className="wishlist-item-img" />
+                      <img
+                        src={image}
+                        alt={name}
+                        className="wishlist-item-img"
+                      />
                     ) : (
                       <div className="wishlist-img-fallback"></div>
                     )}
                   </Link>
-                  
+
                   {/* Product Info */}
                   <div className="wishlist-item-info">
                     <div className="info-top-block">
-                      <Link to={`/product/${targetId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                      <Link
+                        to={`/product/${targetId}`}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                      >
                         <h3 className="wishlist-item-name">{name}</h3>
                       </Link>
-                      <p className="wishlist-item-desc">{description}</p>
+                      <p className="wishlist-item-desc" title={description}>
+                        {description}
+                      </p>
                     </div>
-                    
+
                     <div className="wishlist-card-bottom">
-                      <span className="wishlist-item-price">${formatPrice(price)}</span>
-                      <button 
-                        className="wishlist-add-to-bag-btn" 
-                        onClick={() => moveToBag(isObject ? item : { _id: targetId, id: targetId, name, price, image })}
+                      <span className="wishlist-item-price">
+                        ${formatPrice(price)}
+                      </span>
+                      <button
+                        className="wishlist-add-to-bag-btn"
+                        onClick={() =>
+                          moveToBag(
+                            isObject
+                              ? item
+                              : {
+                                  _id: targetId,
+                                  id: targetId,
+                                  name,
+                                  price,
+                                  image,
+                                }
+                          )
+                        }
                       >
                         ADD TO BAG
                       </button>
