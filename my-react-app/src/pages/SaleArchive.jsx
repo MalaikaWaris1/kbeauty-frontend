@@ -5,7 +5,16 @@ import API from "../api/axios";
 import "./SaleArchive.css";
 
 export const SaleArchive = () => {
-  const { saleData, toggleWishlist, wishlist = [], addToCart } = useContext(AppContext);
+  // 🎯 FIX: AppContext se exchangeRate aur currencySymbol nikal liya
+  const { 
+    saleData, 
+    toggleWishlist, 
+    wishlist = [], 
+    addToCart,
+    exchangeRate = 278,
+    currencySymbol = "$"
+  } = useContext(AppContext);
+  
   const productsSectionRef = useRef(null);
 
   const [archiveProducts, setArchiveProducts] = useState([]);
@@ -96,35 +105,37 @@ export const SaleArchive = () => {
     if (Array.isArray(prod?.images) && prod.images.length > 0) return prod.images[0];
     return "https://images.unsplash.com/photo-1608248597481-496100c80836?q=80&w=600&auto=format&fit=crop";
   };
-if (!loading && (!saleData || !isActive || archiveProducts.length === 0)) {
-  return (
-    <div className="no-sale-overlay">
-      <div className="no-sale-modal">
-        {/* Close Button */}
-        <Link to="/" className="no-sale-close-btn">&times;</Link>
-        
-        {/* Left Beige Banner */}
-        <div className="no-sale-left-panel">
-          <h2>No Active<br />Sales</h2>
-        </div>
 
-        {/* Right Content Panel */}
-        <div className="no-sale-right-panel">
-          <h3>Stay Tuned!</h3>
-          <p className="no-sale-subtext">
-            There are currently no active flash sales or discounts.
-          </p>
-          <p className="no-sale-description">
-            Our exclusive collections go on sale for very limited times. Please check back later or subscribe to our newsletter to be the first to know when the next sale drops.
-          </p>
-          <Link to="/shop" className="no-sale-shopping-btn">
-            CONTINUE SHOPPING
-          </Link>
+  if (!loading && (!saleData || !isActive || archiveProducts.length === 0)) {
+    return (
+      <div className="no-sale-overlay">
+        <div className="no-sale-modal">
+          {/* Close Button */}
+          <Link to="/" className="no-sale-close-btn">&times;</Link>
+          
+          {/* Left Beige Banner */}
+          <div className="no-sale-left-panel">
+            <h2>No Active<br />Sales</h2>
+          </div>
+
+          {/* Right Content Panel */}
+          <div className="no-sale-right-panel">
+            <h3>Stay Tuned!</h3>
+            <p className="no-sale-subtext">
+              There are currently no active flash sales or discounts.
+            </p>
+            <p className="no-sale-description">
+              Our exclusive collections go on sale for very limited times. Please check back later or subscribe to our newsletter to be the first to know when the next sale drops.
+            </p>
+            <Link to="/shop" className="no-sale-shopping-btn">
+              CONTINUE SHOPPING
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
+
   return (
     <div className="sale-archive-page-wrapper">
 
@@ -245,19 +256,39 @@ if (!loading && (!saleData || !isActive || archiveProducts.length === 0)) {
               const isWishlisted = Array.isArray(wishlist) && wishlist.includes(pId);
               const pImage = getProductImage(product);
               
-              const price = Number(product.salePrice || product.price || 0);
-              const originalPrice = Number(product.originalPrice || product.comparePrice || product.price || 0);
+              // 💡 1. BASE PKR LOGIC (Same as Banner/Admin)
+              let originalPKR = Number(
+                product.originalPricePKR || 
+                (product.originalPrice ? product.originalPrice * 278 : 0)
+              );
               
+              let salePKR = Number(
+                product.pricePKR || 
+                (product.price ? product.price * 278 : 0)
+              );
+
+              // Agar koi ek price missing ho toh dusri se replace kar dein
+              if (!originalPKR) originalPKR = salePKR;
+              if (!salePKR) salePKR = originalPKR;
+
+              // 💡 2. DISCOUNT CALCULATION (Based on PKR)
               const rawDiscount = product.discountPercentage || product.discount;
               let discountPct = "";
 
               if (rawDiscount) {
                 const cleanVal = String(rawDiscount).replace(/[^0-9]/g, "");
-                if (cleanVal) discountPct = `-${cleanVal}%`;
-              } else if (originalPrice > price) {
-                const calcPct = Math.round(((originalPrice - price) / originalPrice) * 100);
+                if (cleanVal && Number(cleanVal) > 0) {
+                  discountPct = `-${cleanVal}%`;
+                  salePKR = originalPKR - (originalPKR * (Number(cleanVal) / 100)); // Flash Sale Discount
+                }
+              } else if (originalPKR > salePKR) {
+                const calcPct = Math.round(((originalPKR - salePKR) / originalPKR) * 100);
                 if (calcPct > 0) discountPct = `-${calcPct}%`;
               }
+
+              // 💡 3. CONVERT PKR TO DYNAMIC CURRENCY (e.g. USD)
+              const displaySaleCurrency = salePKR / exchangeRate;
+              const displayOriginalCurrency = originalPKR / exchangeRate;
 
               return (
                 <div key={pId} className="premium-boutique-product-card">
@@ -295,12 +326,28 @@ if (!loading && (!saleData || !isActive || archiveProducts.length === 0)) {
                     <Link to={`/product/${pId}`} className="boutique-title-link">
                       <h3 className="boutique-product-title-text">{product.name}</h3>
                     </Link>
-                    <div className="boutique-product-pricing-row">
-                      <span className="boutique-current-sale-price">${price.toFixed(2)}</span>
-                      {originalPrice > price && (
-                        <span className="boutique-old-original-price">${originalPrice.toFixed(2)}</span>
-                      )}
+                    
+                    {/* 💡 4. DUAL PRICING UI (USD + PKR) */}
+                    <div className="boutique-product-pricing-row" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '2px', marginTop: '6px' }}>
+                      <div>
+                        <span className="boutique-current-sale-price">{currencySymbol}{displaySaleCurrency.toFixed(2)}</span>
+                        {originalPKR > salePKR && (
+                          <span className="boutique-old-original-price" style={{ marginLeft: '6px' }}>
+                            {currencySymbol}{displayOriginalCurrency.toFixed(2)}
+                          </span>
+                        )}
+                      </div>
+                      
+                      <div className="static-pkr-display" style={{ fontSize: '12px', color: '#777', fontWeight: '500' }}>
+                        PKR {Math.round(salePKR)}
+                        {originalPKR > salePKR && (
+                          <span style={{ textDecoration: 'line-through', marginLeft: '4px', opacity: 0.6 }}>
+                            {Math.round(originalPKR)}
+                          </span>
+                        )}
+                      </div>
                     </div>
+
                   </div>
                 </div>
               );
