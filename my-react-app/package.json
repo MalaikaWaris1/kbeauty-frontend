@@ -31,13 +31,15 @@
   },
   "reactSnap": {
     "source": "dist",
+    "timeout": 80000,
+    "crawl": false,
     "include": [
       "/",
       "/about",
       "/contact",
       "/shop"
     ],
-    "inlineCss": true,
+    "inlineCss": false,
     "puppeteerArgs": [
       "--no-sandbox",
       "--disable-setuid-sandbox"
