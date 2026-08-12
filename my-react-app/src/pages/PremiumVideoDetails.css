@@ -241,96 +241,27 @@
 /* ==========================================================================
    📱 RESPONSIVE MEDIA BREAKPOINTS
    ========================================================================== */
-/* ==========================================================================
-   📱 RESPONSIVE MEDIA BREAKPOINTS
-   ========================================================================== */
-
-/* 💻 Tablets & Medium Screens (601px to 900px): Video Left, Text Right */
 @media (max-width: 900px) {
-  .luxury-video-details-page {
-    padding: 30px 24px 60px 24px;
-  }
-
   .details-split-layout {
-    grid-template-columns: 310px 1fr; /* Video Left (310px), Text/Tabs Right */
-    gap: 28px;
-    align-items: start;
+    grid-template-columns: 1fr;
+    gap: 35px;
   }
-
+  
   .details-video-container {
     position: relative;
     top: 0;
-    justify-content: flex-start; /* Video exact left align */
-  }
-
-  .cinematic-frame {
     width: 100%;
-    max-width: 310px;
-  }
-
-  .details-main-video {
-    max-height: 500px;
-  }
-
-  .details-main-title {
-    font-size: 30px;
-    margin-bottom: 12px;
-  }
-
-  .details-intro-text {
-    font-size: 13.5px;
-    margin-bottom: 22px;
-    line-height: 1.6;
-  }
-
-  .details-tab-switcher {
-    gap: 18px;
-    margin-bottom: 20px;
-  }
-
-  .tab-btn {
-    font-size: 12px;
-    padding-bottom: 10px;
-  }
-
-  .tab-content-display {
-    min-height: 130px;
-  }
-
-  .details-action-footer {
-    margin-top: 25px;
-    padding-top: 20px;
-  }
-}
-
-/* 📱 Mobile Screens (600px and below): Stack vertically for mobile view */
-@media (max-width: 600px) {
-  .luxury-video-details-page {
-    padding: 20px 16px 40px 16px;
-  }
-
-  .details-split-layout {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .details-video-container {
-    justify-content: center;
   }
 
   .cinematic-frame {
     max-width: 100%;
   }
 
-  .details-main-video {
-    max-height: 480px;
+  .luxury-video-details-page {
+    padding: 30px 20px 50px 20px;
   }
 
   .details-main-title {
-    font-size: 26px;
-  }
-
-  .details-intro-text {
-    font-size: 14px;
+    font-size: 32px;
   }
 }
