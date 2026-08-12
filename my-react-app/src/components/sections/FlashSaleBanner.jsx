@@ -1,5 +1,3 @@
-
-// src/components/sections/FlashSaleBanner.jsx
 // src/components/sections/FlashSaleBanner.jsx
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
@@ -40,7 +38,9 @@ const productVariants = {
 };
 
 export const FlashSaleBanner = () => {
-  const { saleData } = useContext(AppContext);
+  // 🎯 FIX: AppContext se exact wahi names nikal rahe hain jo aapne export kiye hain
+  const { saleData, exchangeRate = 278 } = useContext(AppContext);
+  
   const [timeLeft, setTimeLeft] = useState({ days: "00", hours: "00", minutes: "00", seconds: "00" });
   const [isExpired, setIsExpired] = useState(false);
 
@@ -94,14 +94,13 @@ export const FlashSaleBanner = () => {
       ? saleData.archiveProducts
       : saleData?.products || [];
 
-  // 🎯 FIX HERE: Admin Panel se Color Fetching
   const dynamicBannerColor = saleData?.bannerColor || saleData?.bgColor || saleData?.backgroundColor || "#F3DCD3";
 
   return (
     <section className="luxury-flash-sale-section">
       <motion.div
         className="sale-banner-container"
-        style={{ backgroundColor: dynamicBannerColor }} // 👈 Ab exact 'bannerColor' match hoga
+        style={{ backgroundColor: dynamicBannerColor }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
@@ -155,19 +154,42 @@ export const FlashSaleBanner = () => {
           {displayProducts.slice(0, 3).map((product) => {
             const pId = product._id || product.id;
             const pImage = getProductImage(product);
-            const price = Number(product.salePrice || product.price || 0);
-            const originalPrice = Number(product.originalPrice || product.comparePrice || price);
+            
+            // 💡 1. BASE PKR LOGIC (Same as Admin)
+            // Fallback for older products: if pricePKR is missing, convert USD price to PKR
+            let originalPKR = Number(
+              product.originalPricePKR || 
+              (product.originalPrice ? product.originalPrice * 278 : 0)
+            );
+            
+            let salePKR = Number(
+              product.pricePKR || 
+              (product.price ? product.price * 278 : 0)
+            );
 
+            // Agar koi ek price missing ho toh dusri se replace kar dein
+            if (!originalPKR) originalPKR = salePKR;
+            if (!salePKR) salePKR = originalPKR;
+
+            // 💡 2. DISCOUNT CALCULATION (Based on PKR)
             const rawDiscount = product.discountPercentage || product.discount;
             let discountBadgeText = "";
 
             if (rawDiscount) {
               const cleanVal = String(rawDiscount).replace(/[^0-9]/g, "");
-              if (cleanVal) discountBadgeText = `${cleanVal}% OFF`;
-            } else if (originalPrice > price) {
-              const calcPct = Math.round(((originalPrice - price) / originalPrice) * 100);
+              if (cleanVal && Number(cleanVal) > 0) {
+                discountBadgeText = `${cleanVal}% OFF`;
+                salePKR = originalPKR - (originalPKR * (Number(cleanVal) / 100)); // Flash Sale Discount
+              }
+            } else if (originalPKR > salePKR) {
+              const calcPct = Math.round(((originalPKR - salePKR) / originalPKR) * 100);
               if (calcPct > 0) discountBadgeText = `${calcPct}% OFF`;
             }
+
+            // 💡 3. CONVERT PKR TO USD FOR DISPLAY
+            // AppContext exchangeRate PKR ki value deta hai (e.g. 278), so divide to get USD.
+            const displaySaleCurrency = salePKR / exchangeRate;
+            const displayOriginalCurrency = originalPKR / exchangeRate;
 
             return (
               <motion.div key={pId} variants={productVariants} whileHover={{ y: -4 }}>
@@ -180,11 +202,30 @@ export const FlashSaleBanner = () => {
                   </div>
                   <div className="circle-product-details">
                     <h4 className="circle-product-title">{product.name}</h4>
-                    <div className="circle-product-pricing">
-                      <span className="circle-sale-price">${price.toFixed(2)}</span>
-                      {originalPrice > price && (
-                        <span className="circle-old-price">${originalPrice.toFixed(2)}</span>
-                      )}
+                    
+                    {/* 💡 4. RENDER BOTH PRICES (DYNAMIC USD & STATIC PKR) */}
+                    <div className="circle-product-pricing" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px' }}>
+                      
+                      {/* Top Row: Dynamic Converted Currency (USD) */}
+                      <div>
+                        <span className="circle-sale-price">${displaySaleCurrency.toFixed(2)}</span>
+                        {originalPKR > salePKR && (
+                          <span className="circle-old-price" style={{ marginLeft: '6px' }}>
+                            ${displayOriginalCurrency.toFixed(2)}
+                          </span>
+                        )}
+                      </div>
+                      
+                      {/* Bottom Row: Static Base PKR (Never Changes) */}
+                      <div className="static-pkr-display" style={{ fontSize: '11px', color: '#777', fontWeight: '600' }}>
+                        PKR {Math.round(salePKR)}
+                        {originalPKR > salePKR && (
+                          <span style={{ textDecoration: 'line-through', marginLeft: '4px', opacity: 0.6 }}>
+                            {Math.round(originalPKR)}
+                          </span>
+                        )}
+                      </div>
+
                     </div>
                   </div>
                 </Link>
