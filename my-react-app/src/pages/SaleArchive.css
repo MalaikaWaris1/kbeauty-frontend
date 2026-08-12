@@ -547,7 +547,7 @@
   }
 
   .archive-product-cards-layout-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 2fr;
     gap: 35px;
   }
 
@@ -635,7 +635,7 @@
 @media (max-width: 360px) {
   .svg-ring-container {
     width: 58px;
-    height: 58px;
+    height: 100px;
   }
 
   .inner-counter-digits {
