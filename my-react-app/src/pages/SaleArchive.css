@@ -9,8 +9,8 @@
 }
 
 /* ==========================================================================
-   👑 HERO COUNTDOWN STRUCTURE WITH CIRCULAR RINGS
-   ========================================================================== */
+    👑 HERO COUNTDOWN STRUCTURE WITH CIRCULAR RINGS
+    ========================================================================== */
 .archive-hero-canvas {
   background-color: #f3dcd3;
   /* Identical warm blush background tone */
@@ -145,8 +145,8 @@
 }
 
 /* ==========================================================================
-   🛍️ PRODUCTS GRID & CARDS STYLING
-   ========================================================================== */
+    🛍️ PRODUCTS GRID & CARDS STYLING
+    ========================================================================== */
 .archive-products-display-section {
   max-width: 1300px;
   margin: 70px auto;
@@ -166,8 +166,7 @@
 
 .archive-product-cards-layout-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  /* 2 Column dynamic layout exact to layout mockups */
+  grid-template-columns: repeat(4, 1fr); /* Large/Desktop screen: 4 columns */
   gap: 30px;
 }
 
@@ -496,8 +495,15 @@
 }
 
 /* ==========================================================================
-   📱 SMALL SCREENS & MOBILE RESPONSIVE FIXES (Text Wrap & Overflow handling)
-   ========================================================================== */
+    📱 SCREEN BREAKPOINTS & RESPONSIVE CONFIGURATIONS
+    ========================================================================== */
+
+/* Medium / Tablet screens: 3 products per row */
+@media (max-width: 1024px) {
+  .archive-product-cards-layout-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
 @media (max-width: 768px) {
   .archive-hero-canvas {
@@ -546,9 +552,10 @@
     margin-bottom: 25px;
   }
 
+  /* Small / Mobile screen: 2 products per row */
   .archive-product-cards-layout-grid {
-    grid-template-columns: 2fr;
-    gap: 35px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 
   /* Modal responsive adjustment for vertical stack */
@@ -633,9 +640,10 @@
 }
 
 @media (max-width: 360px) {
+  /* Fixed the ring height/width bug so rings stay fully visible and proportionate */
   .svg-ring-container {
     width: 58px;
-    height: 100px;
+    height: 58px;
   }
 
   .inner-counter-digits {
