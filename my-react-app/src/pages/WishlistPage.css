@@ -115,7 +115,7 @@
 .wishlist-item-info {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex: 1;
   min-width: 0; /* Prevents flex children from overflowing */
   padding: 2px 0;
@@ -217,32 +217,23 @@
 }
 
 /* Tablets (Max 868px) -> Single Column Grid */
+/* =================================================== */
+/* 📱 RESPONSIVE BREAKPOINTS (FIXED GRID) */
+/* =================================================== */
+
+/* Tablets & Medium Screens (601px to 868px): Keep 2 Columns so cards don't stretch wide */
 @media (max-width: 868px) {
+  .premium-wishlist-page {
+    padding: 40px 4% 40px 4%;
+  }
+
   .wishlist-grid-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns rakhein ge taake card stretch na ho */
     gap: 16px;
   }
+
   .wishlist-card {
-    padding: 16px;
-  }
-}
-
-/* Mobile Devices (Max 576px) */
-@media (max-width: 576px) {
-  .premium-wishlist-page {
-    padding: 30px 16px 40px 16px;
-  }
-
-  .wishlist-header-section {
-    margin-bottom: 25px;
-  }
-
-  .wishlist-title {
-    font-size: 30px;
-  }
-
-  .wishlist-card-content {
-    gap: 14px;
+    padding: 14px;
   }
 
   .wishlist-img-wrapper {
@@ -256,39 +247,46 @@
 
   .wishlist-item-desc {
     font-size: 12px;
-    -webkit-line-clamp: 2; /* Still keep 2 lines for clean mobile view */
-  }
-
-  .wishlist-item-price {
-    font-size: 14px;
-  }
-
-  .wishlist-add-to-bag-btn {
-    font-size: 10.5px;
-    letter-spacing: 1.2px;
   }
 }
 
-/* Very Small Mobile Screens (Max 380px) */
+/* Mobile Screens (Max 600px): Switch to 1 Column for mobile view */
+@media (max-width: 600px) {
+  .premium-wishlist-page {
+    padding: 30px 16px 40px 16px;
+  }
+
+  .wishlist-grid-layout {
+    grid-template-columns: 1fr; /* Sirf mobile par single column hoga */
+    gap: 16px;
+  }
+
+  .wishlist-card {
+    padding: 16px;
+  }
+
+  .wishlist-img-wrapper {
+    width: 110px;
+    height: 140px;
+  }
+
+  .wishlist-title {
+    font-size: 32px;
+  }
+}
+
+/* Small Mobile Screens (Max 380px) */
 @media (max-width: 380px) {
   .wishlist-card {
     padding: 12px;
   }
 
-  .wishlist-card-content {
-    gap: 10px;
-  }
-
   .wishlist-img-wrapper {
-    width: 90px;
+    width: 95px;
     height: 125px;
   }
 
   .wishlist-item-name {
-    font-size: 14.5px;
-  }
-
-  .info-top-block {
-    padding-right: 15px;
+    font-size: 15px;
   }
 }
