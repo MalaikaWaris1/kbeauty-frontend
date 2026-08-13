@@ -253,7 +253,7 @@
 /* Mobile Screens (Max 600px): Switch to 1 Column for mobile view */
 @media (max-width: 600px) {
   .premium-wishlist-page {
-    padding: 30px 16px 40px 16px;
+    padding: 60px 16px 40px 16px;
   }
 
   .wishlist-grid-layout {
