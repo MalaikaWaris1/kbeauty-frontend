@@ -1,5 +1,6 @@
 // src/App.jsx
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import Home from "./pages/Home";
 import AppLayout from "./components/layout/AppLayout";
 import { Shop } from "./pages/Shop";
@@ -73,6 +74,7 @@ const App = () => {
   return (
     <AppProvider> {/* 🟢 WRAPPED WHOLE APP WITH PROVIDER */}
       <RouterProvider router={router} />
+      <Analytics />
     </AppProvider>
   );
 };
